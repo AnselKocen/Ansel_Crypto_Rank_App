@@ -36,6 +36,7 @@ try:
     shutil.rmtree(punkt_path, ignore_errors=True)
 except LookupError:
     pass  # 如果没找到，说明还没下载过，无需删除
+nltk.download("punkt")
 # ✅ 显式指定资源路径（确保找对位置）
 nltk_resources = [
     ("stopwords", "corpora/stopwords"),
