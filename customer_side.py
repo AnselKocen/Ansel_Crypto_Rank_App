@@ -1,13 +1,5 @@
 from datetime import datetime, timedelta
-import pandas as pd
-import numpy as np
 from pathlib import Path
-from sklearn.linear_model import ElasticNet
-from sklearn.ensemble import ExtraTreesRegressor
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.impute import SimpleImputer
-import joblib
 
 from crypto_project_pipeline import (
     build_week_dirs,
@@ -33,6 +25,14 @@ def get_latest_wednesday(today: datetime) -> datetime:
 def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.name):
     today = datetime.today()
     latest_wed = get_latest_wednesday(today)  #  保持为 datetime 类型
+    import pandas as pd
+    import numpy as np
+    from sklearn.linear_model import ElasticNet
+    from sklearn.ensemble import ExtraTreesRegressor
+    from sklearn.pipeline import Pipeline
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.impute import SimpleImputer
+    import joblib
 
     # 读取历史数据并检查是否已更新
     df_hist = pd.read_csv(history_path)
@@ -124,6 +124,14 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
 def run_prediction_pipeline(api_key: str, history_path: str):
     df_merged, latest_wed, data_dir = update_df_merged(api_key, history_path)
     df_merged = df_merged[df_merged["date"] <= latest_wed].copy()
+    import pandas as pd
+    import numpy as np
+    from sklearn.linear_model import ElasticNet
+    from sklearn.ensemble import ExtraTreesRegressor
+    from sklearn.pipeline import Pipeline
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.impute import SimpleImputer
+    import joblib
 
     weeks = sorted(df_merged["date"].unique())
     train_weeks = weeks[-53:-1]  # 52周训练
