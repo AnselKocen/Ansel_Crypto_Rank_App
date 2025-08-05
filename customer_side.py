@@ -23,6 +23,7 @@ def get_latest_wednesday(today: datetime) -> datetime:
 #  Step 1: 增量更新 df_merged（只下载新的一周）
 # ==============================================
 def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.name):
+    notice_list = []
     today = datetime.today()
     latest_wed = get_latest_wednesday(today)  #  保持为 datetime 类型
     import pandas as pd
@@ -53,11 +54,11 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
     print(f"###NOTICE### Latest Date in Historical Data: {last_date}，Latest Wednesday: {latest_wed.date()}")
     if last_date >= latest_wed.date():
         print("###NOTICE### Data already includes the most recent week. No update needed.")
-        return df_hist.copy(), latest_wed, Path(history_path).parent
+        return df_hist.copy(), latest_wed, Path(history_path).parent,notice_list
 
     elif today.weekday() == 2:  # Wednesday
         print("###NOTICE### Today is Wednesday. Please wait until Thursday to ensure complete data is used for predicting next week.")
-        return df_hist.copy(), latest_wed, Path(history_path).parent
+        return df_hist.copy(), latest_wed, Path(history_path).parent,notice_list
 
     # === 拉取最近的价格数据并构建 market 特征 ===
     stage1_etl(
@@ -113,7 +114,7 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
     # 更新仪表盘
     #renew_path = BASE_DIR/"figures"
     #draw_fear_greed_gauge_from_latest(df_latest, renew_path / "fear_greed_gauge1.png")
-    return df_combined, latest_wed, data_dir
+    return df_combined, latest_wed, data_dir,notice_list
 
 
 
@@ -122,7 +123,7 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
 # Step 2: 模型训练 + 预测（只预测最新一周）
 # ==============================================
 def run_prediction_pipeline(api_key: str, history_path: str):
-    df_merged, latest_wed, data_dir = update_df_merged(api_key, history_path)
+    df_merged, latest_wed, data_dir,notice_list = update_df_merged(api_key, history_path)
     df_merged = df_merged[df_merged["date"] <= latest_wed].copy()
     import pandas as pd
     import numpy as np
