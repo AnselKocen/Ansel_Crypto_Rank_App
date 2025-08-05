@@ -1,4 +1,4 @@
-streamlit>=1.25
+streamlit
 pandas
 numpy
 matplotlib
@@ -7,7 +7,7 @@ scikit-learn
 xgboost
 joblib
 tqdm
-nltk
+nltk==3.9.1
 wordcloud
 Pillow
 requests
