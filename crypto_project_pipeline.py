@@ -31,6 +31,23 @@ tqdm.pandas()
 import matplotlib.pyplot as plt
 
 import nltk
+import nltk
+
+# ⏬ 自动下载所有需要的 NLTK 资源（如果不存在）
+nltk_dependencies = [
+    "stopwords",
+    "punkt",
+    "wordnet",
+    "omw-1.4",
+    "vader_lexicon"
+]
+
+for resource in nltk_dependencies:
+    try:
+        nltk.data.find(f"corpora/{resource}")
+    except LookupError:
+        nltk.download(resource)
+
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
