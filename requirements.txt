@@ -1,0 +1,14 @@
+streamlit>=1.25
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+xgboost
+joblib
+tqdm
+nltk
+wordcloud
+Pillow
+requests
+
