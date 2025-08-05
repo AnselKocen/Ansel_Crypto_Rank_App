@@ -6,6 +6,8 @@ import subprocess
 import base64
 import streamlit.components.v1 as components
 from datetime import datetime
+import customer_side
+
 
 # === 设置页面信息 ===
 st.set_page_config(page_title="Crypto Investment Strategy Hub", layout="wide")
