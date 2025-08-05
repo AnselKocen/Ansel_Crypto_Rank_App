@@ -210,8 +210,7 @@ def run_prediction_pipeline(api_key: str, history_path: str):
             "top": top_list,
             "bot": bot_list
         }
-
-    notice_list = [f"Data processed for week ending {latest_wed.date()}"]
+    notice_list.append(f"Data processed for week ending {latest_wed.date()}")
     return results_dict, notice_list
 
 
