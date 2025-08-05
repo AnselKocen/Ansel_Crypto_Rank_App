@@ -53,11 +53,11 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
 
     print(f"###NOTICE### Latest Date in Historical Data: {last_date}，Latest Wednesday: {latest_wed.date()}")
     if last_date >= latest_wed.date():
-        print("###NOTICE### Data already includes the most recent week. No update needed.")
+        notice_list.append("Data already includes the most recent week. No update needed.")
         return df_hist.copy(), latest_wed, Path(history_path).parent,notice_list
 
     elif today.weekday() == 2:  # Wednesday
-        print("###NOTICE### Today is Wednesday. Please wait until Thursday to ensure complete data is used for predicting next week.")
+        notice_list.append("Today is Wednesday. Please wait until Thursday to ensure complete data.")
         return df_hist.copy(), latest_wed, Path(history_path).parent,notice_list
 
     # === 拉取最近的价格数据并构建 market 特征 ===
