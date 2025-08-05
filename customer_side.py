@@ -52,6 +52,7 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
     print(f"[debug] fig_dir: {fig_dir.resolve()}")
 
     print(f"###NOTICE### Latest Date in Historical Data: {last_date}，Latest Wednesday: {latest_wed.date()}")
+    notice_list.append(f"Latest Date in Historical Data: {last_date}，Latest Wednesday: {latest_wed.date()}")
     if last_date >= latest_wed.date():
         notice_list.append("Data already includes the most recent week. No update needed.")
         return df_hist.copy(), latest_wed, Path(history_path).parent,notice_list
@@ -210,7 +211,6 @@ def run_prediction_pipeline(api_key: str, history_path: str):
             "top": top_list,
             "bot": bot_list
         }
-    notice_list.append(f"Data processed for week ending {latest_wed.date()}")
     return results_dict, notice_list
 
 
