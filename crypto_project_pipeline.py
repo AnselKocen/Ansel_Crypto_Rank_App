@@ -35,42 +35,6 @@ import nltk
 from pathlib import Path
 import shutil
 
-# ✅ 显式设置 NLTK 数据目录为云端可写的 /tmp/nltk_data
-os.environ["NLTK_DATA"] = "/tmp/nltk_data"
-nltk.data.path.append("/tmp/nltk_data")
-
-# ✅ 自动检测 & 下载资源（下载到指定目录）
-def ensure_nltk_resource(name: str, path: str):
-    from nltk.data import find
-    try:
-        find(path)
-    except LookupError:
-        nltk.download(name, download_dir="/tmp/nltk_data")  # ✅ 指定下载目录
-
-nltk_resources = [
-    ("punkt", "tokenizers/punkt"),
-    ("stopwords", "corpora/stopwords"),
-    ("wordnet", "corpora/wordnet"),
-    ("omw-1.4", "corpora/omw-1.4"),
-    ("vader_lexicon", "sentiment/vader_lexicon")
-]
-
-for name, path in nltk_resources:
-    ensure_nltk_resource(name, path)
-
-# ✅ 可选：强制重新安装 punkt（用于清除损坏缓存）
-def force_reinstall_punkt():
-    try:
-        punkt_path = Path(nltk.data.find("tokenizers/punkt")).resolve().parent
-        print(f"⚠️ 删除旧 punkt 缓存: {punkt_path}")
-        shutil.rmtree(punkt_path, ignore_errors=True)
-    except LookupError:
-        print("ℹ️ punkt 未安装，无需删除")
-    nltk.download("punkt", download_dir="/tmp/nltk_data")  # ✅ 也要指定目录
-
-force_reinstall_punkt()
-
-
 # ✅ 正常导入你需要的组件
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
