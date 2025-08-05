@@ -31,27 +31,29 @@ tqdm.pandas()
 import matplotlib.pyplot as plt
 
 import nltk
-import nltk
 
-# ⏬ 自动下载所有需要的 NLTK 资源（如果不存在）
-nltk_dependencies = [
-    "stopwords",
-    "punkt",
-    "wordnet",
-    "omw-1.4",
-    "vader_lexicon"
+# ✅ 显式指定资源路径（确保找对位置）
+nltk_resources = [
+    ("stopwords", "corpora/stopwords"),
+    ("punkt", "tokenizers/punkt"),
+    ("wordnet", "corpora/wordnet"),
+    ("omw-1.4", "corpora/omw-1.4"),
+    ("vader_lexicon", "sentiment/vader_lexicon")
 ]
 
-for resource in nltk_dependencies:
+# ✅ 自动检测并下载
+for name, path in nltk_resources:
     try:
-        nltk.data.find(f"corpora/{resource}")
+        nltk.data.find(path)
     except LookupError:
-        nltk.download(resource)
+        nltk.download(name)
 
+# ✅ 正常导入你需要的组件
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
 
 from wordcloud import WordCloud
 # ---------------------------------------------------------------------------
