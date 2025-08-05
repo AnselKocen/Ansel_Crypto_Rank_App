@@ -11,7 +11,7 @@ Outputs cleaned datasets and visualizations into structured folders under the sp
 """
 
 from __future__ import annotations
-
+import shutil
 import argparse
 import logging
 import time
@@ -31,7 +31,11 @@ tqdm.pandas()
 import matplotlib.pyplot as plt
 
 import nltk
-
+try:
+    punkt_path = Path(nltk.data.find("tokenizers/punkt")).resolve().parent
+    shutil.rmtree(punkt_path, ignore_errors=True)
+except LookupError:
+    pass  # 如果没找到，说明还没下载过，无需删除
 # ✅ 显式指定资源路径（确保找对位置）
 nltk_resources = [
     ("stopwords", "corpora/stopwords"),
