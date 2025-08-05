@@ -8,7 +8,22 @@ import base64
 import streamlit.components.v1 as components
 from datetime import datetime
 from customer_side import run_prediction_pipeline
+import nltk
+# 定义需要的所有数据包
+required_nltk_packages = ['punkt', 'stopwords', 'wordnet', 'vader_lexicon']
 
+# 直接循环下载，NLTK会自动跳过已存在的数据包
+print("正在检查并准备NLTK数据包...")
+for package in required_nltk_packages:
+    nltk.download(package)
+
+print("所有数据包准备就绪！")
+try:
+    st.write("尝试下载 'punkt_tab'...")
+    nltk.download('punkt_tab')
+    st.write("'punkt_tab' 下载成功?!")
+except Exception as e:
+    st.error(f"尝试下载 'punkt_tab' 失败，错误信息: {e}")
 
 
 # === 设置页面信息 ===
