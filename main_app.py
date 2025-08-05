@@ -8,54 +8,7 @@ import base64
 import streamlit.components.v1 as components
 from datetime import datetime
 from customer_side import run_prediction_pipeline
-import streamlit as st
-import nltk
-import os
 
-
-# 使用Streamlit的缓存功能来定义一个只运行一次的NLTK数据下载函数
-@st.cache_resource
-def download_all_nltk_data():
-    """
-    下载所有应用所需的NLTK数据包。
-    使用st.cache_resource装饰器确保此函数在整个应用生命周期中只运行一次。
-    """
-    # 设置NLTK数据下载路径为服务器上可写的/tmp目录，增加代码的健壮性
-    nltk_data_dir = "/tmp/nltk_data"
-    if not os.path.exists(nltk_data_dir):
-        os.makedirs(nltk_data_dir)
-
-    nltk.data.path.append(nltk_data_dir)
-
-    # 在这里定义你的应用需要的所有NLTK资源
-    # 格式为: (下载名称, 用于检查的路径)
-    # ❗️请根据你的实际需求修改这个列表！只保留你用到的。
-    required_resources = [
-        ("punkt", "tokenizers/punkt"),
-        ("stopwords", "corpora/stopwords"),
-        ("wordnet", "corpora/wordnet"),
-        ("omw-1.4", "corpora/omw-1.4"),
-        ("vader_lexicon", "sentiment/vader_lexicon")
-        # 如果你的第一个报错是 punkt_tab, 也把它加进来
-        # ("punkt_tab", "tokenizers/punkt_tab")
-    ]
-
-    st.write("Checking for NLTK resources...")
-    for name, path in required_resources:
-        try:
-            nltk.data.find(path)
-            # st.write(f"Resource '{name}' already downloaded.") # 可选的调试信息
-        except LookupError:
-            st.write(f"Resource '{name}' not found. Downloading...")
-            # quiet=True可以避免在控制台输出过多日志
-            nltk.download(name, download_dir=nltk_data_dir, quiet=True)
-            st.write(f"'{name}' downloaded successfully.")
-
-    st.success("All necessary NLTK resources are ready.")
-
-
-# 在应用的主体部分之前，调用一次下载函数
-download_all_nltk_data()
 
 
 # === 设置页面信息 ===

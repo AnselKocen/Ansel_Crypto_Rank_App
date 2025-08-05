@@ -11,7 +11,7 @@ Outputs cleaned datasets and visualizations into structured folders under the sp
 """
 
 from __future__ import annotations
-import shutil
+
 import argparse
 import logging
 import time
@@ -30,17 +30,11 @@ from tqdm import tqdm
 tqdm.pandas()
 import matplotlib.pyplot as plt
 
-import os
 import nltk
-from pathlib import Path
-import shutil
-
-# ✅ 正常导入你需要的组件
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-
 
 from wordcloud import WordCloud
 # ---------------------------------------------------------------------------
