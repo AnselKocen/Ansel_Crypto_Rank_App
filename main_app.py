@@ -1,12 +1,13 @@
+import pandas as pd
 import streamlit as st
 from PIL import Image
-import pandas as pd
+
 from pathlib import Path
 import subprocess
 import base64
 import streamlit.components.v1 as components
 from datetime import datetime
-import customer_side
+
 
 
 # === 设置页面信息 ===
