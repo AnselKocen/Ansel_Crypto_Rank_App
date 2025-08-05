@@ -268,7 +268,7 @@ with tab7:
             try:
                 API_KEY = ""  # ← 可改为 st.secrets["API_KEY"]
                 HISTORY_PATH = BASE_DIR / "df_merged_history.csv"
-                top_list, bot_list, notice_list = run_for_client(API_KEY, str(HISTORY_PATH))
+                results_dict, notice_list = run_for_client(API_KEY, str(HISTORY_PATH))
             except Exception as e:
                 st.error(f"❌ Error: {e}")
                 raise
@@ -279,15 +279,18 @@ with tab7:
             for notice in notice_list:
                 st.warning(notice)
 
-        if top_list:
-            st.subheader(" 🟢 Top 20 Long Strategy Suggestions ")
-            for item in top_list:
-                st.success(item)
+        # ✅ 显示每个模型的 top 和 bot 币种推荐
+        for model_name, result in results_dict.items():
+            st.subheader(f"📊 Model: {model_name}")
 
-        if bot_list:
-            st.subheader("🔴 Bottom 20 Short Suggestions")
-            for item in bot_list:
-                st.error(item)
+            st.markdown("🟢 **Top 20 Long Strategy Suggestions**")
+            for token in result["top"]:
+                st.success(token)
+
+            st.markdown("🔴 **Bottom 20 Short Suggestions**")
+            for token in result["bot"]:
+                st.error(token)
+
 
 
             # ✅ 实时日志输出（默认折叠，强制控制）

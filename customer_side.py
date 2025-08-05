@@ -189,7 +189,9 @@ def run_prediction_pipeline(api_key: str, history_path: str):
             df_out.to_csv(out_path, index=False)
             print(f" {name} 输出保存至 {out_path}")
 
-    # === 打印推荐币种 ===
+    # === 打印推荐币种 + 构造返回结果 ===
+    results_dict = {}
+
     for name, df in results.items():
         print(f"\n 模型: {name}")
         print("Top 20 推荐币种:")
@@ -197,17 +199,24 @@ def run_prediction_pipeline(api_key: str, history_path: str):
         print("Bottom 20 做空建议:")
         print(df.tail(20).to_string(index=False))
 
-        print(f">>>TOP20_{name}: " + ",      ".join(df.head(20)["symbol"].tolist()))
-        print(f">>>BOT20_{name}: " + ",      ".join(df.tail(20)["symbol"].tolist()))
+        top_list = df.head(20)["symbol"].tolist()
+        bot_list = df.tail(20)["symbol"].tolist()
+
+        print(f">>>TOP20_{name}: " + ",      ".join(top_list))
+        print(f">>>BOT20_{name}: " + ",      ".join(bot_list))
+
+        results_dict[name] = {
+            "top": top_list,
+            "bot": bot_list
+        }
+
+    notice_list = [f"Data processed for week ending {latest_wed.date()}"]
+    return results_dict, notice_list
+
 
 def run_for_client(api_key: str, history_path: str):
-    run_prediction_pipeline(api_key, history_path)
+    return run_prediction_pipeline(api_key, history_path)
 
-    # 你可以在 run_prediction_pipeline 中加上返回结果，现在我们先用占位符
-    top_list = ["BTC", "ETH", "SOL"]      # 示例替代
-    bot_list = ["TRX", "DOGE", "PEPE"]     # 示例替代
-    notice_list = ["Data up to last Wednesday loaded."]
-    return top_list, bot_list, notice_list
 
 
 # ==============================================
