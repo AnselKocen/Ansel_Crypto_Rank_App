@@ -126,14 +126,13 @@ with tab2:
         st.info("ℹ️ Word cloud and Gauge have not been generated yet.")
 
     if st.button("▶️ Update Word Cloud and Fear & Greed Gauge"):
-        script_path = BASE_DIR / "sentiment_update.py"
-        if not script_path.exists():
-            st.error(f"❌ Script not found: {script_path}")
-        else:
-            with st.spinner("Generating... This may take up to 2 minutes."):
-                exit_code = subprocess.call(["python", str(script_path)])
-            if exit_code == 0:
+        with st.spinner("Generating... This may take up to 2 minutes."):
+            try:
+                from sentiment_update import update_sentiment_and_gauge
+                update_sentiment_and_gauge()
                 st.success("✅ Updated successfully!")
+            except Exception as e:
+                st.error(f"❌ Error occurred during update: {e}")
 
     option = st.radio(
         label="Display Options",
