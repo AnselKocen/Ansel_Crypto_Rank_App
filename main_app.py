@@ -19,11 +19,9 @@ for package in required_nltk_packages:
 
 print("所有数据包准备就绪！")
 try:
-    st.write("尝试下载 'punkt_tab'...")
     nltk.download('punkt_tab')
-    st.write("'punkt_tab' 下载成功?!")
 except Exception as e:
-    st.error(f"尝试下载 'punkt_tab' 失败，错误信息: {e}")
+    st.error(f"fail downloading 'punkt_tab' : {e}")
 
 
 # === 设置页面信息 ===
