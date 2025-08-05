@@ -200,11 +200,20 @@ def run_prediction_pipeline(api_key: str, history_path: str):
         print(f">>>TOP20_{name}: " + ",      ".join(df.head(20)["symbol"].tolist()))
         print(f">>>BOT20_{name}: " + ",      ".join(df.tail(20)["symbol"].tolist()))
 
+def run_for_client(api_key: str, history_path: str):
+    run_prediction_pipeline(api_key, history_path)
+
+    # 你可以在 run_prediction_pipeline 中加上返回结果，现在我们先用占位符
+    top_list = ["BTC", "ETH", "SOL"]      # 示例替代
+    bot_list = ["TRX", "DOGE", "PEPE"]     # 示例替代
+    notice_list = ["Data up to last Wednesday loaded."]
+    return top_list, bot_list, notice_list
+
 
 # ==============================================
 #  执行主程序（客户只需运行此脚本）
 # ==============================================
-if __name__ == "__main__":
-    API_KEY = ""  # ← 请替换为你自己的 Coindesk API 密钥
-    HISTORY_PATH = BASE_DIR / "df_merged_history.csv"
-    run_prediction_pipeline(API_KEY, str(HISTORY_PATH))
+#if __name__ == "__main__":
+    #API_KEY = ""  # ← 请替换为你自己的 Coindesk API 密钥
+    #HISTORY_PATH = BASE_DIR / "df_merged_history.csv"
+    #run_prediction_pipeline(API_KEY, str(HISTORY_PATH))

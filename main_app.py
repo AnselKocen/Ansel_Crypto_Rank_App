@@ -7,6 +7,7 @@ import subprocess
 import base64
 import streamlit.components.v1 as components
 from datetime import datetime
+from customer_side import run_prediction_pipeline
 
 
 
@@ -250,6 +251,8 @@ with tab6:
             show_centered_img(img_path, width_percent=50, height=380)
 
 # === 页面 7：运行函数 ===
+from customer_side import run_for_client  # ✅ 直接导入函数
+
 with tab7:
     st.header("🧠 Get Next Week's Recommended Portfolio ! ")
     st.markdown(
@@ -261,26 +264,31 @@ with tab7:
     if st.button("▶️ Click to Get Recommended Tokens"):
         st.session_state["log_expanded"] = False
 
-        script_path = BASE_DIR / "customer_side.py"
-        if not script_path.exists():
-            st.error(f"no {script_path}")
-        else:
-            with st.spinner("Running, please wait... Might take 5–10 mins if you haven't run this page in a while"):
-                top_list, bot_list, notice_list = run_external_script(str(script_path))
-            # ✅ 显示提示语（如“今天是周三…”）
-            if notice_list:
-                st.subheader("📢")
-                for notice in notice_list:
-                    st.warning(notice)
+        with st.spinner("Running, please wait... Might take 5–10 mins if you haven't run this page in a while"):
+            try:
+                API_KEY = ""  # ← 可改为 st.secrets["API_KEY"]
+                HISTORY_PATH = BASE_DIR / "df_merged_history.csv"
+                top_list, bot_list, notice_list = run_for_client(API_KEY, str(HISTORY_PATH))
+            except Exception as e:
+                st.error(f"❌ Error: {e}")
+                raise
 
-            if top_list:
-                st.subheader(" 🟢 Top 20 Long Strategy Suggestions ")
-                for item in top_list:
-                    st.success(item)
-            if bot_list:
-                st.subheader("🔴 Bottom 20 Short Suggestions")
-                for item in bot_list:
-                    st.error(item)
+        # ✅ 显示提示语（如“今天是周三…”）
+        if notice_list:
+            st.subheader("📢")
+            for notice in notice_list:
+                st.warning(notice)
+
+        if top_list:
+            st.subheader(" 🟢 Top 20 Long Strategy Suggestions ")
+            for item in top_list:
+                st.success(item)
+
+        if bot_list:
+            st.subheader("🔴 Bottom 20 Short Suggestions")
+            for item in bot_list:
+                st.error(item)
+
 
             # ✅ 实时日志输出（默认折叠，强制控制）
             #log_path = Path("client_output/logs/runtime.log")

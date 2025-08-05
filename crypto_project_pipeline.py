@@ -31,8 +31,6 @@ tqdm.pandas()
 import matplotlib.pyplot as plt
 
 import nltk
-nltk.download("stopwords")
-nltk.download("vader_lexicon")
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
