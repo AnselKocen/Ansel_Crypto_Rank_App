@@ -31,10 +31,32 @@ tqdm.pandas()
 import matplotlib.pyplot as plt
 
 import nltk
+
+# 定义需要的所有数据包
+required_nltk_packages = ['punkt', 'stopwords', 'wordnet', 'vader_lexicon']
+
+# 直接循环下载，NLTK会自动跳过已存在的数据包
+print("正在检查并准备NLTK数据包...")
+for package in required_nltk_packages:
+    nltk.download(package)
+
+print("所有数据包准备就绪！")
+
+# 您原来的 import 语句可以照常放在后面
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+# --- 在这里开始您的代码逻辑 ---
+
+# --- 在这里开始您的代码逻辑 ---
+# print("所有NLTK数据包都已准备就绪！")
+#
+# # 例如，现在可以安全地使用这些功能了
+# text = "NLTK is a powerful library for natural language processing."
+# tokens = word_tokenize(text)
+# print(tokens)
 
 from wordcloud import WordCloud
 # ---------------------------------------------------------------------------
