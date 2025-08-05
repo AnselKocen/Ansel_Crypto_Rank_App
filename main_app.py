@@ -126,7 +126,7 @@ with tab2:
         st.info("ℹ️ Word cloud and Gauge have not been generated yet.")
 
     if st.button("▶️ Update Word Cloud and Fear & Greed Gauge"):
-        with st.spinner("Generating... This may take up to 2 minutes."):
+        with st.spinner("Generating... This may take up to 5 minutes."):
             try:
                 from sentiment_update import update_sentiment_and_gauge
                 update_sentiment_and_gauge()
