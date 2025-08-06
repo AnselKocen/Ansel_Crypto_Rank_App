@@ -57,9 +57,14 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
         notice_list.append("Data already includes the most recent week. No update needed.")
         return df_hist.copy(), latest_wed, Path(history_path).parent,notice_list
 
-    elif today.weekday() == 2:  # Wednesday
-        notice_list.append("Today is Wednesday(UTC)! Please wait until Thursday to ensure complete data.")
-        return df_hist.copy(), latest_wed, Path(history_path).parent,notice_list
+    #elif today.weekday() == 2:  # Wednesday
+        #notice_list.append("Today is Wednesday(UTC)! Please wait until Thursday to ensure complete data.")
+        #return df_hist.copy(), latest_wed, Path(history_path).parent,notice_list
+    # === 如果今天是周三，且历史数据已经包含了上一周的完整数据，则不更新
+    elif today.weekday() == 2 and last_date >= (latest_wed - timedelta(days=7)).date():
+        notice_list.append(
+            "Today is Wednesday (UTC), and last week’s data has already been fully updated. Please wait until Thursday to get the latest week’s complete data.")
+        return df_hist.copy(), latest_wed, Path(history_path).parent, notice_list
 
     # === 拉取最近的价格数据并构建 market 特征 ===
     stage1_etl(
