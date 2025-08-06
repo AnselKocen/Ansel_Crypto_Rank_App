@@ -41,15 +41,8 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
     last_date = df_hist["date"].max().date()
     next_day = last_date + timedelta(days=1)
 
-    # 创建目录结构
-    data_dir, fig_dir = build_week_dirs(
-        week_folder="customer__see",
-        results_folder="customer_see",
-        data_sub="clean_data",
-        figure_sub="figures"
-    )
-    print(f"[debug] data_dir: {data_dir.resolve()}")
-    print(f"[debug] fig_dir: {fig_dir.resolve()}")
+    data_dir = BASE_DIR
+    fig_dir = BASE_DIR  # 如果后续需要图像，就统一放在 BASE_DIR
 
     print(f"###NOTICE### Latest Date in Historical Data: {last_date}，Latest Wednesday: {latest_wed.date()}")
     notice_list.append(f"Latest Date in Historical Data: {last_date}，Latest Wednesday: {latest_wed.date()}")
@@ -90,13 +83,15 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
     df_features["date"] = pd.to_datetime(df_features["date"]).dt.date  # 转为 date 方便比较
     df_features = df_features[df_features["date"] > last_date]
 
-    # === 抓取新闻并计算 sentiment 特征 ===
-    news_start_date = latest_wed - timedelta(days=6)
-    news_end_date = latest_wed + timedelta(days=1)
+    # === 抓取新闻并计算 sentiment 特征 === 修改了抓取时间
+    #news_start_date = latest_wed - timedelta(days=6)
+    #news_end_date = latest_wed + timedelta(days=1)
+    news_start_date = last_date + timedelta(days=1)
+    news_end_date = latest_wed + timedelta(days=1)  # +1 是为了包含周三
     print(f"抓取新闻时间范围: {news_start_date.date()} 至 {news_end_date.date()}")
     df_news = stage1_load_news(api_key, news_start_date, news_end_date, data_dir)
     df_clean = stage1_clean_text(df_news, data_dir)
-    df_sent, df_weekly_sent = stage2_sentiment(df_clean, data_dir, fig_dir)
+    stage2_sentiment(df_clean, data_dir, fig_dir)
 
     # 更新词云
     # from crypto_project_pipeline import generate_sentiment_wordclouds
@@ -105,6 +100,7 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
     #renew_path = BASE_DIR / "figures"
     #generate_sentiment_wordclouds(df_sent, renew_path, latest_wed)
     # === 合并 market 和 sentiment 特征 ===
+    df_weekly_sent = pd.read_csv(data_dir / "stage_2_sentiment_weekly.csv")
     df_new = merge_sentiment_feature(df_features, df_weekly_sent, save_path=data_dir)
     #df_new["ret_lead1"] = df_new.groupby("symbol")["return"].shift(-1) #不应该在这里mergeret_lead1，删除
 
