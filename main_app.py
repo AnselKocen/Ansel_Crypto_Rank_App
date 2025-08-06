@@ -168,7 +168,7 @@ with tab2:
     elif option == "Fear & Greed Index":
         st.subheader("🧭 Fear & Greed Gauge")
         gauge_path = fig_dir / "fear_greed_gauge.png"
-        show_centered_img(gauge_path, caption="Fear & Greed Gauge this week", width_percent=61,height=601)
+        show_centered_img(gauge_path, caption="Fear & Greed Gauge this week", width_percent=61)
 
 # === 页面 3：模型策略介绍 ===
 emoji_map = {
@@ -234,9 +234,9 @@ with tab5:
 
     col1, col2 = st.columns(2)
     with col1:
-        show_centered_img(extra_fig_all, caption="All Features", width_percent=91, height=501)
+        show_centered_img(extra_fig_all, caption="All Features", width_percent=91)
     with col2:
-        show_centered_img(extra_fig_market, caption="Market Features", width_percent=91, height=501)
+        show_centered_img(extra_fig_market, caption="Market Features", width_percent=91)
 
 # === 页面 6：策略回测结果对比 ===
 with tab6:
@@ -260,9 +260,9 @@ with tab6:
         img_name = f"{base_name}_{variant}_with_baseline.png"
         img_path = fig_dir / img_name
         if "cum_return" in img_name:
-            show_centered_img(img_path, width_percent=71, height=441)
+            show_centered_img(img_path, width_percent=71)
         else:
-            show_centered_img(img_path, width_percent=51, height=381)
+            show_centered_img(img_path, width_percent=51)
 
 # === 页面 7：运行函数 ===
 from customer_side import run_for_client  # ✅ 直接导入函数
