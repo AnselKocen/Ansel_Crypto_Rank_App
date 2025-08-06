@@ -64,7 +64,7 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
         api_key=api_key,
         pages=[1,2],
         top_limit=100,
-        history_limit=100,
+        history_limit=120,# 不改如果真的很久没有抓他的话 120天就不够了 这个我们之后再想办法
         currency="USD",
         data_dir=data_dir
     )
@@ -86,6 +86,8 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
     # === 抓取新闻并计算 sentiment 特征 === 修改了抓取时间
     #news_start_date = latest_wed - timedelta(days=6)
     #news_end_date = latest_wed + timedelta(days=1)
+    print(last_date)
+    print(latest_wed)
     news_start_date = last_date + timedelta(days=1)
     news_end_date = latest_wed + timedelta(days=1)  # +1 是为了包含周三
     print(f"抓取新闻时间范围: {news_start_date.date()} 至 {news_end_date.date()}")
