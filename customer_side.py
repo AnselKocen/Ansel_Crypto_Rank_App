@@ -74,7 +74,7 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
 
     df_prices.columns = [col.strip().lower() for col in df_prices.columns]
     print(f"是否包含 'date'：{'date' in df_prices.columns}")
-    print('--------------------------------------------------------------------------------------------------------')
+    print('-------------------------------------------------------------------------------------------------------')
 
     df_prices["date"] = pd.to_datetime(df_prices["date"])
     df_prices = df_prices[df_prices["date"] <= latest_wed]
