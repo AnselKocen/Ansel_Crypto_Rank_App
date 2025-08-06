@@ -34,7 +34,7 @@ fig_dir = BASE_DIR / "figures"
 text_dir = BASE_DIR / "text"
 
 # === 辅助函数：居中显示图像 ===
-def show_centered_img(img_path, caption="", width_percent=50, height=None):
+def show_centered_img(img_path, caption="", width_percent=70):
     if not Path(img_path).exists():
         st.warning(f"no pictures: {img_path}")
         return
@@ -42,15 +42,17 @@ def show_centered_img(img_path, caption="", width_percent=50, height=None):
     with open(img_path, "rb") as f:
         img_base64 = base64.b64encode(f.read()).decode()
 
-    html_code = f"""
+    st.markdown(
+        f"""
         <div style="text-align: center;">
-            <img src="data:image/png;base64,{img_base64}" style="width: {width_percent}%; border-radius: 8px;" />
+            <img src="data:image/png;base64,{img_base64}" 
+                 style="width: {width_percent}%; border-radius: 10px;" />
             <div style="font-size: 14px; color: gray; margin-top: 8px;">{caption}</div>
         </div>
-    """
-    if height is None:
-        height = int(width_percent * 6)
-    components.html(html_code, height=height)
+        """,
+        unsafe_allow_html=True
+    )
+
 
 # === 辅助函数：运行外部脚本并提取关键输出 ===
 def run_external_script(script_path: str):
