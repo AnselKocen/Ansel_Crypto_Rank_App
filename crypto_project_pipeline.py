@@ -909,7 +909,7 @@ def merge_sentiment_feature(
     df_sentiment = df_sentiment.copy()
     df_sentiment = df_sentiment.reset_index()
     df_sentiment["date"] = pd.to_datetime(df_sentiment["date"])
-
+    df_sentiment.columns = df_sentiment.columns.str.strip() # 添加的
     sentiment_cols = ["date", "compound_weekly", "extremely_positive_ratio", "extremely_negative_ratio"]
 
     df_merged = pd.merge(
