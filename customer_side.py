@@ -47,6 +47,7 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
     print(f"###NOTICE### Latest Date in Historical Data: {last_date}，Latest Wednesday: {latest_wed.date()}")
     notice_list.append(f"Latest Date in Historical Data: {last_date}，Latest Wednesday: {latest_wed.date()}")
     if last_date >= latest_wed.date():
+        print("Data already includes the most recent week. No update needed.")
         notice_list.append("Data already includes the most recent week. No update needed.")
         return df_hist.copy(), latest_wed, Path(history_path).parent,notice_list
 
@@ -55,6 +56,7 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
         #return df_hist.copy(), latest_wed, Path(history_path).parent,notice_list
     # === 如果今天是周三，且历史数据已经包含了上一周的完整数据，则不更新
     elif today.weekday() == 2 and last_date >= (latest_wed - timedelta(days=7)).date():
+        print("Today is Wednesday (UTC), and last week’s data has already been fully updated. Please wait until Thursday to get the latest week’s complete data.")
         notice_list.append(
             "Today is Wednesday (UTC), and last week’s data has already been fully updated. Please wait until Thursday to get the latest week’s complete data.")
         return df_hist.copy(), latest_wed, Path(history_path).parent, notice_list
@@ -62,26 +64,34 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
     # === 拉取最近的价格数据并构建 market 特征 ===
     stage1_etl(
         api_key=api_key,
-        pages=[1],
-        top_limit=10,
-        history_limit=5,# 不改如果真的很久没有抓他的话 120天就不够了 这个我们之后再想办法
+        pages=[1,2],
+        top_limit=100,
+        history_limit=110,# 不改如果真的很久没有抓他的话 120天就不够了 这个我们之后再想办法
         currency="USD",
         data_dir=data_dir
     )
     # 去除 latest_wed 之后的数据，避免出现未来行情
-    df_prices = pd.read_csv(data_dir / "stage_1_crypto_data.csv")
-    df_prices.columns = [c.strip().lower() for c in df_prices.columns]
+    #df_prices = pd.read_csv(data_dir / "stage_1_crypto_data.csv")
+    #df_prices.columns = [c.strip().lower() for c in df_prices.columns]
 
-    df_prices.columns = [col.strip().lower() for col in df_prices.columns]
-    print(f"是否包含 'date'：{'date' in df_prices.columns}")
+    #df_prices.columns = [col.strip().lower() for col in df_prices.columns]
+    #print(f"是否包含 'date'：{'date' in df_prices.columns}")
     print('-------------------------------------------------------------------------------------------------------')
 
-    df_prices["date"] = pd.to_datetime(df_prices["date"])
-    df_prices = df_prices[df_prices["date"] <= latest_wed]
-
+    #df_prices["date"] = pd.to_datetime(df_prices["date"])
+   # df_prices = df_prices[df_prices["date"] <= latest_wed]
+    #print(df_prices)
+    #print("📅 df_prices 最大日期：", df_prices["date"].max())
+    last_date_df = pd.to_datetime(last_date)
+    df_prices = pd.read_csv(BASE_DIR / "stage_1_crypto_data.csv")
+    #print(last_date_df)
     df_features = stage2_feature_engineering(df_prices, data_dir)
+
+    print(df_features)
     df_features["date"] = pd.to_datetime(df_features["date"]).dt.date  # 转为 date 方便比较
+    print(df_features)
     df_features = df_features[df_features["date"] > last_date]
+    print(df_features)
 
     # === 抓取新闻并计算 sentiment 特征 === 修改了抓取时间
     #news_start_date = latest_wed - timedelta(days=6)
@@ -229,12 +239,8 @@ def run_for_client(api_key: str, history_path: str):
     return run_prediction_pipeline(api_key, history_path)
 
 
-
-
-# ==============================================
-#  执行主程序（客户只需运行此脚本）
-# ==============================================
 #if __name__ == "__main__":
-    #API_KEY = ""  # ← 请替换为你自己的 Coindesk API 密钥
-    #HISTORY_PATH = BASE_DIR / "df_merged_history.csv"
-    #run_prediction_pipeline(API_KEY, str(HISTORY_PATH))
+#    API_KEY = ""
+#    HISTORY_PATH = BASE_DIR / "df_merged_history.csv"
+#    run_for_client(API_KEY, str(HISTORY_PATH))
+
