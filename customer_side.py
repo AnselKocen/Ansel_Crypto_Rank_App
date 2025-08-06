@@ -34,7 +34,7 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
     from sklearn.preprocessing import StandardScaler
     from sklearn.impute import SimpleImputer
     import joblib
-
+    # 最新的要保证我们传入的df是没有ret_lead1的
     # 读取历史数据并检查是否已更新
     df_hist = pd.read_csv(history_path)
     df_hist["date"] = pd.to_datetime(df_hist["date"])
@@ -101,7 +101,7 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
     #generate_sentiment_wordclouds(df_sent, renew_path, latest_wed)
     # === 合并 market 和 sentiment 特征 ===
     df_new = merge_sentiment_feature(df_features, df_weekly_sent, save_path=data_dir)
-    df_new["ret_lead1"] = df_new.groupby("symbol")["return"].shift(-1)
+    #df_new["ret_lead1"] = df_new.groupby("symbol")["return"].shift(-1) #不应该在这里mergeret_lead1，删除
 
     # === 合并到历史数据并保存 ===
     df_combined = pd.concat([df_hist, df_new], ignore_index=True)
@@ -138,6 +138,13 @@ def run_prediction_pipeline(api_key: str, history_path: str):
     weeks = sorted(df_merged["date"].unique())
     train_weeks = weeks[-53:-1]  # 52周训练
     test_week = weeks[-1]        # 最新一周预测
+
+    # 应该在这里加一句，为我们读取的df_merged 构建ret_lead1，后续 都是正常的操作，不需要更改了。下面这段是新添加的
+    df_merged["ret_lead1"] = (
+        df_merged.sort_values(["symbol", "date"])
+        .groupby("symbol")["return"]
+        .shift(-1)
+    )
 
     df_train = df_merged[df_merged["date"].isin(train_weeks)].dropna(subset=["ret_lead1"])
     df_test = df_merged[df_merged["date"] == test_week]
@@ -216,6 +223,7 @@ def run_prediction_pipeline(api_key: str, history_path: str):
 
 def run_for_client(api_key: str, history_path: str):
     return run_prediction_pipeline(api_key, history_path)
+
 
 
 
