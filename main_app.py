@@ -98,9 +98,9 @@ def run_external_script(script_path: str):
 # === 顶部 Tabs 页面结构 ===
 tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
     "🎓Educational",
-    "💭Market Sentiment",
     "📝Model Strategy",
     "🛠️Hyber-Parameters",
+    "💭Market Sentiment",
     "🔍Feature Selection",
     "📊Backtest Results",
     "▶️Prediction",
@@ -125,8 +125,47 @@ with tab1:
     st.video("https://www.youtube.com/watch?v=Zoz9gvhLgpM")
 
 
-# === 页面 2：市场情绪指数 ===
+# === 页面 2：模型策略介绍 ===
+emoji_map = {
+    "market": "🔵",
+    "all": "🟢",
+    "enet_EW": "🟡",
+    "extra_EW": "🟠",
+    "enet_ls": "🔴",
+    "extra_ls": "🟣",
+    "fusion_ls": "🟤"
+}
+
 with tab2:
+    st.header("📘 Model Strategy Overview")
+    intro_path = text_dir / "strategy_intro.txt"
+    if intro_path.exists():
+        with open(intro_path, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+            for line in lines:
+                line = line.strip()
+                if ":" in line:
+                    key = line.split(":")[0]
+                    emoji = emoji_map.get(key, "")
+                    st.markdown(f"{emoji} **{line}**")
+                else:
+                    st.markdown(line)
+    else:
+        st.info("no txt")
+
+
+# === 页面 3：最优参数展示 ===
+with tab3:
+    st.header("⚙️ Optimal Hyber-Parameters Display")
+    param_path = text_dir / "best_params.txt"
+    if param_path.exists():
+        with open(param_path, "r", encoding="utf-8") as f:
+            st.code(f.read(), language="yaml")
+    else:
+        st.info("no best_params.txt ")
+
+# === 页面 4：市场情绪指数 ===
+with tab4:
     st.header("📰 Market Sentiment Index over the last 7-days ")
     update_file = BASE_DIR / "last_updated_wordcloud.txt"
 
@@ -176,45 +215,6 @@ with tab2:
         st.subheader("🧭 Fear & Greed Gauge")
         gauge_path = fig_dir / "fear_greed_gauge.png"
         show_centered_img(gauge_path, caption="Fear & Greed Gauge this week", width_percent=61)
-
-# === 页面 3：模型策略介绍 ===
-emoji_map = {
-    "market": "🔵",
-    "all": "🟢",
-    "enet_EW": "🟡",
-    "extra_EW": "🟠",
-    "enet_ls": "🔴",
-    "extra_ls": "🟣",
-    "fusion_ls": "🟤"
-}
-
-with tab3:
-    st.header("📘 Model Strategy Overview")
-    intro_path = text_dir / "strategy_intro.txt"
-    if intro_path.exists():
-        with open(intro_path, "r", encoding="utf-8") as f:
-            lines = f.readlines()
-            for line in lines:
-                line = line.strip()
-                if ":" in line:
-                    key = line.split(":")[0]
-                    emoji = emoji_map.get(key, "")
-                    st.markdown(f"{emoji} **{line}**")
-                else:
-                    st.markdown(line)
-    else:
-        st.info("no txt")
-
-
-# === 页面 4：最优参数展示 ===
-with tab4:
-    st.header("⚙️ Optimal Hyber-Parameters Display")
-    param_path = text_dir / "best_params.txt"
-    if param_path.exists():
-        with open(param_path, "r", encoding="utf-8") as f:
-            st.code(f.read(), language="yaml")
-    else:
-        st.info("no best_params.txt ")
 
 # === 页面 5：特征选择 ===
 with tab5:
