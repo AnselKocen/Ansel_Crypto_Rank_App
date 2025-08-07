@@ -92,26 +92,29 @@ def run_external_script(script_path: str):
 
 
 # === 顶部 Tabs 页面结构 ===
-tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
     "🎓Educational",
     "💭Market Sentiment",
     "📝Model Strategy",
     "🛠️Hyber-Parameters",
     "🔍Feature Selection",
     "📊Backtest Results",
-    "▶️Prediction"
+    "▶️Prediction",
+    "💰Investment",
+    "😊💬Assistant"
 ])
 
 # === 页面 1：加密货币基础 ===
 with tab1:
     st.header("📚 Crypto Basics & Educational Resources")
 
-    st.markdown("Here are some beginner-friendly learning resources for new users:")
+    st.markdown("Here are some beginner-friendly learning resources. You can also use our 😊💬Assistant for simple Q&A support.")
 
     # 🔗 教学链接
     st.markdown("🔗 [Binance Academy – What Is Cryptocurrency?](https://academy.binance.com/en/articles/what-is-a-cryptocurrency)")
     st.markdown("🔗 [CoinMarketCap：Stay Updated on the Latest Cryptocurrency Price Trends](https://coinmarketcap.com/)")
     st.markdown("🔗 [educational YouTuber：@simplyexplained](https://www.youtube.com/@simplyexplained)")
+    st.markdown("🔗 [What is long and short?](https://www.youtube.com/watch?v=fXnCtGcvqdk&t=31s)")
 
     # 🎥 教学视频嵌入
     st.subheader("🎥 What is crypto currency🪙?")
@@ -272,7 +275,7 @@ with tab7:
     st.markdown(
         "🟦 Click the button to automatically fetch crypto market and news data up to the most recent Wednesday (t), merge it with historical data, and perform ETL.  \n"
         "🟨 Models are trained on the past 52 weeks (t−52 to t−1), and using features observed in week t to rank expected returns for week t+1.  \n"
-        "🟥 **Disclaimer:** For reference only. Not financial advice."
+        "🟥 ***Disclaimer**: For reference only. Not financial advice.*"
     )
 
     if st.button("▶️ Click to Get Recommended Tokens"):
@@ -304,14 +307,134 @@ with tab7:
             st.markdown("🔴 **Bottom 20 Short Suggestions**")
             for token in result["bot"]:
                 st.error(token)
+with tab8:
+    import pandas as pd
+
+    st.markdown("## 🎯 Which Strategy Suits Me Best? Let Us Help You Choose!")
+    st.markdown(
+        "Our platform recommends the most suitable strategy combinations based on various indicators, so your investment decisions are no longer a guess!")
+    st.markdown(
+        "👉 *Match your selected Model Feature tag, then head to ▶️ Prediction to see the Top 20 and Bottom 20 token picks*"
+        " and start building your portfolio according to the **corresponding strategy**!")
+    # === 🥇 Top 3 Sharpe Ratio Strategies ===
+    st.markdown("### 🏅 Top Pick: Sharpe Ratio Champions (Best Risk-Adjusted Return)")
+    st.markdown(
+        "💡 **If you aim to maximize excess return per unit of risk**, start by considering the strategies with the highest Sharpe Ratios:")
+
+    sharpe_df = pd.DataFrame({
+        "🏆 Rank": ["🥇 1st ", "🥈 2nd ", "🥉 3rd "],
+        "Model Feature Tag": ["extra_all", "fusion_all", "extra_market"],
+        "Strategy": ["ls", "ls", "ls"],
+        "Sharpe Ratio": [2.20, 2.03, 1.90]
+    })
+    st.dataframe(sharpe_df, hide_index=True)
+    # === 👤 Risk Preference Guide ===
+    st.markdown("### 😎 Strategy Recommendations Based on Your Risk Preference")
+
+    st.markdown("#### 🔥 High Risk Appetite (Maximize Return)")
+    high_risk_df = pd.DataFrame({
+        "🏆 Rank": ["🥇 1st ", "🥈 2nd ", "🥉 3rd "],
+        "Model Feature Tag": ["extra_all", "extra_market", "extra_all"],
+        "Strategy": ["EW", "EW", "ls"],
+        "Annualized Return": [2.10, 1.80, 1.75]
+    })
+    st.dataframe(high_risk_df, hide_index=True)
+
+    st.markdown(
+        "📝 Note: These strategies offer high returns but also higher volatility — perfect for aggressive investors!")
+
+    st.markdown("#### 🧊 Low Risk Appetite (Stability First)")
+    low_risk_df = pd.DataFrame({
+        "🏆 Rank": ["🥇 1st ", "🥈 2nd ", "🥉 3rd "],
+        "Model Feature Tag": ["fusion_market", "fusion_all", "extra_market"],
+        "Strategy": ["ls", "ls", "ls"],
+        "Annualized Volatility": [0.36, 0.38, 0.42]
+    })
+    st.dataframe(low_risk_df, hide_index=True)
+
+    # === Allocation Recommendation ===
+    st.markdown("### 🧮 What is the difference between ls and EW?")
+    st.markdown("👉 **Equal Weight (EW)** allocation is the simplest and most effective method.")
+    st.info(
+        "In fact, very few weighted models consistently outperform EW over the long run! Just allocate equal capital to the top tokens weekly for both long and short sides.")
+
+    st.warning(
+        "⚠️ If you're using **`ls`** strategies, make sure you understand how **shorting** works! Visit the 🎓 Education tab to watch the video!")
+#############################################
+with tab9:
+    import streamlit as st
+
+    import streamlit as st
+
+    st.title("💡 Strategy Assistant ChatBot ✨")
+    st.markdown("Click a question below to quickly understand how our platform works and get friendly strategy advice!")
+
+    # Initialize chat history
+    if "chat_history" not in st.session_state:
+        st.session_state.chat_history = []
+
+    # Full Q&A dictionary with updated questions
+    qa_pairs = {
+        "📈 What is long / short / LS / EW?":
+            "Long means buying assets expected to rise 📈, short means betting on decline 📉. LS combines both! EW (Equal Weight) splits positions evenly for stability 🧺",
+
+        "🧠 What's the difference between Enet and Extra?":
+            "`Enet` is a linear model for simple relationships, while `Extra` is nonlinear and captures complex market patterns 🤖🌐",
+
+        "🏷️ What do all and market tags mean?":
+            "`all` includes sentiment features; `market` only uses market features like volatility and momentum 💬📊",
+
+        "☁️ What's the use of the word cloud & sentiment gauge?":
+            "They reflect overall market sentiment! Remember Buffett's quote: *Be fearful when others are greedy, greedy when others are fearful* 😬🧭",
+
+        "💸 How do I start crypto trading?":
+            "Register on an exchange like **Binance**, deposit fiat or USDT, and you’re ready to trade! 🚀",
+
+        "🕒 When are weekly token recommendations updated?":
+            "Every Thursday at 12:00am ✅ (we wait for complete Wednesday data) 📅",
+
+        "🧊 I don’t like risk":
+            "We recommend low-volatility strategies like `fusion_ls` or `market_EW` — calm and steady! 🛡️",
+
+        "🔥 I want high returns":
+            "Try high-return strategies like `extra_EW` or `extra_ls`, but watch out for volatility! ⚡",
+
+        "🤷 I’m not sure about my risk preference":
+            "No worries! Start with the strategy that has the highest Sharpe ratio — it balances return and risk 📈⚖️",
+
+        "❓ I don’t understand crypto at all":
+            "Crypto are decentralized digital assets like BTC and ETH. We recommend watching our 🎓 Education videos for a quick start!",
+
+        # ✅ Newly added questions
+        "💰 How many recommended tokens should I buy?":
+            "👉 We suggest using the **Top 20 tokens** from your selected strategy and allocating them **equally (EW)**. This helps diversify risk and keep things simple 🧺📊",
+
+        "🪙 How do I actually buy the recommended tokens?":
+            "You’ll need to create an account on a crypto exchange like **Binance**, deposit funds (like USDT), and search for each token to trade. Super easy once you're set up! 🚀",
+
+        "💬 Why do we use sentiment features?":
+            "Because **crypto markets are emotional!** Sentiment helps capture **non-structural signals** like hype or panic, boosting the model’s prediction power 📈🧠  \n"
+            "You can also refer to the **word cloud** and **sentiment gauge** to judge market mood and entry timing 🧭☁️  \n"
+            "But remember — while sentiment may help forecast returns, chasing highs or panic-selling isn’t always smart. Always invest with caution! ⚠️"
+    }
+
+    # Layout: 3-column button grid
+    cols = st.columns(3)
+    buttons = list(qa_pairs.keys())
+
+    for i, key in enumerate(buttons):
+        with cols[i % 3]:
+            if st.button(key, key=f"btn_{i}"):  # ✅ 添加唯一 key 避免重复 ID 错误
+                st.session_state.chat_history.append(("user", key))
+                st.session_state.chat_history.append(("bot", qa_pairs[key]))
+
+    # Display chat history
+    for role, msg in st.session_state.chat_history:
+        with st.chat_message("user" if role == "user" else "assistant"):
+            st.markdown(msg)
 
 
+#################### 页面8 #######################
 
-            # ✅ 实时日志输出（默认折叠，强制控制）
-            #log_path = Path("client_output/logs/runtime.log")
-            #if log_path.exists():
-                #with st.expander("📄 Streaming Log Output (Click to Expand) ", expanded=st.session_state["log_expanded"]):
-                    #with open(log_path, "r", encoding="utf-8") as f:
-                        #st.text(f.read())
 
 # streamlit run C:\Users\10526\PycharmProjects\Ansel_Crypto_Rank_App\main_app.py  [ARGUMENTS]

@@ -12,6 +12,7 @@ from crypto_project_pipeline import (
 )
 
 BASE_DIR = Path(__file__).resolve().parent
+# 这个文件更新全部存在当前脚本目录下。
 # ==============================================
 #  Step 0: 自动确定最近的周三（返回 datetime）
 # ==============================================

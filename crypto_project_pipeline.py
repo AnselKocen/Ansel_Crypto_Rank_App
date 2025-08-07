@@ -886,8 +886,8 @@ def generate_sentiment_wordclouds(df: pd.DataFrame, fig_dir: Path, end_day: date
     stop_words = set(stopwords.words("english"))
     tokens = [w.lower() for w in word_tokenize(all_text) if w.isalpha() and w.lower() not in stop_words]
 
-    pos_tokens = [w for w in tokens if sid.polarity_scores(w)["compound"] >= 0.2]
-    neg_tokens = [w for w in tokens if sid.polarity_scores(w)["compound"] <= -0.1]
+    pos_tokens = [w for w in tokens if sid.polarity_scores(w)["compound"] >= 0.4]
+    neg_tokens = [w for w in tokens if sid.polarity_scores(w)["compound"] <= -0.3]
 
     wc = WordCloud(width=1200, height=800, background_color="white", max_words=500)
 

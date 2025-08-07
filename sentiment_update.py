@@ -18,7 +18,7 @@ from crypto_project_pipeline import (
     stage2_sentiment,
     merge_sentiment_feature
 )
-
+# 这个文件全部存在figures里
 BASE_DIR = Path(__file__).resolve().parent
 def update_sentiment_and_gauge():
     today = datetime.today()
@@ -44,3 +44,4 @@ def update_sentiment_and_gauge():
 
     update_time = datetime.now().strftime("%Y-%m-%d")
     (Path(__file__).resolve().parent / "last_updated_wordcloud.txt").write_text(update_time)
+update_sentiment_and_gauge()
