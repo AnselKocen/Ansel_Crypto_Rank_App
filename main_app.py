@@ -8,6 +8,10 @@ import base64
 import streamlit.components.v1 as components
 from datetime import datetime
 from customer_side import run_prediction_pipeline
+
+
+
+
 import nltk
 # 定义需要的所有数据包
 required_nltk_packages = ['punkt', 'stopwords', 'wordnet', 'vader_lexicon']
@@ -306,7 +310,7 @@ with tab7:
                 st.markdown("🟢 **Top 20 Long Strategy Suggestions**")
                 for token in result["top"]:
                     st.markdown(
-                        f"<div style='background-color:#eafaf1; color:#1e5631; padding:10px; border-radius:8px; margin:4px 0; text-align:left; font-size:18px;'>{token}</div>",
+                        f"<div style='background-color:#eafaf1; color:#1e5631; padding:10px; border-radius:8px; margin:4px 0; text-align:left; font-size:16px;'>{token}</div>",
                         unsafe_allow_html=True
                     )
 
@@ -314,7 +318,7 @@ with tab7:
                 st.markdown("🔴 **Bottom 20 Short Suggestions**")
                 for token in result["bot"]:
                     st.markdown(
-                        f"<div style='background-color:#fdecea; color:#8a1c1c; padding:10px; border-radius:8px; margin:4px 0; text-align:left; font-size:18px;'>{token}</div>",
+                        f"<div style='background-color:#fdecea; color:#8a1c1c; padding:10px; border-radius:8px; margin:4px 0; text-align:left; font-size:16px;'>{token}</div>",
                         unsafe_allow_html=True
                     )
 
@@ -443,6 +447,7 @@ with tab9:
     for role, msg in st.session_state.chat_history:
         with st.chat_message("user" if role == "user" else "assistant"):
             st.markdown(msg)
+
 
 
 #################### 页面8 #######################
