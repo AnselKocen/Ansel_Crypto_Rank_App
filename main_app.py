@@ -100,9 +100,9 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
     "🎓Educational",
     "📝Model Strategy",
     "🛠️Hyber-Parameters",
-    "💭Market Sentiment",
     "🔍Feature Selection",
     "📊Backtest Results",
+    "💭Market Sentiment",
     "▶️Prediction",
     "💰Investment",
     "😊💬Assistant"
@@ -164,8 +164,65 @@ with tab3:
     else:
         st.info("no best_params.txt ")
 
-# === 页面 4：市场情绪指数 ===
+
+
+# === 页面 4：特征选择 ===
 with tab4:
+    st.header("💡 Feature Selection")
+    st.markdown(
+        "Below are the optimal features selected based on data from 2020-01-01 to 2025-07-30."
+    )
+    # 展示 enet 特征选择 txt
+    enet_feat_path = text_dir / "enet_features.txt"
+    if enet_feat_path.exists():
+        st.subheader("🔴 ElasticNet Selected Features")
+        st.markdown(
+            "The ElasticNet model automatically selects features it considers important and contributive, while compressing others."
+        )
+        with open(enet_feat_path, "r", encoding="utf-8") as f:
+            st.code(f.read(), language="text")
+    else:
+        st.info("no enet_selected_features.txt")
+
+    # 展示 ExtraTrees 特征图像
+    st.subheader("🔵 ExtraTrees Features Importance")
+    extra_fig_all = fig_dir / "extra_all_feature_importance.png"
+    extra_fig_market = fig_dir / "extra_market_feature_importance.png"
+
+    col1, col2 = st.columns(2)
+    with col1:
+        show_centered_img(extra_fig_all, caption="All Features", width_percent=91)
+    with col2:
+        show_centered_img(extra_fig_market, caption="Market Features", width_percent=91)
+
+# === 页面 5：策略回测结果对比 ===
+with tab5:
+    st.header("📈 Strategy Backtest Results Comparison")
+    tab = st.radio(
+        label="Comparison Metric Options",
+        options=["Cumulative Return", "Volatility", "Average Return", "Sharpe Ratio", "Maximum Drawdown"],
+        horizontal=True,
+        label_visibility="collapsed"
+    )
+    base_name_map = {
+        "Cumulative Return": "cum_return_comparison",
+        "Volatility": "volatility_bar",
+        "Average Return": "mean_return_bar",
+        "Sharpe Ratio": "sharpe_bar",
+        "Maximum Drawdown": "max_drawdown_bar"
+    }
+    base_name = base_name_map[tab]
+    variants = ["all", "market"]
+    for variant in variants:
+        img_name = f"{base_name}_{variant}_with_baseline.png"
+        img_path = fig_dir / img_name
+        if "cum_return" in img_name:
+            show_centered_img(img_path, width_percent=71)
+        else:
+            show_centered_img(img_path, width_percent=51)
+
+# === 页面 6：市场情绪指数 ===
+with tab6:
     st.header("📰 Market Sentiment Index over the last 7-days ")
     update_file = BASE_DIR / "last_updated_wordcloud.txt"
 
@@ -215,62 +272,6 @@ with tab4:
         st.subheader("🧭 Fear & Greed Gauge")
         gauge_path = fig_dir / "fear_greed_gauge.png"
         show_centered_img(gauge_path, caption="Fear & Greed Gauge this week", width_percent=61)
-
-# === 页面 5：特征选择 ===
-with tab5:
-    st.header("💡 Feature Selection")
-    st.markdown(
-        "Below are the optimal features selected based on data from 2020-01-01 to 2025-07-30."
-    )
-    # 展示 enet 特征选择 txt
-    enet_feat_path = text_dir / "enet_features.txt"
-    if enet_feat_path.exists():
-        st.subheader("🔴 ElasticNet Selected Features")
-        st.markdown(
-            "The ElasticNet model automatically selects features it considers important and contributive, while compressing others."
-        )
-        with open(enet_feat_path, "r", encoding="utf-8") as f:
-            st.code(f.read(), language="text")
-    else:
-        st.info("no enet_selected_features.txt")
-
-    # 展示 ExtraTrees 特征图像
-    st.subheader("🔵 ExtraTrees Features Importance")
-    extra_fig_all = fig_dir / "extra_all_feature_importance.png"
-    extra_fig_market = fig_dir / "extra_market_feature_importance.png"
-
-    col1, col2 = st.columns(2)
-    with col1:
-        show_centered_img(extra_fig_all, caption="All Features", width_percent=91)
-    with col2:
-        show_centered_img(extra_fig_market, caption="Market Features", width_percent=91)
-
-# === 页面 6：策略回测结果对比 ===
-with tab6:
-    st.header("📈 Strategy Backtest Results Comparison")
-    tab = st.radio(
-        label="Comparison Metric Options",
-        options=["Cumulative Return", "Volatility", "Average Return", "Sharpe Ratio", "Maximum Drawdown"],
-        horizontal=True,
-        label_visibility="collapsed"
-    )
-    base_name_map = {
-        "Cumulative Return": "cum_return_comparison",
-        "Volatility": "volatility_bar",
-        "Average Return": "mean_return_bar",
-        "Sharpe Ratio": "sharpe_bar",
-        "Maximum Drawdown": "max_drawdown_bar"
-    }
-    base_name = base_name_map[tab]
-    variants = ["all", "market"]
-    for variant in variants:
-        img_name = f"{base_name}_{variant}_with_baseline.png"
-        img_path = fig_dir / img_name
-        if "cum_return" in img_name:
-            show_centered_img(img_path, width_percent=71)
-        else:
-            show_centered_img(img_path, width_percent=51)
-
 # === 页面 7：运行函数 ===
 from customer_side import run_for_client  # ✅ 直接导入函数
 
