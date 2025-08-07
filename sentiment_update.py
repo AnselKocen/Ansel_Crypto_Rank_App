@@ -44,4 +44,4 @@ def update_sentiment_and_gauge():
 
     update_time = datetime.now().strftime("%Y-%m-%d")
     (Path(__file__).resolve().parent / "last_updated_wordcloud.txt").write_text(update_time)
-update_sentiment_and_gauge()
+#update_sentiment_and_gauge()

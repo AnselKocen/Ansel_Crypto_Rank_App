@@ -240,8 +240,8 @@ def run_for_client(api_key: str, history_path: str):
     return run_prediction_pipeline(api_key, history_path)
 
 
-if __name__ == "__main__":
-    API_KEY = ""
-    HISTORY_PATH = BASE_DIR / "df_merged_history.csv"
-    run_for_client(API_KEY, str(HISTORY_PATH))
+#if __name__ == "__main__":
+#    API_KEY = ""
+#    HISTORY_PATH = BASE_DIR / "df_merged_history.csv"
+#    run_for_client(API_KEY, str(HISTORY_PATH))
 
