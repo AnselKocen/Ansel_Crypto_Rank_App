@@ -279,7 +279,7 @@ with tab7:
     st.markdown(
         "🟦 Click the button to automatically fetch crypto market and news data up to the most recent Wednesday (t), merge it with historical data, and perform ETL.  \n"
         "🟨 Models are trained on the past 52 weeks (t−52 to t−1), and using features observed in week t to rank expected returns for week t+1.  \n"
-        "🟥 ***Disclaimer**: For reference only. Not financial advice.*"
+        "🟥 **Disclaimer: For reference only. Not financial advice.**"
     )
 
     if st.button("▶️ Click to Get Recommended Tokens"):
