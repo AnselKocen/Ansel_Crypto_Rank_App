@@ -300,13 +300,24 @@ with tab7:
         for model_name, result in results_dict.items():
             st.subheader(f"📊 Model: {model_name}")
 
-            st.markdown("🟢 **Top 20 Long Strategy Suggestions**")
-            for token in result["top"]:
-                st.success(token)
+            col1, col2 = st.columns(2)
 
-            st.markdown("🔴 **Bottom 20 Short Suggestions**")
-            for token in result["bot"]:
-                st.error(token)
+            with col1:
+                st.markdown("🟢 **Top 20 Long Strategy Suggestions**")
+                for token in result["top"]:
+                    st.markdown(
+                        f"<div style='background-color:#eafaf1; color:#1e5631; padding:10px; border-radius:8px; margin:4px 0; text-align:left; font-size:18px;'>{token}</div>",
+                        unsafe_allow_html=True
+                    )
+
+            with col2:
+                st.markdown("🔴 **Bottom 20 Short Suggestions**")
+                for token in result["bot"]:
+                    st.markdown(
+                        f"<div style='background-color:#fdecea; color:#8a1c1c; padding:10px; border-radius:8px; margin:4px 0; text-align:left; font-size:18px;'>{token}</div>",
+                        unsafe_allow_html=True
+                    )
+
 with tab8:
     import pandas as pd
 
