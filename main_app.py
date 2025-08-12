@@ -400,8 +400,11 @@ with tab9:
         "🏷️ What do all and market tags mean?":
             "`all` includes sentiment features; `market` only uses market features like volatility and momentum 💬📊",
 
-        "☁️ What's the use of the word cloud & sentiment gauge?":
-            "They reflect overall market sentiment! Remember Buffett's quote: *Be fearful when others are greedy, greedy when others are fearful* 😬🧭",
+        "📚 How can I learn about crypto by myself?":
+            "You can check out these beginner-friendly resources — I’ve handpicked them just for you! 🎓💡\n\n"
+            "🔗 [How Cryptocurrency ACTUALLY works](https://www.youtube.com/watch?v=rYQgy8QDEBI)\n"
+            "🔗 [How To Invest in Crypto as A COMPLETE Beginner [2025 GUIDE]](https://www.youtube.com/watch?v=LGHsNaIv5os)\n"
+            "🔗 [Blockchain Technology Explained (2 Hour Course)](https://www.youtube.com/watch?v=qOVAbKKSH10)",
 
         "💸 How do I start crypto trading?":
             "Register on an exchange like **Binance**, deposit fiat or USDT, and you’re ready to trade! 🚀",
@@ -428,7 +431,10 @@ with tab9:
         "🪙 How do I actually buy the recommended tokens?":
             "You’ll need to create an account on a crypto exchange like **Binance**, deposit funds (like USDT), and search for each token to trade. Super easy once you're set up! 🚀",
 
-        "💬 Why do we use sentiment features?":
+        "⚠️ Important to know - ☁️ Why need word cloud & sentiment gauge?":
+            "They reflect overall market sentiment! Remember Buffett's quote: *Be fearful when others are greedy, greedy when others are fearful* 😬🧭",
+
+        "⚠️ Important to know - 💬 Why do we use sentiment features?":
             "Because **crypto markets are emotional!** Sentiment helps capture **non-structural signals** like hype or panic, boosting the model’s prediction power 📈🧠  \n"
             "You can also refer to the **word cloud** and **sentiment gauge** to judge market mood and entry timing 🧭☁️  \n"
             "But remember — while sentiment may help forecast returns, chasing highs or panic-selling isn’t always smart. Always invest with caution! ⚠️"
@@ -443,11 +449,6 @@ with tab9:
             if st.button(key, key=f"btn_{i}"):  # ✅ 添加唯一 key 避免重复 ID 错误
                 st.session_state.chat_history.append(("user", key))
                 st.session_state.chat_history.append(("bot", qa_pairs[key]))
-
-    # Display chat history
-    for role, msg in st.session_state.chat_history:
-        with st.chat_message("user" if role == "user" else "assistant"):
-            st.markdown(msg)
 
 
 
