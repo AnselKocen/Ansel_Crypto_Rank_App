@@ -440,16 +440,20 @@ with tab9:
             "But remember — while sentiment may help forecast returns, chasing highs or panic-selling isn’t always smart. Always invest with caution! ⚠️"
     }
 
-    # Layout: 3-column button grid
+    # Button layout
     cols = st.columns(3)
     buttons = list(qa_pairs.keys())
 
     for i, key in enumerate(buttons):
         with cols[i % 3]:
-            if st.button(key, key=f"btn_{i}"):  # ✅ 添加唯一 key 避免重复 ID 错误
+            if st.button(key):
                 st.session_state.chat_history.append(("user", key))
                 st.session_state.chat_history.append(("bot", qa_pairs[key]))
 
+    # Display chat history
+    for role, msg in st.session_state.chat_history:
+        with st.chat_message("user" if role == "user" else "assistant"):
+            st.markdown(msg)
 
 
 #################### 页面8 #######################
