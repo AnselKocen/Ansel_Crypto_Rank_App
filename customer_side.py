@@ -85,6 +85,8 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
     #print("📅 df_prices 最大日期：", df_prices["date"].max())
     last_date_df = pd.to_datetime(last_date)
     df_prices = pd.read_csv(BASE_DIR / "stage_1_crypto_data.csv")
+    df_prices["date"] = pd.to_datetime(df_prices["date"]) ###
+    df_prices = df_prices[df_prices["date"] <= latest_wed] ###
     #print(last_date_df)
     df_features = stage2_feature_engineering(df_prices, data_dir)
 
@@ -240,8 +242,8 @@ def run_for_client(api_key: str, history_path: str):
     return run_prediction_pipeline(api_key, history_path)
 
 
-#if __name__ == "__main__":
-#    API_KEY = ""
-#    HISTORY_PATH = BASE_DIR / "df_merged_history.csv"
-#    run_for_client(API_KEY, str(HISTORY_PATH))
+if __name__ == "__main__":
+    API_KEY = ""
+    HISTORY_PATH = BASE_DIR / "df_merged_history.csv"
+    run_for_client(API_KEY, str(HISTORY_PATH))
 
