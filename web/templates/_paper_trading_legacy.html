@@ -1,0 +1,149 @@
+<!-- ========== Paper Trading Simulator ========== -->
+<div class="content-section paper-trading-section">
+    <div class="section-header">
+        <h2>📊 Paper Trading Simulator / 模拟盘</h2>
+        <p class="subtitle">ExtraTrees Model — Long-Short vs Equal Weight Strategy</p>
+    </div>
+
+    <div id="paper-trading-loading" class="loading-message">Loading simulation data...</div>
+    <div id="paper-trading-error" class="error-message" style="display:none;"></div>
+
+    <!-- Strategy Metrics Cards -->
+    <div id="pt-metrics" class="pt-metrics-row" style="display:none;">
+        <!-- Extra LS Card -->
+        <div class="pt-card pt-card-ls">
+            <div class="pt-card-header">
+                <span class="pt-badge ls">LS</span>
+                <h3>Long-Short Strategy</h3>
+            </div>
+            <div class="pt-card-body">
+                <div class="pt-metric-main">
+                    <span class="pt-label">Total Return</span>
+                    <span id="ls-total-return" class="pt-value big">—</span>
+                </div>
+                <div class="pt-metric-grid">
+                    <div class="pt-metric">
+                        <span class="pt-label">Capital</span>
+                        <span id="ls-capital" class="pt-value">—</span>
+                    </div>
+                    <div class="pt-metric">
+                        <span class="pt-label">Sharpe</span>
+                        <span id="ls-sharpe" class="pt-value">—</span>
+                    </div>
+                    <div class="pt-metric">
+                        <span class="pt-label">Max DD</span>
+                        <span id="ls-maxdd" class="pt-value">—</span>
+                    </div>
+                    <div class="pt-metric">
+                        <span class="pt-label">Win Rate</span>
+                        <span id="ls-winrate" class="pt-value">—</span>
+                    </div>
+                    <div class="pt-metric">
+                        <span class="pt-label">Annual Vol</span>
+                        <span id="ls-vol" class="pt-value">—</span>
+                    </div>
+                    <div class="pt-metric">
+                        <span class="pt-label">Weeks</span>
+                        <span id="ls-weeks" class="pt-value">—</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Extra EW Card -->
+        <div class="pt-card pt-card-ew">
+            <div class="pt-card-header">
+                <span class="pt-badge ew">EW</span>
+                <h3>Equal Weight Strategy</h3>
+            </div>
+            <div class="pt-card-body">
+                <div class="pt-metric-main">
+                    <span class="pt-label">Total Return</span>
+                    <span id="ew-total-return" class="pt-value big">—</span>
+                </div>
+                <div class="pt-metric-grid">
+                    <div class="pt-metric">
+                        <span class="pt-label">Capital</span>
+                        <span id="ew-capital" class="pt-value">—</span>
+                    </div>
+                    <div class="pt-metric">
+                        <span class="pt-label">Sharpe</span>
+                        <span id="ew-sharpe" class="pt-value">—</span>
+                    </div>
+                    <div class="pt-metric">
+                        <span class="pt-label">Max DD</span>
+                        <span id="ew-maxdd" class="pt-value">—</span>
+                    </div>
+                    <div class="pt-metric">
+                        <span class="pt-label">Win Rate</span>
+                        <span id="ew-winrate" class="pt-value">—</span>
+                    </div>
+                    <div class="pt-metric">
+                        <span class="pt-label">Annual Vol</span>
+                        <span id="ew-vol" class="pt-value">—</span>
+                    </div>
+                    <div class="pt-metric">
+                        <span class="pt-label">Weeks</span>
+                        <span id="ew-weeks" class="pt-value">—</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Baseline Card -->
+        <div class="pt-card pt-card-baseline">
+            <div class="pt-card-header">
+                <span class="pt-badge baseline">BM</span>
+                <h3>Benchmark (All Coins)</h3>
+            </div>
+            <div class="pt-card-body">
+                <div class="pt-metric-main">
+                    <span class="pt-label">Total Return</span>
+                    <span id="bl-total-return" class="pt-value big">—</span>
+                </div>
+                <div class="pt-metric-grid">
+                    <div class="pt-metric">
+                        <span class="pt-label">Capital</span>
+                        <span id="bl-capital" class="pt-value">—</span>
+                    </div>
+                    <div class="pt-metric">
+                        <span class="pt-label">Sharpe</span>
+                        <span id="bl-sharpe" class="pt-value">—</span>
+                    </div>
+                    <div class="pt-metric">
+                        <span class="pt-label">Max DD</span>
+                        <span id="bl-maxdd" class="pt-value">—</span>
+                    </div>
+                    <div class="pt-metric">
+                        <span class="pt-label">Win Rate</span>
+                        <span id="bl-winrate" class="pt-value">—</span>
+                    </div>
+                    <div class="pt-metric">
+                        <span class="pt-label">Annual Vol</span>
+                        <span id="bl-vol" class="pt-value">—</span>
+                    </div>
+                    <div class="pt-metric">
+                        <span class="pt-label">Weeks</span>
+                        <span id="bl-weeks" class="pt-value">—</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Current Positions -->
+    <div id="pt-positions" class="pt-positions" style="display:none;">
+        <h3>🪙 Current Positions / 当前持仓 (ExtraTrees All Features)</h3>
+        <div class="pt-positions-grid">
+            <div class="pt-pos-col">
+                <h4 class="pt-pos-title long">🟢 Long (Top 20)</h4>
+                <div id="pt-long-list" class="pt-pos-list"></div>
+            </div>
+            <div class="pt-pos-col">
+                <h4 class="pt-pos-title short">🔴 Short (Bottom 20)</h4>
+                <div id="pt-short-list" class="pt-pos-list"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080d16">
+    <meta name="description" content="Explore crypto with cat adventures, machine learning predictions and market insights. Stay curious with Ansel Crypto Rank." data-zh="从猫咪冒险到数据洞察，开启你的加密世界探索。Ansel Crypto Rank 提供加密知识、机器学习预测与市场分析。" data-en="Explore crypto with cat adventures, machine learning predictions and market insights. Stay curious with Ansel Crypto Rank.">
+    <title data-zh="Ansel Crypto Rank · 探索加密世界" data-en="Ansel Crypto Rank · Explore the crypto universe">Ansel Crypto Rank · Explore the crypto universe</title>
+    <link rel="stylesheet" href="/static/css/home.css?v=20261124-locale-polish">
+    <script src="/static/js/cosmic-background.js?v=20261124-cosmic" defer></script>
+    <script src="/static/js/home.js?v=20261124-locale-polish" defer></script>
+</head>
+<body class="home-body">
+    <a class="skip-link" href="#explore" data-zh="跳至探索内容" data-en="Skip to explore">Skip to explore</a>
+    <canvas id="starfield" aria-hidden="true"></canvas>
+    <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+        <symbol id="i-paw" viewBox="0 0 24 24"><path d="M8.3 13.6c-1.3 1.6-3.8 2.4-3 4.7.8 2.5 3.9 1.2 6.7 1.2s5.9 1.3 6.7-1.2c.8-2.3-1.7-3.1-3-4.7-1.7-2.4-5.7-2.4-7.4 0Z"/><ellipse cx="5.1" cy="9.7" rx="2" ry="2.8" transform="rotate(-26 5.1 9.7)"/><ellipse cx="10" cy="6.1" rx="2" ry="2.8"/><ellipse cx="15.2" cy="6.8" rx="2" ry="2.8" transform="rotate(16 15.2 6.8)"/><ellipse cx="19.4" cy="10.8" rx="1.8" ry="2.6" transform="rotate(30 19.4 10.8)"/></symbol>
+        <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 4v16h16M8 15l4-5 4 3 5-8"/></symbol>
+        <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6v15M12 6C8 3 4 4 2 5v14c3-1 7-1 10 2 3-3 7-3 10-2V5c-2-1-6-2-10 1Z"/></symbol>
+        <symbol id="i-wave" viewBox="0 0 24 24"><path d="M2 12h4l3-8 5 16 3-8h5"/></symbol>
+        <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11a9 9 0 0 1-9 9H3l1.8-5.4A9 9 0 1 1 21 11Z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/></symbol>
+        <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M20 8V5a1 1 0 0 0-1-1H5a3 3 0 0 0 0 6h15v10H5a3 3 0 0 1-3-3V7M20 13h-5v4h5"/></symbol>
+        <symbol id="i-scope" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></symbol>
+        <symbol id="i-play" viewBox="0 0 24 24"><path d="m9 5 11 7-11 7V5Z"/></symbol>
+        <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></symbol>
+        <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    </defs></svg>
+    <div class="home-container">
+        <main>
+            <section class="home-cover" aria-labelledby="hero-title">
+                <header class="home-header page-width">
+                    <a class="brand" href="/" aria-label="Ansel Crypto Rank home" data-aria-zh="Ansel Crypto Rank 首页" data-aria-en="Ansel Crypto Rank home">
+                        <span class="brand-mark" aria-hidden="true">₿</span>
+                        <span class="cover-brand-name" data-zh="Ansel 加密货币排名" data-en="ANSEL CRYPTO RANK">Ansel 加密货币排名</span>
+                    </a>
+                    <div class="language-switch" role="group" aria-label="语言 / Language">
+                        <svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg>
+                        <button type="button" data-language="zh" aria-pressed="true" lang="zh-CN">中文</button>
+                        <span aria-hidden="true">/</span>
+                        <button type="button" data-language="en" aria-pressed="false" lang="en">EN</button>
+                    </div>
+                </header>
+                <div class="cover-hero">
+                    <div class="cover-orbital" role="img" aria-label="Bitcoin with Ethereum, Solana and BNB moving through an orbital system" data-aria-zh="比特币与以太坊、Solana、BNB 在星轨中运行" data-aria-en="Bitcoin with Ethereum, Solana and BNB moving through an orbital system">
+                        <svg class="orbital-hud" viewBox="0 0 600 600" fill="none" aria-hidden="true">
+                            <defs>
+                                <linearGradient id="hud-spectrum" x1="0" y1="0" x2="600" y2="600" gradientUnits="userSpaceOnUse"><stop stop-color="#7678ff"/><stop offset=".48" stop-color="#66e8ed"/><stop offset="1" stop-color="#b778f2"/></linearGradient>
+                            </defs>
+                            <circle cx="300" cy="300" r="278" stroke="url(#hud-spectrum)" stroke-opacity=".12"/>
+                            <circle cx="300" cy="300" r="238" stroke="url(#hud-spectrum)" stroke-opacity=".18" stroke-dasharray="1 12"/>
+                            <path d="M300.00 57.00L300.00 42.00 M326.34 49.38L326.97 43.41 M352.39 53.51L353.64 47.64 M377.87 60.33L379.73 54.63 M402.50 69.79L404.94 64.31 M421.50 89.56L429.00 76.57 M448.12 96.13L451.65 91.27 M468.62 112.73L472.64 108.27 M487.27 131.38L491.73 127.36 M503.87 151.88L508.73 148.35 M510.44 178.50L523.43 171.00 M530.21 197.50L535.69 195.06 M539.67 222.13L545.37 220.27 M546.49 247.61L552.36 246.36 M550.62 273.66L556.59 273.03 M543.00 300.00L558.00 300.00 M550.62 326.34L556.59 326.97 M546.49 352.39L552.36 353.64 M539.67 377.87L545.37 379.73 M530.21 402.50L535.69 404.94 M510.44 421.50L523.43 429.00 M503.87 448.12L508.73 451.65 M487.27 468.62L491.73 472.64 M468.62 487.27L472.64 491.73 M448.12 503.87L451.65 508.73 M421.50 510.44L429.00 523.43 M402.50 530.21L404.94 535.69 M377.87 539.67L379.73 545.37 M352.39 546.49L353.64 552.36 M326.34 550.62L326.97 556.59 M300.00 543.00L300.00 558.00 M273.66 550.62L273.03 556.59 M247.61 546.49L246.36 552.36 M222.13 539.67L220.27 545.37 M197.50 530.21L195.06 535.69 M178.50 510.44L171.00 523.43 M151.88 503.87L148.35 508.73 M131.38 487.27L127.36 491.73 M112.73 468.62L108.27 472.64 M96.13 448.12L91.27 451.65 M89.56 421.50L76.57 429.00 M69.79 402.50L64.31 404.94 M60.33 377.87L54.63 379.73 M53.51 352.39L47.64 353.64 M49.38 326.34L43.41 326.97 M57.00 300.00L42.00 300.00 M49.38 273.66L43.41 273.03 M53.51 247.61L47.64 246.36 M60.33 222.13L54.63 220.27 M69.79 197.50L64.31 195.06 M89.56 178.50L76.57 171.00 M96.13 151.88L91.27 148.35 M112.73 131.38L108.27 127.36 M131.38 112.73L127.36 108.27 M151.88 96.13L148.35 91.27 M178.50 89.56L171.00 76.57 M197.50 69.79L195.06 64.31 M222.13 60.33L220.27 54.63 M247.61 53.51L246.36 47.64 M273.66 49.38L273.03 43.41" stroke="url(#hud-spectrum)" stroke-opacity=".42"/>
+                            <g class="hud-scan-arcs" stroke="url(#hud-spectrum)" stroke-width="2" stroke-linecap="round">
+                                <path d="M132 101a260 260 0 0 1 282-35"/>
+                                <path d="M498 469a260 260 0 0 1-178 90"/>
+                                <path d="M63 406a260 260 0 0 1-19-145" stroke-width="1"/>
+                            </g>
+                            <g fill="#a9ecf3"><circle cx="300" cy="23" r="2"/><circle cx="23" cy="300" r="2"/><circle cx="577" cy="300" r="2"/><circle cx="300" cy="577" r="2"/></g>
+                        </svg>
+                        <div class="cover-orbit cover-orbit-eth"><div class="cover-coin cover-eth"><span data-zh="以太坊" data-en="ETH">ETH</span></div></div>
+                        <div class="cover-orbit cover-orbit-sol"><div class="cover-coin cover-sol"><span>SOL</span></div></div>
+                        <div class="cover-orbit cover-orbit-bnb"><div class="cover-coin cover-bnb"><span>BNB</span></div></div>
+                        <div class="cover-bitcoin"><span>₿</span></div>
+                    </div>
+                    <div class="cover-copy">
+                        <p class="cover-kicker" data-zh="明智投资" data-en="SMART INVESTING">SMART INVESTING</p>
+                        <h1 id="hero-title" data-zh="加密货币排名" data-en="CRYPTO RANK">CRYPTO RANK</h1>
+                        <p class="cover-subtitle" data-zh="先进的 AI 驱动加密货币推荐系统" data-en="Advanced AI-powered cryptocurrency recommendations">Advanced AI-powered cryptocurrency recommendations</p>
+                        <p class="cover-description" data-zh="使用 ElasticNet 和 ExtraTrees 模型，探索下周值得关注的代币" data-en="Discover next week’s tokens to watch with ElasticNet & ExtraTrees models">Discover next week’s tokens to watch with ElasticNet &amp; ExtraTrees models</p>
+                    </div>
+                </div>
+                <a class="cover-scroll" href="#cat-adventure" aria-label="Start exploring cat adventures and crypto tools" data-aria-zh="开始探索猫咪冒险与加密工具" data-aria-en="Start exploring cat adventures and crypto tools">
+                    <span class="scroll-light" aria-hidden="true"></span>
+                    <span class="scroll-label" data-zh="开始探索" data-en="START EXPLORING">START EXPLORING</span>
+                    <svg class="scroll-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+            </section>
+
+            <section id="cat-adventure" class="game-feature page-width" aria-labelledby="game-title">
+                <div class="game-feature-top">
+                    <div class="game-intro">
+                        <div class="eyebrow game-eyebrow"><svg class="icon icon-paw" aria-hidden="true"><use href="#i-paw"/></svg><span data-zh="玩中学 · 猫咪知识冒险" data-en="PLAY TO LEARN · CRYPTO CAT ADVENTURE">PLAY TO LEARN · CRYPTO CAT ADVENTURE</span></div>
+                        <h2 id="game-title"><span data-zh="你的第一位加密向导，" data-en="Your first crypto guide ">Your first crypto guide </span><span class="accent-text" data-zh="是一只猫。" data-en="has whiskers.">has whiskers.</span></h2>
+                        <p data-zh="在十段小小的旅程里，认识区块链、钱包与比特币。完成知识挑战，点亮属于你的猫咪图鉴。" data-en="Discover blockchains, wallets and Bitcoin across ten little journeys. Complete knowledge challenges to bring your cat collection to life.">Discover blockchains, wallets and Bitcoin across ten little journeys. Complete knowledge challenges to bring your cat collection to life.</p>
+                        <div class="game-details"><span data-zh="10 段知识旅程" data-en="10 learning journeys">10 learning journeys</span><span class="detail-dot" aria-hidden="true">·</span><span data-zh="10 位猫咪伙伴" data-en="10 cat companions">10 cat companions</span><span class="detail-dot" aria-hidden="true">·</span><span data-zh="零基础也能玩" data-en="No experience needed">No experience needed</span></div>
+                    </div>
+                    <a class="button button-game" href="/game" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg><span data-zh="开始游玩" data-en="Let's play">Let's play</span></a>
+                </div>
+                <div class="gallery-heading">
+                    <div class="gallery-title"><h3 data-zh="猫咪图鉴" data-en="THE CAT COLLECTION">THE CAT COLLECTION</h3><span class="collection-count" id="cat-count" aria-live="polite">0 / 10</span><span class="gallery-hint" data-zh="通关解锁，让伙伴恢复色彩" data-en="Complete a journey. Reveal a companion.">Complete a journey. Reveal a companion.</span></div>
+                    <div class="carousel-controls">
+                        <button id="cat-carousel-pause" class="carousel-pause" type="button" aria-pressed="false" aria-label="Pause collection auto-scroll" data-aria-zh="暂停图鉴自动滚动" data-aria-en="Pause collection auto-scroll" data-zh="暂停滚动" data-en="Pause motion">Pause motion</button>
+                        <button id="cats-prev" class="icon-button prev-button" type="button" aria-label="Previous cats" data-aria-zh="上一组猫咪" data-aria-en="Previous cats"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+                        <button id="cats-next" class="icon-button" type="button" aria-label="Next cats" data-aria-zh="下一组猫咪" data-aria-en="Next cats"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+                    </div>
+                </div>
+                <div class="cat-track" id="cat-track" tabindex="0" role="region" aria-label="Horizontally scrollable cat collection" data-aria-zh="可横向滚动的猫咪图鉴" data-aria-en="Horizontally scrollable cat collection" aria-busy="true"><p class="cat-loading" data-zh="正在寻找猫咪伙伴…" data-en="Finding your cat companions…">Finding your cat companions…</p></div>
+                <div id="cat-error" class="cat-error" role="status" hidden><p data-zh="猫咪图鉴暂时未能加载，你仍然可以直接开始冒险。" data-en="The collection is unavailable for now. Your adventure is still ready to play.">The collection is unavailable for now. Your adventure is still ready to play.</p><button type="button" id="cats-retry" class="text-button" data-zh="重新加载" data-en="Try again">Try again</button></div>
+                <noscript><p class="cat-error">启用 JavaScript 查看猫咪图鉴 / Enable JavaScript to view the cat collection.</p></noscript>
+            </section>
+
+            <section id="explore" class="explore-section page-width" aria-labelledby="explore-title">
+                <div class="section-heading"><div><div class="eyebrow" data-zh="从好奇，到看懂" data-en="FROM CURIOUS TO CONFIDENT">FROM CURIOUS TO CONFIDENT</div><h2 id="explore-title" data-zh="用你的方式，探索加密。" data-en="Find your way into crypto.">Find your way into crypto.</h2></div><p data-zh="学习、观察、提问，每一步都有方向。" data-en="Learn, observe, ask. Make every step count.">Learn, observe, ask. Make every step count.</p></div>
+                <div class="feature-grid">
+                    <a href="/prediction" class="feature-card feature-prediction" target="_blank" rel="noopener noreferrer"><div class="feature-card-top"><span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></span><span class="feature-tag" data-zh="机器学习" data-en="MACHINE LEARNING">MACHINE LEARNING</span></div><h3 data-zh="市场预测" data-en="Market predictions">Market predictions</h3><p data-zh="透过模型排名，发现下一周值得关注的代币。" data-en="See which tokens stand out in next week's model rankings.">See which tokens stand out in next week's model rankings.</p><div class="card-bottom"><span data-zh="查看预测" data-en="View predictions">View predictions</span><span class="card-spark" aria-hidden="true">✧</span></div><svg class="mini-chart" viewBox="0 0 260 76" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="chart-fade" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#6ad9c1" stop-opacity=".16"/><stop offset="1" stop-color="#6ad9c1" stop-opacity="0"/></linearGradient></defs><path d="M0 61 25 55 47 60 70 39 93 47 115 27 138 37 163 13 188 22 213 7 239 17 260 2V76H0Z" fill="url(#chart-fade)"/><path d="m0 61 25-6 22 5 23-21 23 8 22-20 23 10 25-24 25 9 25-15 26 10 21-15" fill="none" stroke="#6ad9c1" stroke-width="1.5"/></svg></a>
+                    <a href="/educational" class="feature-card" target="_blank" rel="noopener noreferrer"><div class="feature-card-top"><span class="feature-icon icon-blue"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg></span><span class="feature-tag" data-zh="从零开始" data-en="START HERE">START HERE</span></div><h3 data-zh="加密知识库" data-en="Crypto essentials">Crypto essentials</h3><p data-zh="从第一个区块开始，建立自己的加密知识地图。" data-en="Start with the first block. Build your understanding, one idea at a time.">Start with the first block. Build your understanding, one idea at a time.</p><div class="card-bottom"><span data-zh="开始学习" data-en="Start learning">Start learning</span><span class="card-spark" aria-hidden="true">✧</span></div></a>
+                    <a href="/sentiment" class="feature-card" target="_blank" rel="noopener noreferrer"><div class="feature-card-top"><span class="feature-icon icon-purple"><svg class="icon" aria-hidden="true"><use href="#i-wave"/></svg></span></div><h3 data-zh="市场情绪" data-en="Market sentiment">Market sentiment</h3><p data-zh="聆听新闻与市场的声音，感知情绪变化。" data-en="Tune in to the news and the shifting mood of the market.">Tune in to the news and the shifting mood of the market.</p><div class="card-bottom"><span data-zh="观察情绪" data-en="Read the sentiment">Read the sentiment</span><span class="card-spark" aria-hidden="true">✧</span></div></a>
+                    <a href="/ai-qa" class="feature-card" target="_blank" rel="noopener noreferrer"><div class="feature-card-top"><span class="feature-icon icon-cyan"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg></span><span class="feature-tag" data-zh="随时提问" data-en="ASK AWAY">ASK AWAY</span></div><h3 data-zh="AI 问答" data-en="Ask your AI guide">Ask your AI guide</h3><p data-zh="把难懂的概念，变成一次轻松的对话。" data-en="Turn a complicated concept into a conversation.">Turn a complicated concept into a conversation.</p><div class="card-bottom"><span data-zh="发起对话" data-en="Start a conversation">Start a conversation</span><span class="card-spark" aria-hidden="true">✧</span></div></a>
+                    <a href="/live-prices" class="feature-card" target="_blank" rel="noopener noreferrer"><div class="feature-card-top"><span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></span></div><h3 data-zh="实时行情" data-en="Live markets">Live markets</h3><p data-zh="通过交互图表，观察代币价格与市场走势。" data-en="Follow token prices and market movements with interactive charts.">Follow token prices and market movements with interactive charts.</p><div class="card-bottom"><span data-zh="查看行情" data-en="Explore the markets">Explore the markets</span><span class="card-spark" aria-hidden="true">✧</span></div></a>
+                    <a href="/investment" class="feature-card" target="_blank" rel="noopener noreferrer"><div class="feature-card-top"><span class="feature-icon icon-blue"><svg class="icon" aria-hidden="true"><use href="#i-wallet"/></svg></span></div><h3 data-zh="投资组合" data-en="Portfolio ideas">Portfolio ideas</h3><p data-zh="了解组合思路，探索不同的资产配置方式。" data-en="Explore portfolio approaches and ways to allocate assets.">Explore portfolio approaches and ways to allocate assets.</p><div class="card-bottom"><span data-zh="了解组合" data-en="Discover portfolios">Discover portfolios</span><span class="card-spark" aria-hidden="true">✧</span></div></a>
+                </div>
+                <a href="/transparency" class="transparency-link" target="_blank" rel="noopener noreferrer">
+                    <div class="transparency-heading"><span class="transparency-icon"><svg class="icon" aria-hidden="true"><use href="#i-scope"/></svg></span><h3 data-zh="模型透明度" data-en="Model transparency">Model transparency</h3></div>
+                    <div class="transparency-copy"><p data-zh="洞察背后的逻辑，同样值得探索。" data-en="Explore the thinking behind the insights.">Explore the thinking behind the insights.</p><p data-zh="了解模型策略、特征与回测表现。" data-en="Discover model strategies, features and backtest results.">Discover model strategies, features and backtest results.</p></div>
+                </a>
+            </section>
+        </main>
+        <footer class="home-footer page-width"><a class="footer-brand" href="/">₿ <span>ANSEL CRYPTO RANK</span></a><p data-zh="保持好奇，独立思考。内容仅供学习与参考，不构成投资建议。" data-en="Stay curious. Think independently. For learning and reference only; not financial advice.">Stay curious. Think independently. For learning and reference only; not financial advice.</p><span class="copyright">© 2026 Ansel</span></footer>
+    </div>
+</body>
+</html>

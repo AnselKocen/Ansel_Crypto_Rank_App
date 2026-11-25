@@ -1,5 +1,11 @@
-from datetime import datetime, timedelta
+import sys
 from pathlib import Path
+
+# 设置 BASE_DIR 并添加到 sys.path（必须在导入项目模块之前）
+BASE_DIR = Path(__file__).resolve().parent
+sys.path.insert(0, str(BASE_DIR))
+
+from datetime import datetime, timedelta, timezone
 
 from crypto_project_pipeline import (
     build_week_dirs,
@@ -10,8 +16,6 @@ from crypto_project_pipeline import (
     stage2_sentiment,
     merge_sentiment_feature
 )
-
-BASE_DIR = Path(__file__).resolve().parent
 # 这个文件更新全部存在当前脚本目录下。
 # ==============================================
 #  Step 0: 自动确定最近的周三（返回 datetime）
@@ -23,10 +27,20 @@ def get_latest_wednesday(today: datetime) -> datetime:
 # ==============================================
 #  Step 1: 增量更新 df_merged（只下载新的一周）
 # ==============================================
-def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.name):
+def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.name,
+                     *, output_dir=None, decision_date=None, refresh=False,
+                     price_loader=None, news_loader=None):
+    """Run the original updater, optionally writing an isolated weekly snapshot.
+
+    ``decision_date`` fixes the UTC Wednesday cutoff. ``refresh`` rebuilds that
+    week from a truncated in-memory history; an output directory keeps the input
+    history untouched. Optional loaders adapt the already configured data
+    providers to the original stage schemas. With no optional arguments the
+    manual entry point retains its existing paths and freshness checks.
+    """
     notice_list = []
-    today = datetime.today()
-    latest_wed = get_latest_wednesday(today)  #  保持为 datetime 类型
+    today = datetime.now(timezone.utc).replace(tzinfo=None)
+    latest_wed = get_latest_wednesday(today)  # 保持为 datetime 类型
     import pandas as pd
     import numpy as np
     from sklearn.linear_model import ElasticNet
@@ -38,32 +52,51 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
     # 最新的要保证我们传入的df是没有ret_lead1的
     # 读取历史数据并检查是否已更新
     df_hist = pd.read_csv(history_path)
-    df_hist["date"] = pd.to_datetime(df_hist["date"])
+    df_hist["date"] = pd.to_datetime(df_hist["date"], utc=True).dt.tz_localize(None)
+    if decision_date is not None:
+        cutoff = pd.Timestamp(decision_date)
+        if cutoff.tzinfo is not None:
+            cutoff = cutoff.tz_convert("UTC").tz_localize(None)
+        latest_wed = cutoff.normalize().to_pydatetime()
+        if latest_wed.weekday() != 2:
+            raise ValueError("decision_date must be a Wednesday in UTC")
+        df_hist = df_hist[df_hist["date"] <= latest_wed].copy()
+    if refresh:
+        df_hist = df_hist[df_hist["date"] < latest_wed].copy()
+    if df_hist.empty:
+        raise ValueError("Historical data before the decision week is required")
     last_date = df_hist["date"].max().date()
     next_day = last_date + timedelta(days=1)
 
-    data_dir = BASE_DIR
-    fig_dir = BASE_DIR  # 如果后续需要图像，就统一放在 BASE_DIR
+    data_dir = Path(output_dir) if output_dir is not None else BASE_DIR
+    data_dir.mkdir(parents=True, exist_ok=True)
+    fig_dir = data_dir
+    history_output = (data_dir / "df_merged_history.csv"
+                      if output_dir is not None else Path(history_path))
 
     print(f"###NOTICE### Latest Date in Historical Data: {last_date}，Latest Wednesday: {latest_wed.date()}")
     notice_list.append(f"Latest Date in Historical Data: {last_date}，Latest Wednesday: {latest_wed.date()}")
     if last_date >= latest_wed.date():
         print("Data already includes the most recent week. No update needed.")
         notice_list.append("Data already includes the most recent week. No update needed.")
-        return df_hist.copy(), latest_wed, Path(history_path).parent,notice_list
+        if output_dir is not None:
+            df_hist.to_csv(history_output, index=False)
+        return df_hist.copy(), latest_wed, (data_dir if output_dir is not None else Path(history_path).parent),notice_list
 
     #elif today.weekday() == 2:  # Wednesday
         #notice_list.append("Today is Wednesday(UTC)! Please wait until Thursday to ensure complete data.")
         #return df_hist.copy(), latest_wed, Path(history_path).parent,notice_list
     # === 如果今天是周三，且历史数据已经包含了上一周的完整数据，则不更新
-    elif today.weekday() == 2 and last_date >= (latest_wed - timedelta(days=7)).date():
+    elif decision_date is None and today.weekday() == 2 and last_date >= (latest_wed - timedelta(days=7)).date():
         print("Today is Wednesday (UTC), and last week’s data has already been fully updated. Please wait until Thursday to get the latest week’s complete data.")
         notice_list.append(
             "Today is Wednesday (UTC), and last week’s data has already been fully updated. Please wait until Thursday to get the latest week’s complete data.")
-        return df_hist.copy(), latest_wed, Path(history_path).parent, notice_list
+        if output_dir is not None:
+            df_hist.to_csv(history_output, index=False)
+        return df_hist.copy(), latest_wed, (data_dir if output_dir is not None else Path(history_path).parent), notice_list
 
     # === 拉取最近的价格数据并构建 market 特征 ===
-    stage1_etl(
+    (price_loader or stage1_etl)(
         api_key=api_key,
         pages=[1,2],
         top_limit=100,
@@ -84,16 +117,18 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
     #print(df_prices)
     #print("📅 df_prices 最大日期：", df_prices["date"].max())
     last_date_df = pd.to_datetime(last_date)
-    df_prices = pd.read_csv(BASE_DIR / "stage_1_crypto_data.csv")
-    df_prices["date"] = pd.to_datetime(df_prices["date"]) ###
+    df_prices = pd.read_csv(data_dir / "stage_1_crypto_data.csv")
+    df_prices["date"] = pd.to_datetime(df_prices["date"], utc=True).dt.tz_localize(None) ###
     df_prices = df_prices[df_prices["date"] <= latest_wed] ###
     #print(last_date_df)
     df_features = stage2_feature_engineering(df_prices, data_dir)
 
     print(df_features)
-    df_features["date"] = pd.to_datetime(df_features["date"]).dt.date  # 转为 date 方便比较
+    # 统一为 Python date 类型进行比较
+    df_features["date"] = pd.to_datetime(df_features["date"]).dt.date
     print(df_features)
-    df_features = df_features[df_features["date"] > last_date]
+    # last_date 已经是 date 类型（第42行），直接比较
+    df_features = df_features[df_features["date"].apply(lambda x: x > last_date)]
     print(df_features)
 
     # === 抓取新闻并计算 sentiment 特征 === 修改了抓取时间
@@ -105,7 +140,7 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
     news_start_date = datetime.combine(last_date + timedelta(days=1), datetime.min.time())
     news_end_date = latest_wed + timedelta(days=1)# +1 是为了包含周三
     print(f"抓取新闻时间范围: {news_start_date} 至 {news_end_date}")
-    df_news = stage1_load_news(api_key, news_start_date, news_end_date, data_dir)
+    df_news = (news_loader or stage1_load_news)(api_key, news_start_date, news_end_date, data_dir)
     df_clean = stage1_clean_text(df_news, data_dir)
     stage2_sentiment(df_clean, data_dir, fig_dir)
 
@@ -123,8 +158,8 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
     # === 合并到历史数据并保存 ===
     df_combined = pd.concat([df_hist, df_new], ignore_index=True)
     df_combined = df_combined.drop_duplicates(subset=["date", "symbol"]).sort_values("date")
-    print(f"⚠即将覆盖历史文件：{history_path}，保存最新的 df_merged，共 {df_combined['date'].nunique()} 周数据。")
-    df_combined.to_csv(history_path, index=False)
+    print(f"⚠即将覆盖历史文件：{history_output}，保存最新的 df_merged，共 {df_combined['date'].nunique()} 周数据。")
+    df_combined.to_csv(history_output, index=False)
     # 生成仪表盘
     # from crypto_project_pipeline import draw_fear_greed_gauge_from_latest
     # df_latest = pd.read_csv(BASE_DIR / "df_merged_history.csv")
@@ -140,10 +175,30 @@ def update_df_merged(api_key: str, history_path: str, output_root = BASE_DIR.nam
 # ==============================================
 # Step 2: 模型训练 + 预测（只预测最新一周）
 # ==============================================
-def run_prediction_pipeline(api_key: str, history_path: str):
-    df_merged, latest_wed, data_dir,notice_list = update_df_merged(api_key, history_path)
-    df_merged = df_merged[df_merged["date"] <= latest_wed].copy()
+def run_prediction_pipeline(api_key: str, history_path: str, *, output_dir=None,
+                            decision_date=None, refresh=False,
+                            price_loader=None, news_loader=None):
+    df_merged, latest_wed, data_dir, notice_list = update_df_merged(
+        api_key, history_path, output_dir=output_dir,
+        decision_date=decision_date, refresh=refresh,
+        price_loader=price_loader, news_loader=news_loader)
+    return predict_from_history(df_merged, latest_wed, data_dir, notice_list)
+
+
+def predict_from_history(df_merged, latest_wed, data_dir, notice_list=None):
+    """Run the unchanged manual training/prediction block on supplied history."""
+    notice_list = [] if notice_list is None else notice_list
+    data_dir = Path(data_dir)
+    data_dir.mkdir(parents=True, exist_ok=True)
+    df_merged = df_merged.copy()
     import pandas as pd
+    # Ensure date column is datetime and latest_wed is comparable
+    # Remove timezone info from latest_wed to match tz-naive df_merged dates
+    df_merged["date"] = pd.to_datetime(df_merged["date"], utc=True).dt.tz_localize(None)
+    latest_wed = pd.Timestamp(latest_wed)
+    if latest_wed.tzinfo is not None:
+        latest_wed = latest_wed.tz_convert("UTC").tz_localize(None)
+    df_merged = df_merged[df_merged["date"] <= latest_wed].copy()
     import numpy as np
     from sklearn.linear_model import ElasticNet
     from sklearn.ensemble import ExtraTreesRegressor
@@ -238,12 +293,23 @@ def run_prediction_pipeline(api_key: str, history_path: str):
     return results_dict, notice_list
 
 
-def run_for_client(api_key: str, history_path: str):
-    return run_prediction_pipeline(api_key, history_path)
+def run_for_client(api_key: str, history_path: str, *, output_dir=None,
+                   decision_date=None, refresh=False,
+                   price_loader=None, news_loader=None):
+    return run_prediction_pipeline(api_key, history_path, output_dir=output_dir,
+                                   decision_date=decision_date, refresh=refresh,
+                                   price_loader=price_loader, news_loader=news_loader)
 
 
 if __name__ == "__main__":
-    API_KEY = ""
+    import sys
+    API_KEY = ""  # Coindesk 免费额度无需 key
     HISTORY_PATH = BASE_DIR / "df_merged_history.csv"
-    run_for_client(API_KEY, str(HISTORY_PATH))
+    try:
+        results, notices = run_for_client(API_KEY, str(HISTORY_PATH))
+        print("Prediction pipeline completed!")
+        sys.exit(0)
+    except Exception as e:
+        print(f"Error: {e}")
+        sys.exit(1)
 

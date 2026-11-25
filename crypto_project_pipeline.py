@@ -32,15 +32,21 @@ import matplotlib.pyplot as plt
 
 import nltk
 
-# 定义需要的所有数据包
-required_nltk_packages = ['punkt', 'stopwords', 'wordnet', 'vader_lexicon']
-
-# 直接循环下载，NLTK会自动跳过已存在的数据包
-print("正在检查并准备NLTK数据包...")
-for package in required_nltk_packages:
-    nltk.download(package)
-
-print("所有数据包准备就绪！")
+# Reuse project-local resources in scheduled/headless runs. Download only when
+# absent; importing the original functions must not contact NLTK every week.
+_nltk_cache = Path(__file__).resolve().parent / "artifacts/historical_replay/nltk_data"
+nltk.data.path.insert(0, str(_nltk_cache))
+for package, resource in [
+    ("punkt", "tokenizers/punkt"), ("punkt_tab", "tokenizers/punkt_tab"),
+    ("stopwords", "corpora/stopwords"), ("wordnet", "corpora/wordnet.zip"),
+    ("vader_lexicon", "sentiment/vader_lexicon.zip"),
+]:
+    try:
+        nltk.data.find(resource)
+    except LookupError:
+        _nltk_cache.mkdir(parents=True, exist_ok=True)
+        if not nltk.download(package, download_dir=str(_nltk_cache), quiet=True):
+            raise RuntimeError(f"Unable to prepare NLTK resource: {package}")
 
 # 您原来的 import 语句可以照常放在后面
 from nltk.corpus import stopwords
@@ -889,10 +895,18 @@ def generate_sentiment_wordclouds(df: pd.DataFrame, fig_dir: Path, end_day: date
     pos_tokens = [w for w in tokens if sid.polarity_scores(w)["compound"] >= 0.4]
     neg_tokens = [w for w in tokens if sid.polarity_scores(w)["compound"] <= -0.3]
 
-    wc = WordCloud(width=1200, height=800, background_color="white", max_words=500)
-
+    palettes = {
+        "positive": ("#70EFBA", "#4CDEC4", "#A1F6D0", "#57D9AA", "#77EBDF"),
+        "negative": ("#FF889B", "#FF6C83", "#FFB49B", "#FF9C82", "#F792AD"),
+    }
     for tag, words in [("positive", pos_tokens), ("negative", neg_tokens)]:
         if words:
+            # Hue identifies the group; shade is decorative, not a sentiment score.
+            palette = palettes[tag]
+            def word_color(*args, random_state=None, palette=palette, **kwargs):
+                return random_state.choice(palette) if random_state is not None else palette[0]
+            wc = WordCloud(width=1200, height=800, mode="RGBA", background_color=None,
+                           max_words=500, random_state=42, color_func=word_color)
             wc.generate(" ".join(words)).to_file(fig_dir / f"wordcloud_{tag}.png")
             print(f"✅ {tag} wordcloud saved to {fig_dir / f'wordcloud_{tag}.png'}")
         else:
@@ -932,38 +946,63 @@ def draw_fear_greed_gauge_from_latest(df: pd.DataFrame, fname: Path) -> None:
     latest_value = df["compound_weekly"].iloc[-1]
     score = (latest_value + 1.0) * 50.0
 
-    fig, ax = plt.subplots(figsize=(12, 8), subplot_kw=dict(projection="polar"))
-    colors = ["#8B0000", "#FF4500", "#FFD700", "#90EE90", "#006400"]
+    from matplotlib.patches import Wedge, Polygon, Circle
+
+    fig, ax = plt.subplots(figsize=(10, 6.1), dpi=160)
+    fig.patch.set_alpha(0)
+    ax.set_facecolor("none")
+    colors = ["#FF718B", "#FFAE83", "#F4D987", "#72E6BA", "#3DD8C0"]
     bounds = [0, 20, 40, 60, 80, 100]
+    for lo, hi, color in zip(bounds[:-1], bounds[1:], colors):
+        start, end = 180 - hi * 1.8 + .7, 180 - lo * 1.8 - .7
+        ax.add_patch(Wedge((0, 0), 1.025, start, end, width=.15,
+                           facecolor=color, edgecolor="none", alpha=.07))
+        ax.add_patch(Wedge((0, 0), 1, start, end, width=.09,
+                           facecolor=color, edgecolor="none", alpha=.96))
 
-    for i in range(5):
-        t0, t1 = np.pi * (bounds[i] / 100), np.pi * (bounds[i + 1] / 100)
-        ax.fill_between(np.linspace(t0, t1, 20), 0.5, 1, color=colors[i], alpha=0.8)
+    for value in bounds:
+        angle = np.deg2rad(180 - value * 1.8)
+        x, y = np.cos(angle), np.sin(angle)
+        ax.plot([x * 1.055, x * 1.08], [y * 1.055, y * 1.08],
+                color="#C9DDEC", alpha=.65, lw=1.2, solid_capstyle="round")
+        ax.text(x * 1.155, y * 1.155, str(value), ha="center", va="center",
+                color="#C6DBEC", fontsize=16)
 
-    for sc in [0, 25, 50, 75, 100]:
-        ang = np.pi * (sc / 100)
-        ax.plot([ang, ang], [0.5, 0.55], "k-", lw=1)
-        ax.text(ang, 0.6, f"{sc}", ha="center", va="center", fontsize=10)
+    # Keep the indicator on the arc so the score remains unobstructed.
+    angle = np.deg2rad(180 - score * 1.8)
+    direction = np.array([np.cos(angle), np.sin(angle)])
+    normal = np.array([-direction[1], direction[0]])
+    marker = direction * .965
+    for radius, alpha in [(.066, .035), (.048, .08), (.033, .2)]:
+        ax.add_patch(Circle(marker, radius, color="#E6FAFF", alpha=alpha, lw=0))
+    ax.add_patch(Polygon([direction * .965, direction * .77 + normal * .021,
+                          direction * .77 - normal * .021], closed=True,
+                         facecolor="#EDF9FF", edgecolor="none"))
+    ax.add_patch(Circle(marker, .019, color="#F1FCFF", lw=0))
 
-    needle = np.pi * (score / 100)
-    ax.plot([needle, needle], [0, 0.9], "k-", lw=8)
-    ax.plot(needle, 0, "ko", ms=15)
-
-    cat, col = _cat(score)
-    ax.text(np.pi / 2, 0.2, f"{score:.0f}", ha="center", va="center", fontsize=60, weight="bold")
-    plt.figtext(0.5, 0.15, "Latest Weekly Average", ha="center", fontsize=13)
-    plt.figtext(0.5, 0.10, f"Current Status: {cat}", ha="center", fontsize=15, weight="bold", color=col)
-
-    ax.set_ylim(0, 1.3)
-    ax.set_xlim(0, np.pi)
-    ax.set_theta_zero_location("W")
-    ax.set_theta_direction(1)
-    ax.grid(False)
-    ax.set_rticks([])
-    ax.set_thetagrids([])
-    plt.tight_layout()
-    plt.savefig(fname, dpi=150)
-    plt.close()
+    cat, _ = _cat(score)
+    category_colors = dict(zip(["Extreme Fear", "Fear", "Neutral", "Greed", "Extreme Greed"], colors))
+    color = category_colors[cat]
+    ax.text(0, .65, "NEWS SENTIMENT", color="#9CBBD1", fontsize=14,
+            ha="center", va="center", fontweight="medium")
+    ax.text(0, .36, f"{score:.0f}", color="#EFF9FF", fontsize=76,
+            ha="center", va="center", fontweight="bold")
+    ax.text(0, .12, "/ 100", color="#A9C5D9", fontsize=18, ha="center", va="center")
+    ax.text(0, -.12, cat, color=color, fontsize=23, fontweight="semibold",
+            ha="center", va="center",
+            bbox=dict(boxstyle="round,pad=.5,rounding_size=.7", facecolor=color,
+                      edgecolor=color, alpha=.10, linewidth=.7))
+    ax.text(-.98, -.12, "FEAR", color=colors[0], fontsize=14, ha="center", va="center")
+    ax.text(.98, -.12, "GREED", color=colors[-1], fontsize=14, ha="center", va="center")
+    ax.text(0, -.36, "Latest Weekly Average", color="#9CBBD1", fontsize=15,
+            ha="center", va="center")
+    ax.set_aspect("equal")
+    ax.set_xlim(-1.32, 1.32)
+    ax.set_ylim(-.5, 1.31)
+    ax.axis("off")
+    fig.subplots_adjust(left=.015, right=.985, top=.99, bottom=.01)
+    fig.savefig(fname, dpi=160, transparent=True)
+    plt.close(fig)
 
 def _cat(v: float) -> tuple[str, str]:
     if v < 20: return "Extreme Fear", "#8B0000"

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Hyper-Params - Ansel Crypto Rank App{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>⚙️ Optimal Hyper-Parameters Display</h1>
+</div>
+
+<div class="content-section">
+    <div id="params-content">
+        <p class="loading">Loading hyperparameters...</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.code-block {
+    background-color: #1e1e2e;
+    border: 1px solid #3a3a4a;
+    border-radius: 8px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    color: #a6e22e;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', loadParams);
+
+async function loadParams() {
+    try {
+        const response = await fetch('/api/predictions/text/best_params.txt');
+        const data = await response.json();
+
+        document.getElementById('params-content').innerHTML = `<pre class="code-block">${escapeHtml(data.content)}</pre>`;
+    } catch (error) {
+        document.getElementById('params-content').innerHTML = `<p class="error">Failed to load params: ${error.message}</p>`;
+    }
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+</script>
+{% endblock %}

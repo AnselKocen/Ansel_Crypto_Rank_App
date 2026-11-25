@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}Prediction - Ansel Crypto Rank App{% endblock %}
+
+{% block content %}
+<section class="prediction-workspace">
+    <header class="page-header workspace-header">
+        <h1><svg class="workspace-page-icon" aria-hidden="true"><use href="#nav-predict"/></svg><span data-zh="下一周推荐投资组合" data-en="Next Week's Recommended Portfolio">Next Week's Recommended Portfolio</span></h1>
+    </header>
+
+    <div class="prediction-toolbar">
+        <div class="content-section prediction-intro">
+            <p><span data-zh="周度模型使用历史市场数据与新闻情绪。数据周期和共享更新状态见上方。建模详情请查看" data-en="Weekly models use historical market data and news sentiment. The data period and shared update status are shown above. Review modeling details under">Weekly models use historical market data and news sentiment. The data period and shared update status are shown above. Review modeling details under</span> <a href="/transparency" data-zh="模型透明度" data-en="Transparency">Transparency</a>.</p>
+            <p><span data-zh="所有人使用相同的已保存周度预测。前往" data-en="Everyone uses the same saved weekly predictions. Visit">Everyone uses the same saved weekly predictions. Visit</span> <a href="/live-prices" data-zh="实时行情" data-en="Live Prices">Live Prices</a> <span data-zh="查看当前市场价格。" data-en="to check current market prices.">to check current market prices.</span></p>
+        </div>
+        <div class="content-section prediction-model-panel">
+            <label for="model-select" class="select-label" data-zh="选择模型" data-en="Select model">Select model</label>
+            <select id="model-select" class="model-selector" onchange="loadModel(this.value)" disabled>
+                <option value="" data-zh="正在加载模型…" data-en="Loading models…">Loading models…</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="loading-section" class="content-section prediction-status" style="display:none;" role="status">
+        <div class="loading-indicator"><span class="spinner-large" aria-hidden="true"></span><span data-zh="正在加载预测…" data-en="Loading predictions…">Loading predictions…</span></div>
+    </div>
+    <div id="error-section" class="content-section prediction-status" style="display:none;" role="alert">
+        <div class="info-box red" id="error-message"></div>
+    </div>
+    <div id="results-section" style="display:none;"></div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(() => {
+    const modelTranslations = {
+        enet_all: 'ElasticNet（全部特征）',
+        enet_market: 'ElasticNet（仅市场特征）',
+        extra_all: 'ExtraTrees（全部特征）',
+        extra_market: 'ExtraTrees（仅市场特征）'
+    };
+    const errorCopy = {
+        models: ['模型列表加载失败。', 'Failed to load model list.'],
+        predictions: ['预测数据暂不可用，请在周度更新后查看。', 'Prediction data not available. Please check back after the weekly update.']
+    };
+    const text = (zh, en) => window.SiteLocale?.text(zh, en) ?? en;
+    const escapeText = value => String(value ?? '').replace(/[&<>"']/g, character => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[character]);
+    let models = {};
+    let currentPrediction = null;
+    let currentError = null;
+    let requestVersion = 0;
+
+    function modelLabel(key, fallback) {
+        const english = models[key]?.name || fallback || key;
+        return text(modelTranslations[key] || english, english);
+    }
+
+    function updateModelLabels() {
+        const select = document.getElementById('model-select');
+        for (const option of select.options) {
+            if (option.value) option.textContent = modelLabel(option.value, option.textContent);
+        }
+    }
+
+    function renderPredictions(data) {
+        const renderTokens = (tokens, direction) => tokens.map((token, index) => {
+            const rank = Number.isInteger(token.rank) ? token.rank : index + 1;
+            return `<li class="token-item ${direction}"><span class="token-rank" aria-label="${text('模型排名', 'Model rank')} ${rank}">${rank}</span><span class="token-symbol">${escapeText(token.symbol)}</span></li>`;
+        }).join('');
+        document.getElementById('results-section').innerHTML = `
+            <div class="model-result">
+                <div class="model-result-heading"><span class="model-result-label">${text('当前模型', 'Current model')}</span><h2>${escapeText(modelLabel(data.model, data.model_name))}</h2></div>
+                <div class="recommendations-grid">
+                    <section class="content-section recommendation-column recommendation-long">
+                        <h3>${text('Top 20 · 做多建议', 'Top 20 · Long suggestions')}</h3>
+                        <ol class="token-list">${renderTokens(data.top_20, 'long')}</ol>
+                    </section>
+                    <section class="content-section recommendation-column recommendation-short">
+                        <h3>${text('Bottom 20 · 做空建议', 'Bottom 20 · Short suggestions')}</h3>
+                        <ol class="token-list">${renderTokens(data.bottom_20, 'short')}</ol>
+                    </section>
+                </div>
+            </div>`;
+    }
+
+    function showError(key) {
+        currentError = key;
+        document.getElementById('error-message').textContent = text(...errorCopy[key]);
+        document.getElementById('error-section').style.display = 'block';
+    }
+
+    async function loadModel(modelKey) {
+        if (!modelKey) return;
+        const version = ++requestVersion;
+        const loadingSection = document.getElementById('loading-section');
+        const errorSection = document.getElementById('error-section');
+        const resultsSection = document.getElementById('results-section');
+        currentError = null;
+        loadingSection.style.display = 'block';
+        errorSection.style.display = 'none';
+        resultsSection.style.display = 'none';
+        try {
+            const response = await fetch(`/api/predictions/data/${modelKey}`);
+            if (!response.ok) throw new Error('Prediction data not available');
+            const data = await response.json();
+            if (version !== requestVersion) return;
+            currentPrediction = data;
+            renderPredictions(data);
+            resultsSection.style.display = 'block';
+        } catch {
+            if (version === requestVersion) showError('predictions');
+        } finally {
+            if (version === requestVersion) loadingSection.style.display = 'none';
+        }
+    }
+    window.loadModel = loadModel;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        try {
+            const response = await fetch('/api/predictions/models');
+            if (!response.ok) throw new Error('Model list unavailable');
+            const data = await response.json();
+            models = data.models;
+            const select = document.getElementById('model-select');
+            select.replaceChildren();
+            for (const [key, info] of Object.entries(models)) {
+                const option = document.createElement('option');
+                option.value = key;
+                option.dataset.zh = modelTranslations[key] || info.name;
+                option.dataset.en = info.name;
+                option.textContent = modelLabel(key, info.name);
+                select.appendChild(option);
+            }
+            if (!select.options.length) throw new Error('No models available');
+            select.disabled = false;
+            select.value = select.options[0].value;
+            loadModel(select.value);
+        } catch {
+            showError('models');
+        }
+    }, { once: true });
+
+    window.addEventListener('site:localechange', () => {
+        updateModelLabels();
+        if (currentPrediction) renderPredictions(currentPrediction);
+        if (currentError) document.getElementById('error-message').textContent = text(...errorCopy[currentError]);
+    });
+})();
+</script>
+{% endblock %}

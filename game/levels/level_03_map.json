@@ -1,0 +1,34 @@
+{
+  "level": 3,
+  "platforms": [
+    {"x": 0, "y": 568, "width": 256, "tile": "ground"},
+    {"x": 320, "y": 568, "width": 192, "tile": "ground"},
+    {"x": 576, "y": 568, "width": 224, "tile": "ground"},
+    {"x": 80, "y": 472, "width": 192, "tile": "platform"},
+    {"x": 350, "y": 472, "width": 160, "tile": "platform"},
+    {"x": 590, "y": 472, "width": 160, "tile": "platform"}
+  ],
+  "coins": [
+    {"x": 40, "y": 536}, {"x": 72, "y": 536},
+    {"x": 100, "y": 440}, {"x": 132, "y": 440}, {"x": 164, "y": 440},
+    {"x": 290, "y": 536},
+    {"x": 370, "y": 440}, {"x": 402, "y": 440}, {"x": 434, "y": 440},
+    {"x": 540, "y": 536},
+    {"x": 610, "y": 440}, {"x": 642, "y": 440}, {"x": 674, "y": 440},
+    {"x": 750, "y": 536}, {"x": 280, "y": 504}
+  ],
+  "questionBlocks": [
+    {"x": 40, "y": 504, "questionIndex": 0},
+    {"x": 110, "y": 408, "questionIndex": 1},
+    {"x": 230, "y": 408, "questionIndex": 2},
+    {"x": 290, "y": 504, "questionIndex": 3},
+    {"x": 380, "y": 408, "questionIndex": 4},
+    {"x": 460, "y": 504, "questionIndex": 5},
+    {"x": 570, "y": 504, "questionIndex": 6},
+    {"x": 620, "y": 408, "questionIndex": 7},
+    {"x": 720, "y": 408, "questionIndex": 8},
+    {"x": 750, "y": 504, "questionIndex": 9}
+  ],
+  "playerStart": {"x": 30, "y": 536},
+  "flag": {"x": 760, "y": 536}
+}

@@ -1,0 +1,325 @@
+/* Game UI shares the site's clear, cool cosmic glass. Scene canvases retain their art. */
+.cosmic-page {
+    --game-text: #f1f6ff;
+    --game-muted: #b4c6dc;
+    --game-cyan: #afe5ff;
+    --game-mint: #a2e9dc;
+    --game-violet: #c5c4ff;
+    --game-border: rgba(139, 197, 234, .32);
+    --game-glass: rgba(6, 15, 31, .36);
+    --game-panel: rgba(9, 20, 39, .62);
+    --game-dialog: rgba(7, 17, 35, .97);
+}
+.cosmic-page .game-shell {
+    --post-ink: var(--game-text);
+    --post-muted: var(--game-muted);
+    --post-paper: var(--game-panel);
+    color: var(--game-text);
+    background: linear-gradient(135deg, rgba(173, 220, 255, .035), transparent 45%, rgba(127, 142, 241, .035)), var(--game-glass);
+    border: 1px solid var(--game-border);
+    border-radius: 14px;
+    box-shadow: inset 0 1px 0 rgba(225, 244, 255, .16), 0 18px 45px rgba(0, 0, 0, .22);
+}
+.cosmic-page .game-shell > .page-header { background: transparent; border: 0; box-shadow: none; }
+.cosmic-page .game-shell .page-header h1 {
+    color: #c4ecff;
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    text-shadow: 0 1px 2px #0009;
+    font-weight: 600;
+}
+.cosmic-page .game-shell .game-subtitle { color: var(--game-text); font-weight: 600; }
+.cosmic-page .game-shell .game-stats-bar {
+    color: var(--game-text);
+    background: rgba(14, 29, 51, .45);
+    border-color: var(--game-border);
+    border-radius: 9px;
+    box-shadow: inset 0 1px 0 rgba(219, 241, 255, .09);
+}
+.cosmic-page .game-shell .stat-coins { color: var(--game-cyan); }
+.cosmic-page .game-shell .stat-cats { color: var(--game-mint); }
+.cosmic-page .game-shell .btn-game,
+.cosmic-page .post-btn,
+.cosmic-page .post-drive,
+.cosmic-page .post-brake,
+.cosmic-page .post-hud-button,
+.cosmic-page .touch-btn {
+    color: var(--game-cyan);
+    border: 1px solid rgba(151, 206, 246, .4);
+    border-radius: 7px;
+    background: linear-gradient(135deg, rgba(183, 229, 255, .07), rgba(95, 137, 215, .035)), rgba(11, 25, 46, .8);
+    box-shadow: inset 0 1px 0 rgba(225, 245, 255, .15), 0 3px 12px rgba(0, 0, 0, .15);
+}
+.cosmic-page .game-shell .btn-game:hover,
+.cosmic-page .post-btn:hover,
+.cosmic-page .post-drive:hover,
+.cosmic-page .post-brake:hover,
+.cosmic-page .post-hud-button:hover,
+.cosmic-page .touch-btn:active {
+    border-color: #a7dcff;
+    background: rgba(34, 65, 102, .82);
+}
+.cosmic-page .post-btn.primary,
+.cosmic-page .game-view[data-kind="garden"] .post-btn.primary {
+    color: #071f38;
+    background: linear-gradient(125deg, #c4f4ff, #90bfff);
+    border-color: #d5f4ff;
+    box-shadow: inset 0 1px 0 #e8fcff, 0 4px 18px #5baaff20;
+}
+.cosmic-page .game-shell .btn-primary-game {
+    color: #071f38 !important;
+    background: linear-gradient(125deg, #c4f4ff, #90bfff) !important;
+    border: 1px solid #d5f4ff !important;
+}
+.cosmic-page .post-drive.pressed,
+.cosmic-page .post-brake.pressed {
+    color: #e1f9ff;
+    background: #244d70;
+    box-shadow: inset 0 1px 3px #0005;
+}
+.cosmic-page .post-btn:focus-visible,
+.cosmic-page .post-option:focus-visible,
+.cosmic-page .post-drive:focus-visible,
+.cosmic-page .post-brake:focus-visible,
+.cosmic-page .post-hud-button:focus-visible,
+.cosmic-page .game-shell .btn-game:focus-visible,
+.cosmic-page .game-shell .adventure-feature:focus-visible,
+.cosmic-page .game-shell .level-node:focus-visible { outline: 2px solid #ace6ff; outline-offset: 4px; }
+
+/* Keep the introduction on one line at desktop widths, with the copy on the right. */
+.cosmic-page .game-shell > .game-page-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px 24px; }
+.cosmic-page .game-shell .game-page-header h1 { display: flex; align-items: center; gap: 10px; flex: 0 0 auto; margin: 0; font-size: clamp(22px, 1.65vw, 28px); line-height: 1.45; letter-spacing: -.4px; white-space: nowrap; }
+.cosmic-page .game-shell .game-page-header .game-subtitle { margin: 0; font-size: 14px; line-height: 1.8; text-align: right; white-space: nowrap; }
+.cosmic-page .game-header-details { display: flex; align-items: center; justify-content: flex-end; gap: 20px; min-width: 0; margin-left: auto; }
+.cosmic-page .game-header-actions { display: flex; align-items: center; gap: 8px; flex: 0 0 auto; }
+.cosmic-page .game-header-actions .btn-game { white-space: nowrap; min-height: 38px; font-family: inherit; appearance: none; }
+.cosmic-page .game-ui-icon { display: inline-block; width: 20px; height: 20px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.cosmic-page .game-title-icon { width: 29px; height: 29px; color: var(--game-violet); filter: drop-shadow(0 0 7px #ac9eff33); }
+.cosmic-page .game-button-label { display: inline-flex; align-items: center; gap: 8px; vertical-align: middle; }
+.cosmic-page .game-shell .world-map-container { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+.cosmic-page .game-shell .world-map-container > button { min-width: 0; display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; }
+.cosmic-page .game-shell .world-map-container :is(.postal-map-art, .castle-map-art, .adventure-map-art) { display: block; flex: none; width: 100%; height: 175px; min-height: 0; object-fit: cover; }
+.cosmic-page .game-shell .level-node.postal-feature, .cosmic-page .game-shell .level-node.castle-feature { grid-column: span 1; }
+
+/* Journey cards and the album remain transparent to the shared stars. */
+.cosmic-page .game-shell .level-node,
+.cosmic-page .game-shell .adventure-feature,
+.cosmic-page .game-shell .cat-card,
+.cosmic-page .game-shell .result-card {
+    --game-card-accent: #a9dfff;
+    color: var(--game-text);
+    border: 1px solid var(--game-border);
+    border-radius: 10px;
+    background: linear-gradient(140deg, rgba(209, 233, 255, .035), transparent 55%), rgba(7, 17, 34, .44);
+    box-shadow: inset 0 1px 0 rgba(218, 239, 255, .13), 0 8px 22px rgba(0, 0, 0, .14);
+}
+.cosmic-page .world-map-container > :nth-child(3n + 1) { --game-card-accent: #a3e6dc; }
+.cosmic-page .world-map-container > :nth-child(3n + 2) { --game-card-accent: #b3d5ff; }
+.cosmic-page .world-map-container > :nth-child(3n) { --game-card-accent: #c8bcff; }
+.cosmic-page .game-shell .level-node:hover:not(.locked),
+.cosmic-page .game-shell .adventure-feature:hover,
+.cosmic-page .game-shell .cat-card.unlocked:hover {
+    border-color: #91d2f5;
+    background: linear-gradient(140deg, rgba(155, 214, 255, .07), transparent 55%), rgba(11, 25, 46, .52);
+    box-shadow: inset 0 1px 0 rgba(218, 239, 255, .16), 0 10px 25px rgba(0, 0, 0, .24);
+}
+.cosmic-page .game-shell .level-node.completed,
+.cosmic-page .game-shell .level-node.perfect { border-color: rgba(153, 219, 238, .64); }
+.cosmic-page .game-shell .level-node.perfect { box-shadow: inset 0 1px 0 #d2eeff28, 0 0 18px #a29aff12; }
+.cosmic-page .game-shell .level-world,
+.cosmic-page .game-shell .level-number,
+.cosmic-page .game-shell .postal-feature-copy h2,
+.cosmic-page .game-shell .adventure-card-copy h3 { color: var(--game-card-accent); }
+.cosmic-page .game-shell .postal-feature-copy p,
+.cosmic-page .game-shell .adventure-card-copy p { color: var(--game-text); font-weight: 600; font-size: .875rem; }
+.cosmic-page .game-shell .postal-feature-copy small,
+.cosmic-page .game-shell .postal-feature-copy > span,
+.cosmic-page .game-shell .adventure-card-copy small,
+.cosmic-page .game-shell .level-score,
+.cosmic-page .game-shell .legacy-label { color: var(--game-muted); }
+.cosmic-page .game-shell .postal-feature-copy small,
+.cosmic-page .game-shell .adventure-card-copy small { font-size: .75rem; }
+.cosmic-page .game-shell .postal-feature-copy .postal-feature-start,
+.cosmic-page .game-shell .adventure-card-copy strong {
+    color: var(--game-card-accent);
+    background: transparent;
+    font-size: .875rem;
+}
+.cosmic-page .game-shell .level-difficulty,
+.cosmic-page .game-shell .level-crown,
+.cosmic-page .game-shell .cat-rarity,
+.cosmic-page .game-shell .crown-badge,
+.cosmic-page .game-shell .coins-earned { color: var(--game-violet); }
+.cosmic-page .game-shell .score-value,
+.cosmic-page .game-shell .score-display { color: var(--game-mint); }
+.cosmic-page .game-shell .postal-map-art,
+.cosmic-page .game-shell .castle-map-art,
+.cosmic-page .game-shell .adventure-map-art { border-color: var(--game-border); }
+.cosmic-page .game-shell .cat-card.unlocked { border-color: #a3c9ee70; }
+.cosmic-page .game-shell .cat-name,
+.cosmic-page .game-shell .gallery-header h2,
+.cosmic-page .game-shell .cat-reveal-title,
+.cosmic-page .game-shell .cat-reveal-name { color: var(--game-cyan); }
+.cosmic-page .game-shell .cat-breed,
+.cosmic-page .game-shell .cat-personality,
+.cosmic-page .game-shell .cat-quote,
+.cosmic-page .game-shell .gallery-subtitle,
+.cosmic-page .game-shell .cat-reveal-breed,
+.cosmic-page .game-shell .cat-reveal-quote,
+.cosmic-page .game-shell .result-message { color: var(--game-muted); }
+.cosmic-page .game-shell .cat-img-display,
+.cosmic-page .game-shell .cat-reveal-img { background: rgba(21, 39, 66, .48); border-color: var(--game-border); border-radius: 7px; }
+.cosmic-page .game-shell .cat-img-display.locked-img,
+.cosmic-page .game-shell .cat-locked-text { color: #b5c5df; }
+.cosmic-page .game-shell .save-notice { color: #d6e9ff; background: rgba(50, 43, 91, .7); border-color: #a7a2e46b; border-radius: 8px; }
+
+/* The pixel scenes keep their palette; their frame and controls use cosmic glass. */
+.cosmic-page.postal-playing .main-content { width: 100%; max-width: none; padding: 0; margin: 0; }
+.cosmic-page.postal-playing .game-shell > .game-page-header { display: none; }
+.cosmic-page.postal-playing .game-shell,
+.cosmic-page.castle-playing .game-shell,
+.cosmic-page.adventure-playing .game-shell { background: transparent; border: 0; border-radius: 0; box-shadow: none; }
+.cosmic-page .postal-top h2 { color: var(--game-cyan); font-family: inherit; }
+.cosmic-page .postal-top small,
+.cosmic-page .post-back,
+.cosmic-page .post-key-hint,
+.cosmic-page .post-lap-label,
+.cosmic-page .castle-help,
+.cosmic-page .adventure-pause-guide,
+.cosmic-page .postal-loading { color: var(--game-muted); }
+.cosmic-page .post-back:hover { color: #d6f3ff; }
+.cosmic-page .postal-frame,
+.cosmic-page .game-canvas-wrapper {
+    border-color: #87b8da;
+    outline-color: #aecbfa3d;
+    background: #081426;
+    box-shadow: 0 10px 30px #0006, 0 0 0 1px #afdeff26;
+}
+.cosmic-page .post-start-curtain { background: rgba(3, 10, 23, .62); }
+.cosmic-page .post-guide {
+    color: var(--game-text);
+    background: var(--game-dialog);
+    border: 1px solid #b0d3f380;
+    border-radius: 13px;
+    box-shadow: inset 0 1px 0 #e4f5ff26, 0 20px 60px #0008;
+}
+.cosmic-page .post-guide h3 { color: var(--game-cyan); font-family: inherit; }
+.cosmic-page .post-guide p { color: var(--game-text); font-weight: 600; }
+.cosmic-page .post-guide > small,
+.cosmic-page .post-guide .post-guide-small { color: var(--game-muted); }
+.cosmic-page .post-guide-drawing .guide-van { color: #e8f7ff; background: #325b74; border-color: #8fbdd9; box-shadow: -4px 3px #162d48, 4px 3px #162d48; }
+.cosmic-page .guide-arrow { color: var(--game-violet); }
+.cosmic-page .guide-parking { color: #c4edff; background: #24445e; border-color: #91c7df; }
+.cosmic-page .guide-mailbox { color: #e8f7ff; background: #655886; border-color: #c0b0e8; box-shadow: 0 12px 0 -9px #9a8dbb; }
+.cosmic-page .post-corner-progress,
+.cosmic-page .post-coin-pill,
+.cosmic-page .post-hud-button,
+.cosmic-page .post-location,
+.cosmic-page .post-toast {
+    color: var(--game-text);
+    background: rgba(7, 18, 36, .93);
+    border-color: #a5c8e56b;
+    border-radius: 6px;
+    box-shadow: inset 0 1px 0 #e3f6ff1a, 0 3px 12px #0005;
+}
+.cosmic-page .post-progress-title,
+.cosmic-page .post-progress-title b,
+.cosmic-page .post-coin-pill b { color: var(--game-cyan); }
+.cosmic-page .post-mini-letter { color: #8ba2bf; }
+.cosmic-page .post-mini-letter.correct { color: #a6eddb; }
+.cosmic-page .post-mini-letter.correct i { background: #2b665e; color: #effffa; }
+.cosmic-page .post-mini-letter.incorrect { color: #d8bef6; }
+
+/* Native dialog is appended to body, outside .game-shell. Keep it themed too. */
+.cosmic-page .postal-dialog {
+    color: var(--game-text);
+    background: var(--game-dialog);
+    border: 1px solid #a5d5f680;
+    border-radius: 12px;
+    box-shadow: inset 0 1px 0 #e2f4ff24, 0 20px 70px #000b;
+}
+.cosmic-page .postal-dialog::backdrop { background: rgba(2, 7, 18, .82); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.cosmic-page .post-dialog-paper > h2,
+.cosmic-page .post-cat-result h3,
+.cosmic-page .post-result-score > b { color: var(--game-cyan); font-family: inherit; }
+.cosmic-page .post-dialog-paper > p,
+.cosmic-page .post-answer p,
+.cosmic-page .post-notebook p,
+.cosmic-page .post-cat-result blockquote { color: var(--game-text); }
+.cosmic-page .post-dialog-paper > small,
+.cosmic-page .post-letter-head span,
+.cosmic-page .post-dialog-paper .post-safe,
+.cosmic-page .post-result-score > b small,
+.cosmic-page .post-result-score > span small,
+.cosmic-page .post-cat-result p { color: var(--game-muted); }
+.cosmic-page .post-letter-head b,
+.cosmic-page .post-result-score > span { color: var(--game-violet); }
+.cosmic-page .post-letter-head,
+.cosmic-page .post-answer,
+.cosmic-page .post-notebook details,
+.cosmic-page .post-result-score { border-color: #7b9cc44d; }
+.cosmic-page .post-option {
+    color: var(--game-text);
+    background: rgba(20, 37, 61, .62);
+    border-color: #8caed047;
+    border-radius: 8px;
+}
+.cosmic-page .post-option > span:first-child { color: #c5e8ff; background: #25425e; border-radius: 5px; }
+.cosmic-page .post-option:hover:not(:disabled) { background: #233f5b; border-color: #b4d7f7; }
+.cosmic-page .post-option.correct { background: #143a39; border-color: #96d9c9; }
+.cosmic-page .post-option.correct > span:first-child { background: #285e57; color: #e8fff6; }
+.cosmic-page .post-option.incorrect { background: #39294c; border-color: #c6a7df; }
+.cosmic-page .post-option.incorrect > span:first-child { background: #5e4977; color: #f6ecff; }
+.cosmic-page .post-answer .post-unlock-note { color: #d8fff4; background: #153c38; border: 1px solid #7bc9b54d; border-radius: 6px; }
+.cosmic-page .post-text-button { color: #b9d9ef; }
+.cosmic-page .post-settings input { accent-color: #8dcfff; }
+.cosmic-page .post-cat-result img { border-color: #7a9bb64d; outline-color: #a5c6ee5c; box-shadow: 0 5px 18px #0005; }
+.cosmic-page .final-cat-album img { background: #213449; }
+
+/* The older platformer quiz injects its styles at runtime: scope outweighs them. */
+.cosmic-page #quiz-isolated-root { background: rgba(3, 9, 21, .86); }
+.cosmic-page #quiz-isolated-root .qo-popup,
+.cosmic-page .quiz-popup { color: var(--game-text); background: var(--game-dialog); border-color: #a5d5f680; box-shadow: inset 0 1px 0 #e2f4ff24, 0 20px 60px #000a; }
+.cosmic-page #quiz-isolated-root .qo-qcard,
+.cosmic-page .quiz-popup .question-card { background: rgba(29, 48, 77, .36); border-color: #a3c6ef2b; }
+.cosmic-page #quiz-isolated-root .qo-btn,
+.cosmic-page .quiz-popup .option-btn { color: var(--game-text); background: rgba(20, 37, 61, .75); border-color: #8caed04d; }
+.cosmic-page #quiz-isolated-root .qo-btn:hover:not(.disabled),
+.cosmic-page .quiz-popup .option-btn:hover:not(.disabled) { background: #233f5b; border-color: #b4d7f7; }
+.cosmic-page #quiz-isolated-root .qo-btn.correct,
+.cosmic-page #quiz-isolated-root .qo-fb.correct,
+.cosmic-page .quiz-popup .option-btn.correct,
+.cosmic-page .feedback-panel.correct { color: #b3efd9; border-color: #72c7ad; background: #13362f; }
+.cosmic-page #quiz-isolated-root .qo-btn.incorrect,
+.cosmic-page #quiz-isolated-root .qo-fb.incorrect,
+.cosmic-page .quiz-popup .option-btn.incorrect,
+.cosmic-page .feedback-panel.incorrect { color: #e0bffa; border-color: #bc95dd; background: #33243f; }
+.cosmic-page #quiz-isolated-root .qo-next,
+.cosmic-page .btn-next { color: #071f38; background: linear-gradient(125deg, #c4f4ff, #90bfff); }
+.cosmic-page .quiz-overlay { background: rgba(3, 9, 21, .86); }
+
+@media (max-width: 650px) {
+    .cosmic-page .game-shell { border-radius: 11px; }
+    .cosmic-page .game-shell .postal-feature-copy h2,
+    .cosmic-page .game-shell .adventure-card-copy h3 { font-size: 1rem; }
+    .cosmic-page .game-shell .postal-feature-copy p,
+    .cosmic-page .game-shell .adventure-card-copy p { font-size: .875rem; }
+    .cosmic-page .game-shell .postal-feature-copy .postal-feature-start,
+    .cosmic-page .game-shell .adventure-card-copy strong { font-size: .875rem; }
+}
+
+@media (max-width: 1199px) {
+    .cosmic-page .game-shell > .game-page-header { align-items: flex-start; flex-direction: column; gap: 12px; }
+    .cosmic-page .game-header-details { width: 100%; justify-content: space-between; margin-left: 0; }
+    .cosmic-page .game-shell .game-page-header .game-subtitle { text-align: left; white-space: normal; font-size: 16px; }
+}
+@media (max-width: 1000px) {
+    .cosmic-page .game-shell .world-map-container { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 650px) {
+    .cosmic-page .game-header-details { align-items: flex-start; flex-wrap: wrap; gap: 12px; }
+    .cosmic-page .game-shell .world-map-container { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .cosmic-page .game-shell .world-map-container :is(.postal-map-art, .castle-map-art, .adventure-map-art) { height: 140px; }
+    .cosmic-page .game-shell .game-page-header h1 { align-items: flex-start; font-size: 23px; white-space: normal; gap: 8px; }
+    .cosmic-page .game-title-icon { width: 25px; height: 25px; margin-top: 4px; }
+}

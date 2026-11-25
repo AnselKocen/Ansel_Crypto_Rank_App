@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ansel Crypto Rank App{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    {% block extra_css %}{% endblock %}
+    <meta name="theme-color" content="#030812">
+    <link rel="stylesheet" href="/static/css/site-theme.css?v=20261124-locale-polish">
+    <link rel="stylesheet" href="/static/css/workspace-layout.css?v=20261124-locale-polish">
+    {% if active_tab in ['prediction', 'educational'] %}<link rel="stylesheet" href="/static/css/workspace-prediction.css?v=20261124-locale-polish">{% endif %}
+    {% if active_tab in ['sentiment', 'investment'] %}<link rel="stylesheet" href="/static/css/workspace-insights.css?v=20261124-locale-polish">{% endif %}
+    {% if active_tab == 'ai-qa' %}<link rel="stylesheet" href="/static/css/skill-reader.css?v=20261124-reader">{% endif %}
+    {% if active_tab == 'game' %}<link rel="stylesheet" href="/static/css/game-cosmic.css?v={{ game_asset_version }}"><link rel="stylesheet" href="/static/css/game-gallery.css?v={{ game_asset_version }}">{% endif %}
+    <script src="/static/js/cosmic-background.js?v=20261124-cosmic" defer></script>
+    <script src="/static/js/site-locale.js?v=20261124-locale-polish"></script>
+</head>
+<body class="cosmic-page page-{{ active_tab }}">
+    <canvas id="starfield" aria-hidden="true"></canvas>
+    <svg class="nav-icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+        <symbol id="nav-cat" viewBox="0 0 24 24"><path d="M4 10V4l5 3a12 12 0 0 1 6 0l5-3v6c2 2 2 6 0 8-3 4-13 4-16 0-2-2-2-6 0-8Z"/><path d="M7 13h.01M17 13h.01M10 17l2 1 2-1M1 15l4 1m14 0 4-1"/></symbol>
+        <symbol id="nav-learn" viewBox="0 0 24 24"><path d="m2 9 10-5 10 5-10 5L2 9Z"/><path d="M6 11v6c4 3 8 3 12 0v-6M22 9v7"/></symbol>
+        <symbol id="nav-predict" viewBox="0 0 24 24"><path d="m9 5 11 7-11 7V5Z"/><path d="M4 5v14"/></symbol>
+        <symbol id="nav-sentiment" viewBox="0 0 24 24"><path d="M7 17a4 4 0 0 1-3-7 5 5 0 0 1 8-5 4 4 0 0 1 5 3 4.5 4.5 0 1 1 0 9H7Z"/><path d="M6 21h.01M3 23h.01M8 11h.01M12 11h.01M16 11h.01"/></symbol>
+        <symbol id="nav-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-8 8H4l1.5-4.5A8 8 0 1 1 21 12Z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/></symbol>
+        <symbol id="nav-market" viewBox="0 0 24 24"><path d="M3 4v16h18M7 15l4-5 4 3 5-8"/><path d="M7 4h3M15 6h3"/></symbol>
+        <symbol id="nav-portfolio" viewBox="0 0 24 24"><path d="M20 8V5a1 1 0 0 0-1-1H5a3 3 0 0 0 0 6h15v10H5a3 3 0 0 1-3-3V7M20 13h-5v4h5"/></symbol>
+        <symbol id="nav-transparency" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></symbol>
+        <symbol id="nav-strategy" viewBox="0 0 24 24"><path d="M5 3h13a1 1 0 0 1 1 1v17H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm0 14h14M8 7h7M8 11h5"/></symbol>
+        <symbol id="nav-settings" viewBox="0 0 24 24"><path d="M5 3v5m0 4v9M12 3v10m0 4v4M19 3v3m0 4v11"/><path d="M2 8h6v4H2zM9 13h6v4H9zM16 6h6v4h-6z"/></symbol>
+        <symbol id="nav-features" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5ZM3 12l9 5 9-5M3 16l9 5 9-5"/></symbol>
+        <symbol id="nav-backtest" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2M6 12h2"/></symbol>
+    </defs></svg>
+    <nav class="navbar">
+        <a href="/" class="nav-brand"><span class="nav-logo" aria-hidden="true">₿</span><span data-zh="Ansel 加密货币排名" data-en="Ansel Crypto Rank">Ansel 加密货币排名</span></a>
+        <div class="nav-tabs">
+            <a href="/game" data-nav="cat" class="nav-tab {% if active_tab == 'game' %}active{% endif %}"><svg class="nav-symbol" aria-hidden="true" focusable="false"><use href="#nav-cat"/></svg><span data-zh="猫咪游戏" data-en="Cat Game">猫咪游戏</span></a>
+            <a href="/educational" data-nav="learn" class="nav-tab {% if active_tab == 'educational' %}active{% endif %}"><svg class="nav-symbol" aria-hidden="true" focusable="false"><use href="#nav-learn"/></svg><span data-zh="教育" data-en="Educational">教育</span></a>
+            <a href="/prediction" data-nav="predict" class="nav-tab {% if active_tab == 'prediction' %}active{% endif %}"><svg class="nav-symbol" aria-hidden="true" focusable="false"><use href="#nav-predict"/></svg><span data-zh="预测" data-en="Prediction">预测</span></a>
+            <a href="/sentiment" data-nav="sentiment" class="nav-tab {% if active_tab == 'sentiment' %}active{% endif %}"><svg class="nav-symbol" aria-hidden="true" focusable="false"><use href="#nav-sentiment"/></svg><span data-zh="情绪" data-en="Sentiment">情绪</span></a>
+            <a href="/ai-qa" data-nav="chat" class="nav-tab {% if active_tab == 'ai-qa' %}active{% endif %}"><svg class="nav-symbol" aria-hidden="true" focusable="false"><use href="#nav-chat"/></svg><span data-zh="人工智能问答" data-en="AI Q&A">人工智能问答</span></a>
+            <a href="/live-prices" data-nav="market" class="nav-tab {% if active_tab == 'live-prices' %}active{% endif %}"><svg class="nav-symbol" aria-hidden="true" focusable="false"><use href="#nav-market"/></svg><span data-zh="实时价格" data-en="Live Prices">实时价格</span></a>
+            <a href="/investment" data-nav="portfolio" class="nav-tab {% if active_tab == 'investment' %}active{% endif %}"><svg class="nav-symbol" aria-hidden="true" focusable="false"><use href="#nav-portfolio"/></svg><span data-zh="投资" data-en="Investment">投资</span></a>
+
+            <!-- Transparency Dropdown -->
+            <div class="nav-dropdown">
+                <a href="/transparency" data-nav="transparency" class="nav-tab dropdown-toggle {% if active_tab in ['transparency', 'model-strategy', 'hyper-params', 'features', 'backtest'] %}active{% endif %}">
+                    <svg class="nav-symbol" aria-hidden="true" focusable="false"><use href="#nav-transparency"/></svg><span data-zh="透明度" data-en="Transparency">透明度</span> <span class="dropdown-arrow">&#9662;</span>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="/model-strategy" data-nav="strategy" class="dropdown-item {% if active_tab == 'model-strategy' %}active{% endif %}"><svg class="nav-symbol" aria-hidden="true" focusable="false"><use href="#nav-strategy"/></svg><span data-zh="模型策略" data-en="Model Strategy">模型策略</span></a>
+                    <a href="/hyper-params" data-nav="settings" class="dropdown-item {% if active_tab == 'hyper-params' %}active{% endif %}"><svg class="nav-symbol" aria-hidden="true" focusable="false"><use href="#nav-settings"/></svg><span data-zh="超参数" data-en="Hyper-Params">超参数</span></a>
+                    <a href="/features" data-nav="features" class="dropdown-item {% if active_tab == 'features' %}active{% endif %}"><svg class="nav-symbol" aria-hidden="true" focusable="false"><use href="#nav-features"/></svg><span data-zh="特征" data-en="Features">特征</span></a>
+                    <a href="/backtest" data-nav="backtest" class="dropdown-item {% if active_tab == 'backtest' %}active{% endif %}"><svg class="nav-symbol" aria-hidden="true" focusable="false"><use href="#nav-backtest"/></svg><span data-zh="回测" data-en="Backtest">回测</span></a>
+                </div>
+            </div>
+        </div>
+        <div class="site-language-switch" role="group" aria-label="语言 / Language">
+            <button type="button" data-site-language="zh" lang="zh-CN" aria-pressed="true">中文</button>
+            <span aria-hidden="true">/</span>
+            <button type="button" data-site-language="en" lang="en" aria-pressed="false">EN</button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        {% if active_tab in ['prediction', 'sentiment', 'live-prices'] %}
+        <aside id="weekly-update-bar" class="workspace-update-bar" data-component="data" aria-live="polite">
+            <div class="weekly-update-summary">
+                <span class="update-status-dot" aria-hidden="true"></span>
+                <span id="weekly-update-label" data-zh="正在检查最新完整周…" data-en="Checking the latest complete week…">正在检查最新完整周…</span>
+            </div>
+            <details class="weekly-update-details">
+                <summary data-zh="数据覆盖与更新计划" data-en="Coverage & schedule">Coverage & schedule</summary>
+                <small id="weekly-update-detail"></small>
+            </details>
+            <button id="weekly-update-button" type="button" class="btn btn-secondary" disabled
+                    onclick="WeeklyUpdatesUI.request()" data-zh="检查更新状态" data-en="Check update status">检查更新状态</button>
+        </aside>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p data-zh="© 2024 Ansel Crypto Rank App · 机器学习加密货币推荐系统" data-en="© 2024 Ansel Crypto Rank App - Machine Learning Cryptocurrency Recommendation System">© 2024 Ansel Crypto Rank App · 机器学习加密货币推荐系统</p>
+    </footer>
+
+    <script src="/static/js/app.js?v=20261124-nav-colors"></script>
+    <script src="/static/js/weekly_updates.js?v=20261124-sentiment"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,79 @@
+{
+  "level": 5,
+  "world_name_zh": "以太坊花园",
+  "theme_zh": "智能合约、代币与DeFi",
+  "difficulty": 3,
+  "story_zh": "小猫来到一座数字花园，这里的「智能合约「像花朵一样自动运作...",
+  "questions": [
+    {
+      "id": 1,
+      "question": "以太坊(Ethereum)的创始人是谁？",
+      "options": ["中本聪", "Vitalik Buterin (V神)", "马斯克", "扎克伯格"],
+      "answer": 1,
+      "explanation": "Vitalik Buterin（V神）于2015年创建了以太坊，当时他年仅21岁。"
+    },
+    {
+      "id": 2,
+      "question": "什么是「智能合约」(Smart Contract)？",
+      "options": ["很聪明的纸质合同", "自动执行预设条件的区块链程序", "律师写的合同", "手机App"],
+      "answer": 1,
+      "explanation": "智能合约是部署在区块链上的自动执行程序，当满足预设条件时自动执行约定操作。"
+    },
+    {
+      "id": 3,
+      "question": "以太坊上的原生代币叫什么？",
+      "options": ["Bitcoin", "ETH (以太币)", "Ripple", "Dogecoin"],
+      "answer": 1,
+      "explanation": "ETH（以太币）是以太坊区块链的原生代币，用于支付Gas费和参与网络运作。"
+    },
+    {
+      "id": 4,
+      "question": "什么是ERC-20？",
+      "options": ["一种手机型号", "以太坊上发行代币的标准协议", "一个交易所", "一种挖矿方式"],
+      "answer": 1,
+      "explanation": "ERC-20是以太坊上最常用的代币标准，定义了代币的基本功能接口。"
+    },
+    {
+      "id": 5,
+      "question": "「DApp「是什么意思？",
+      "options": ["一种手机壳", "去中心化应用程序", "数据分析平台", "下载App"],
+      "answer": 1,
+      "explanation": "DApp(Decentralized Application)是运行在区块链上的去中心化应用程序。"
+    },
+    {
+      "id": 6,
+      "question": "BNB是哪个交易所的平台代币？",
+      "options": ["Coinbase", "Binance(币安)", "Kraken", "Bitfinex"],
+      "answer": 1,
+      "explanation": "BNB是全球最大加密货币交易所Binance(币安)发行的平台代币。"
+    },
+    {
+      "id": 7,
+      "question": "「Gas费「在以太坊中指什么？",
+      "options": ["汽油费", "执行交易/智能合约所需支付的手续费", "矿工的工资", "注册费"],
+      "answer": 1,
+      "explanation": "Gas费是在以太坊上执行交易或智能合约操作时需要支付的计算费用。"
+    },
+    {
+      "id": 8,
+      "question": "代币可以大致分为哪几类？",
+      "options": ["只有一种", "产品型、利润分享型、公司债券型等", "贵的和便宜的", "中国的和外国的"],
+      "answer": 1,
+      "explanation": "代币根据功能可分为产品/服务型、利润分享型、债券型等不同类别。"
+    },
+    {
+      "id": 9,
+      "question": "什么是DAO(去中心化自治组织)？",
+      "options": ["一个公司", "由智能合约规则管理、成员投票治理的组织", "一种加密货币", "一个国家"],
+      "answer": 1,
+      "explanation": "DAO是通过智能合约运行的组织，成员通过代币投票来做出决策，没有传统的管理层。"
+    },
+    {
+      "id": 10,
+      "question": "交易所代币(如BNB)通常有什么用途？",
+      "options": ["只能收藏", "手续费折扣、参与活动、投票等", "只能转账", "没有实际用途"],
+      "answer": 1,
+      "explanation": "交易所代币通常可以享受手续费折扣、参与新币发行、社区投票等权益。"
+    }
+  ]
+}

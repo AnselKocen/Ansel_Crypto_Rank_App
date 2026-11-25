@@ -1,0 +1,398 @@
+/* Ansel Crypto Rank App - Main Stylesheet */
+/* Unified Cosmic Theme with Cyan Accent */
+
+/* Reset and Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: linear-gradient(135deg, #0a0e1a 0%, #0d1526 50%, #0a1628 100%);
+    color: #e6f1ff;
+    line-height: 1.6;
+}
+
+/* No top padding - solving Streamlit pain point */
+body {
+    padding-top: 0 !important;
+}
+
+/* Navbar */
+.navbar {
+    background-color: rgba(15, 23, 42, 0.95);
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(78, 205, 196, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.nav-brand {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #f7931a;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.nav-brand:hover {
+    text-decoration: none;
+    color: #ffb347;
+}
+
+.nav-tabs {
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+}
+
+.nav-tab {
+    padding: 0.5rem 0.75rem;
+    text-decoration: none;
+    color: #8892b0;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.nav-tab:hover {
+    background-color: rgba(78, 205, 196, 0.1);
+    color: #4ecdc4;
+    text-decoration: none;
+}
+
+.nav-tab.active {
+    background: linear-gradient(135deg, #4ecdc4, #44a08d);
+    color: #ffffff;
+}
+
+/* Dropdown Menu Styles */
+.nav-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-dropdown .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.dropdown-arrow {
+    font-size: 0.7rem;
+    transition: transform 0.2s ease;
+}
+
+.nav-dropdown:hover .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 180px;
+    background-color: rgba(15, 23, 42, 0.98);
+    border: 1px solid rgba(78, 205, 196, 0.3);
+    border-radius: 8px;
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    z-index: 1001;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+}
+
+.nav-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #8892b0;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(78, 205, 196, 0.1);
+    color: #4ecdc4;
+    text-decoration: none;
+}
+
+.dropdown-item.active {
+    background-color: rgba(78, 205, 196, 0.2);
+    color: #4ecdc4;
+}
+
+/* Main Content */
+.main-content {
+    padding: 1.5rem 2rem;
+    min-height: calc(100vh - 120px);
+}
+
+/* Page Header */
+.page-header {
+    margin-bottom: 1.5rem;
+}
+
+.page-header h1 {
+    font-size: 1.75rem;
+    color: #e6f1ff;
+    background: linear-gradient(90deg, #4ecdc4, #44a08d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Content Sections */
+.content-section {
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid rgba(78, 205, 196, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(10px);
+}
+
+/* Footer */
+.footer {
+    background-color: rgba(15, 23, 42, 0.95);
+    padding: 1rem 2rem;
+    text-align: center;
+    color: #64748b;
+    font-size: 0.85rem;
+    border-top: 1px solid rgba(78, 205, 196, 0.2);
+}
+
+/* Three Column Layout (25% | 25% | 50%) */
+.three-column-layout {
+    display: grid;
+    grid-template-columns: 25% 25% 50%;
+    gap: 1rem;
+    height: calc(100vh - 180px);
+}
+
+.column {
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid rgba(78, 205, 196, 0.1);
+    border-radius: 12px;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+/* Buttons */
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #4ecdc4, #44a08d);
+    color: white;
+    box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
+}
+
+.btn-secondary {
+    background-color: rgba(78, 205, 196, 0.1);
+    color: #4ecdc4;
+    border: 1px solid rgba(78, 205, 196, 0.3);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(78, 205, 196, 0.2);
+}
+
+/* Cards */
+.card {
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(78, 205, 196, 0.15);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    border-color: rgba(78, 205, 196, 0.4);
+    box-shadow: 0 5px 20px rgba(78, 205, 196, 0.1);
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #e6f1ff;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(78, 205, 196, 0.15);
+}
+
+th {
+    background-color: rgba(78, 205, 196, 0.1);
+    font-weight: 600;
+    color: #4ecdc4;
+}
+
+tr:hover {
+    background-color: rgba(78, 205, 196, 0.05);
+}
+
+/* Links */
+a {
+    color: #4ecdc4;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #6ee7de;
+    text-decoration: none;
+}
+
+/* Forms */
+input, textarea, select {
+    background-color: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(78, 205, 196, 0.3);
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    color: #e6f1ff;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #4ecdc4;
+    box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.1);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(78, 205, 196, 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(78, 205, 196, 0.5);
+}
+
+/* Info Boxes - for Prediction page and others */
+.info-box {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+}
+
+.info-box.blue {
+    background-color: rgba(78, 205, 196, 0.1);
+    border: 1px solid rgba(78, 205, 196, 0.3);
+    color: #4ecdc4;
+}
+
+.info-box.yellow {
+    background-color: rgba(247, 147, 26, 0.1);
+    border: 1px solid rgba(247, 147, 26, 0.3);
+    color: #f7931a;
+}
+
+.info-box.red {
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+}
+
+/* Loading Spinner */
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(78, 205, 196, 0.3);
+    border-radius: 50%;
+    border-top-color: #4ecdc4;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Utility Classes */
+.text-primary { color: #4ecdc4; }
+.text-secondary { color: #8892b0; }
+.text-warning { color: #f7931a; }
+.text-danger { color: #ef4444; }
+.text-success { color: #10b981; }
+
+.bg-primary { background-color: rgba(78, 205, 196, 0.1); }
+.bg-secondary { background-color: rgba(30, 41, 59, 0.7); }
+
+/* Badge */
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 4px;
+}
+
+.badge-primary {
+    background: linear-gradient(135deg, #4ecdc4, #44a08d);
+    color: white;
+}
+
+.badge-warning {
+    background: linear-gradient(135deg, #f7931a, #e87d0e);
+    color: white;
+}
+
+/* Glow Effects */
+.glow-cyan {
+    box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
+}
+
+.glow-orange {
+    box-shadow: 0 0 20px rgba(247, 147, 26, 0.3);
+}

@@ -1,0 +1,17 @@
+.venv/
+.replay-venv/
+.replay-tools/
+artifacts/
+.env
+.env.*
+.idea/
+.claude/
+.github/
+.git/
+__pycache__/
+*.pyc
+.streamlit/
+node_modules/
+TODO_GAME.md
+IMPLEMENTATION_PLAN.md
+.DS_Store

@@ -1,0 +1,15 @@
+{
+  "levelId": 2,
+  "source": "web/static/js/castle-art.js",
+  "format": "editable-procedural-canvas",
+  "canvas": {"desktop": [640, 400], "portraitWidth": 320, "portraitHeightRange": [400, 680], "sampling": "nearest-neighbor"},
+  "palette": {"stone": "#7186A0", "ivy": "#668E62", "candle": "#F5CB7D", "roof": "#76638E", "shadow": "#303B55"},
+  "layers": ["dusk-sky", "far-mountains", "parallax-towers", "stone-arcade-and-windows", "solid-platforms", "safety-nets-and-assist-bridges", "checkpoint-benches", "knowledge-boxes", "coins", "scarf-cat", "dom-interface"],
+  "world": {"length": 5200, "zones": 5, "knowledgeBoxesPerZone": 2, "mainGapWidth": 64, "optionalPlatformRise": 56},
+  "player": {"visualFrame": [40, 40], "anchor": "feet center", "collisionHalfWidth": 9, "collisionHeight": 34, "speed": 140, "jumpVelocity": -370, "gravity": 1000, "coyoteSeconds": 0.12, "jumpBufferSeconds": 0.12},
+  "knowledgeBoxes": {"activation": "Player grounded within 28px horizontally and 4px vertically of the visible box on its platform", "states": ["pending-exclamation", "wrong-exclamation-for-next-visit", "mastered-check-without-exclamation"], "persistence": "knowledge[2][questionId]"},
+  "checkpoints": {"sources": ["warm-lantern-benches", "contacted-knowledge-box"], "recovery": "Return after falling below world y=480; preserve answers and coins", "assistance": "Two falls at the same gap create a bridge only for that gap; pause menu may add the next bridge"},
+  "animations": ["cat-walk-four-phase", "cat-jump-and-landing-squash", "cat-tail-breathing", "lantern-flame", "tower-flags", "plant-leaves", "coin-spin", "knowledge-exclamation-bob"],
+  "originalReward": "web/static/sprites/cats/cat_02.png (unchanged)",
+  "sourceQuestions": "game/questions/level_02.json (unchanged)"
+}

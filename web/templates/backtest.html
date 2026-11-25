@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Backtest - Ansel Crypto Rank App{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>📈 Strategy Backtest Results Comparison</h1>
+</div>
+
+<div class="content-section">
+    <div class="metric-selector">
+        <label class="metric-option">
+            <input type="radio" name="metric" value="cum_return_comparison" checked onchange="loadBacktestImages()">
+            <span>Cumulative Return</span>
+        </label>
+        <label class="metric-option">
+            <input type="radio" name="metric" value="volatility_bar" onchange="loadBacktestImages()">
+            <span>Volatility</span>
+        </label>
+        <label class="metric-option">
+            <input type="radio" name="metric" value="mean_return_bar" onchange="loadBacktestImages()">
+            <span>Average Return</span>
+        </label>
+        <label class="metric-option">
+            <input type="radio" name="metric" value="sharpe_bar" onchange="loadBacktestImages()">
+            <span>Sharpe Ratio</span>
+        </label>
+        <label class="metric-option">
+            <input type="radio" name="metric" value="max_drawdown_bar" onchange="loadBacktestImages()">
+            <span>Maximum Drawdown</span>
+        </label>
+    </div>
+</div>
+
+<div class="content-section">
+    <div class="image-grid">
+        <div class="image-card">
+            <img id="backtest-all" src="" alt="All Features">
+            <p class="image-caption">All Features Model</p>
+        </div>
+        <div class="image-card">
+            <img id="backtest-market" src="" alt="Market Features">
+            <p class="image-caption">Market Features Model</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.metric-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.metric-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.metric-option:hover {
+    background-color: #2a2a3a;
+}
+
+.metric-option input[type="radio"] {
+    accent-color: #ff6b6b;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.image-card {
+    text-align: center;
+}
+
+.image-card img {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    min-height: 200px;
+    background-color: #262730;
+}
+
+.image-caption {
+    margin-top: 0.5rem;
+    color: #888;
+    font-size: 0.9rem;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', loadBacktestImages);
+
+function loadBacktestImages() {
+    const selectedMetric = document.querySelector('input[name="metric"]:checked').value;
+    const timestamp = new Date().getTime();
+
+    document.getElementById('backtest-all').src = `/figures/${selectedMetric}_all_with_baseline.png?t=${timestamp}`;
+    document.getElementById('backtest-market').src = `/figures/${selectedMetric}_market_with_baseline.png?t=${timestamp}`;
+}
+</script>
+{% endblock %}

@@ -1,0 +1,79 @@
+{
+  "level": 10,
+  "world_name_zh": "ICO 冒险终点",
+  "theme_zh": "ICO/IEO 投资与综合评估",
+  "difficulty": 5,
+  "story_zh": "小猫来到最终关卡，面对加密世界最复杂的挑战 — 评估新项目与投资决策...",
+  "questions": [
+    {
+      "id": 1,
+      "question": "ICO是什么的缩写？",
+      "options": ["International Crypto Organization", "Initial Coin Offering (首次代币发行)", "Internet Currency Option", "I Can Own"],
+      "answer": 1,
+      "explanation": "ICO(Initial Coin Offering)是首次代币发行，项目方通过出售代币来筹集资金。"
+    },
+    {
+      "id": 2,
+      "question": "ICO和IPO的主要区别是？",
+      "options": ["没有区别", "ICO发行代币，监管较少；IPO发行股票，监管严格", "ICO更贵", "IPO是加密的"],
+      "answer": 1,
+      "explanation": "ICO发行的是代币且监管较少，IPO发行的是公司股票并受到严格的证券法监管。"
+    },
+    {
+      "id": 3,
+      "question": "什么是「白皮书」(Whitepaper)？",
+      "options": ["白色的纸", "项目的详细技术说明和商业计划文档", "一种证书", "政府文件"],
+      "answer": 1,
+      "explanation": "白皮书是加密项目的核心文档，详细描述项目的技术方案、商业模式和发展路线。"
+    },
+    {
+      "id": 4,
+      "question": "评估ICO项目时，以下哪个最需要关注？",
+      "options": ["Logo设计", "团队背景、技术可行性、真实需求", "网站颜色", "社交媒体粉丝数"],
+      "answer": 1,
+      "explanation": "团队的专业背景、技术方案的可行性、是否解决真实问题是评估项目最核心的要素。"
+    },
+    {
+      "id": 5,
+      "question": "什么是IEO？",
+      "options": ["一种加密货币", "由交易所审核并承办的代币发行", "一种钱包", "Internet Exchange Offer"],
+      "answer": 1,
+      "explanation": "IEO(Initial Exchange Offering)由交易所审核项目后在平台上进行代币发行，比ICO多一层审核。"
+    },
+    {
+      "id": 6,
+      "question": "什么是STO(证券型代币发行)？",
+      "options": ["一种游戏", "符合证券法规的代币发行，代表真实资产权益", "一个交易所", "一种挖矿方式"],
+      "answer": 1,
+      "explanation": "STO是符合证券法律法规的代币发行，代币代表真实资产（股权、债权等）的所有权。"
+    },
+    {
+      "id": 7,
+      "question": "以下哪个是ICO骗局的常见特征？",
+      "options": ["团队信息详细公开", "匿名团队、不切实际的回报承诺、无代码公开", "有真实产品原型", "定期发布开发进度"],
+      "answer": 1,
+      "explanation": "匿名团队、夸大的回报承诺、没有公开代码或产品原型是典型的ICO骗局特征。"
+    },
+    {
+      "id": 8,
+      "question": "参与ICO投资前最重要的步骤是？",
+      "options": ["马上转钱", "全面的尽职调查(DYOR)", "看KOL推荐就买", "跟着朋友买"],
+      "answer": 1,
+      "explanation": "DYOR(自己做调查研究)是参与任何加密投资前最重要的步骤。"
+    },
+    {
+      "id": 9,
+      "question": "为什么说「过往业绩不代表未来表现「？",
+      "options": ["这话没意义", "市场环境不断变化，之前赚钱不代表以后也能赚", "因为法律要求这么说", "只适用于股票"],
+      "answer": 1,
+      "explanation": "市场条件、竞争格局、技术发展都在不断变化，历史收益无法保证未来同样盈利。"
+    },
+    {
+      "id": 10,
+      "question": "加密货币投资的第一条铁律是？",
+      "options": ["借钱投资回报更高", "永远不要投入你承受不起损失的资金", "全仓一个币种", "听网红推荐"],
+      "answer": 1,
+      "explanation": "这是加密投资最重要的原则：只投入你完全亏得起的钱，永远不要影响正常生活。"
+    }
+  ]
+}

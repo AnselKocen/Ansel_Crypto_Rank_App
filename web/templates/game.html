@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Crypto Cat Adventure - Ansel Crypto Rank App{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/game.css?v={{ game_asset_version }}">
+<link rel="stylesheet" href="/static/css/postal.css?v={{ game_asset_version }}">
+<link rel="stylesheet" href="/static/css/castle.css?v={{ game_asset_version }}">
+<link rel="stylesheet" href="/static/css/adventure.css?v={{ game_asset_version }}">
+{% endblock %}
+
+{% block content %}
+<div class="game-shell">
+<div class="page-header game-page-header">
+    <h1><svg class="game-ui-icon game-title-icon" aria-hidden="true" focusable="false"><use href="#nav-cat"/></svg><span data-zh="通过猫咪闯关游戏了解加密货币！" data-en="Learn crypto with cat adventures!">Learn crypto with cat adventures!</span></h1>
+    <div class="game-header-details">
+    <p class="game-subtitle" data-zh="游玩可爱的像素小游戏，回答加密货币相关问题。通关后可获得猫meme卡片～" data-en="Play cute pixel games and answer crypto questions. Complete a level to earn a cat meme card!">Play cute pixel games and answer crypto questions. Complete a level to earn a cat meme card!</p>
+    <div class="game-header-actions">
+        <button class="btn-game btn-gallery" id="btn-gallery" onclick="GameApp.showGallery()"><span class="game-button-label"><svg class="game-ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="6" y="5" width="14" height="16" rx="2"/><path d="M16 5V3H4a2 2 0 0 0-2 2v12h4M9 17l3-3 2 2 3-4 3 4"/><circle cx="11" cy="10" r="1"/></svg><span data-zh="查看图鉴" data-en="View collection">View collection</span></span></button>
+        <button class="btn-game btn-map" id="btn-map" onclick="GameApp.showMap()" style="display:none;"><span class="game-button-label"><svg class="game-ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 5-7 7 7 7M2 12h15a5 5 0 0 1 5 5"/></svg><span data-zh="返回游戏" data-en="Back to games">Back to games</span></span></button>
+        <button class="btn-game btn-reset" id="btn-reset" onclick="GameApp.resetGame()" data-zh="重新进入" data-en="Restart">Restart</button>
+    </div>
+    </div>
+</div>
+
+<p id="game-save-notice" class="save-notice" role="status" hidden></p>
+
+<!-- VIEW: World Map -->
+<div id="view-map" class="game-view">
+    <div class="world-map-container" id="world-map">
+        <p role="status" data-zh="正在准备旅行地图…" data-en="Preparing your adventure map…">Preparing your adventure map…</p>
+        <noscript><span data-zh="请启用 JavaScript 后刷新，才能开始小游戏。" data-en="Enable JavaScript and refresh to start playing.">Enable JavaScript and refresh to start playing.</span></noscript>
+    </div>
+</div>
+
+<div id="view-postal" class="game-view" style="display:none;"></div>
+<div id="view-castle" class="game-view" style="display:none;"></div>
+<div id="view-adventure" class="game-view" style="display:none;"></div>
+
+<!-- VIEW: Platformer (Phaser canvas) -->
+<div id="view-platformer" class="game-view" style="display:none;">
+    <div class="game-canvas-wrapper">
+        <div id="game-canvas"></div>
+    </div>
+</div>
+
+<!-- Quiz is created dynamically by JS on document.body, not here -->
+
+<!-- VIEW: Results -->
+<div id="view-result" class="game-view" style="display:none;">
+    <div class="result-container" id="result-area"></div>
+</div>
+
+<!-- VIEW: Gallery -->
+<div id="view-gallery" class="game-view" style="display:none;">
+    <div class="gallery-header">
+        <h2 data-zh="猫咪图鉴" data-en="Cat collection">Cat collection</h2>
+        <p class="gallery-subtitle" id="gallery-subtitle" data-zh="完成关卡，点亮猫咪伙伴" data-en="Complete journeys to reveal your cat companions">Complete journeys to reveal your cat companions</p>
+    </div>
+    <div class="gallery-grid" id="gallery-grid"></div>
+</div>
+
+<!-- Mobile Touch Controls -->
+<div id="touch-controls" class="touch-controls" style="display:none;">
+    <div class="touch-dpad">
+        <button class="touch-btn touch-left"
+            ontouchstart="window.dispatchEvent(new CustomEvent('touch-control',{detail:{action:'left'}}))"
+            ontouchend="window.dispatchEvent(new CustomEvent('touch-control',{detail:{action:'none'}}))"
+            onmousedown="window.dispatchEvent(new CustomEvent('touch-control',{detail:{action:'left'}}))"
+            onmouseup="window.dispatchEvent(new CustomEvent('touch-control',{detail:{action:'none'}}))">&lt;</button>
+        <button class="touch-btn touch-right"
+            ontouchstart="window.dispatchEvent(new CustomEvent('touch-control',{detail:{action:'right'}}))"
+            ontouchend="window.dispatchEvent(new CustomEvent('touch-control',{detail:{action:'none'}}))"
+            onmousedown="window.dispatchEvent(new CustomEvent('touch-control',{detail:{action:'right'}}))"
+            onmouseup="window.dispatchEvent(new CustomEvent('touch-control',{detail:{action:'none'}}))">&gt;</button>
+    </div>
+    <button class="touch-btn touch-jump"
+        ontouchstart="window.dispatchEvent(new CustomEvent('touch-control',{detail:{action:'jump'}}))"
+        onmousedown="window.dispatchEvent(new CustomEvent('touch-control',{detail:{action:'jump'}}))">JUMP</button>
+</div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/game-state.js?v={{ game_asset_version }}"></script>
+<script src="/static/js/postal-art.js?v={{ game_asset_version }}"></script>
+<script src="/static/js/postal-game.js?v={{ game_asset_version }}"></script>
+<script src="/static/js/castle-art.js?v={{ game_asset_version }}"></script>
+<script src="/static/js/castle-game.js?v={{ game_asset_version }}"></script>
+<script src="/static/js/adventure-games.js?v={{ game_asset_version }}"></script>
+<script src="/static/js/adventure-worlds.js?v={{ game_asset_version }}"></script>
+<script src="/static/js/adventure-art.js?v={{ game_asset_version }}"></script>
+<script src="/static/js/game.js?v={{ game_asset_version }}"></script>
+{% endblock %}

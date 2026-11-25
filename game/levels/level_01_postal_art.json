@@ -1,0 +1,121 @@
+{
+  "levelId": 1,
+  "source": "web/static/js/postal-art.js",
+  "format": "editable-procedural-canvas",
+  "canvas": {
+    "desktop": [
+      640,
+      400
+    ],
+    "portraitWidth": 320,
+    "portraitHeightRange": [
+      400,
+      680
+    ],
+    "sampling": "nearest-neighbor"
+  },
+  "palette": {
+    "sea": "#3B9C9C",
+    "sand": "#EBCB91",
+    "copper": "#C76B55",
+    "paper": "#FFF1CD",
+    "shadow": "#244454"
+  },
+  "layers": [
+    "sea-and-sand",
+    "road-and-curbs",
+    "buildings-gardens-and-flags",
+    "landmarks",
+    "knowledge-mailboxes",
+    "coins-and-crates",
+    "cat-post-van",
+    "dom-interface"
+  ],
+  "road": {
+    "distance": 4200,
+    "halfWidth": 68,
+    "curbRecoveryOffset": 50,
+    "curbThreshold": 54,
+    "parkingSideLimit": 84
+  },
+  "van": {
+    "logicalFrame": [
+      48,
+      64
+    ],
+    "anchor": [
+      24,
+      30
+    ],
+    "screenAnchorY": "canvas height - 100",
+    "visualBoundsRelativeToAnchor": [
+      -18,
+      -26,
+      37,
+      59
+    ],
+    "animation": {
+      "driving": "two-pose suspension bob at 14 radians/sec",
+      "steering": "lateral body lean",
+      "protection": "corner pixel glints",
+      "paused": "frozen"
+    },
+    "collision": "Road boundary uses lateral center offset. Item contact uses longitudinal distance <=20 and lateral offset <=23; image bounds are not the hitbox."
+  },
+  "mailboxes": {
+    "firstDistance": 250,
+    "spacing": 400,
+    "count": 10,
+    "visualAnchor": "road center + side *98 -5, at station distance",
+    "activation": "Only a vehicle center inside the visible P bay triggers a 0.65s forced docking, then opens the original question. Passing on the road can miss the mailbox.",
+    "states": [
+      "pending-exclamation",
+      "wrong-exclamation-until-next-lap",
+      "completed-check-without-exclamation"
+    ],
+    "events": [
+      "enter-painted-parking-range",
+      "clear-input-and-dock",
+      "freeze-and-open-original-question",
+      "save-cross-lap-mastery-on-correct",
+      "resume-after-explicit-continue",
+      "missed-station-stays-for-next-lap"
+    ],
+    "sides": "right, left, right repeated",
+    "parkingOffset": 64,
+    "visibleBaySize": [
+      44,
+      80
+    ],
+    "activationSize": [
+      36,
+      68
+    ]
+  },
+  "environmentAnimations": {
+    "foam": "stepped highlights at 2 updates/sec",
+    "mailFlags": "two wind poses at 2 updates/sec",
+    "gull": "slow continuous silhouette",
+    "lighthouse": "slow stepped light beam",
+    "reducedMotion": "freeze decorative time and remove gull; retain essential route scrolling"
+  },
+  "desktop": "Large wide playfield. Ten envelope indicators in the top-left; coins, sound and pause in the top-right. No dispatch sidebar.",
+  "mobile": "Adaptive tall portrait playfield, independent bottom driving controls, compact corner HUD; wide landscape composition.",
+  "originalReward": "web/static/sprites/cats/cat_01.png (unchanged)",
+  "sound": {
+    "defaultSfx": true,
+    "defaultMusic": false,
+    "activation": "Explicit start gesture",
+    "events": [
+      "start",
+      "coin",
+      "dock",
+      "letter",
+      "correct",
+      "wrong",
+      "bump",
+      "finish"
+    ],
+    "synthesis": "Local Web Audio; mute persisted; stop on pause/exit."
+  }
+}

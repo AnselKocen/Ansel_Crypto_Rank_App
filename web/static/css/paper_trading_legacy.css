@@ -1,0 +1,158 @@
+/* ========== Paper Trading Styles ========== */
+.paper-trading-section {
+    margin-top: 2rem;
+    border-top: 2px solid rgba(78, 205, 196, 0.3);
+    padding-top: 1.5rem;
+}
+
+.section-header h2 {
+    color: #e6f1ff;
+    margin-bottom: 0.25rem;
+}
+
+.pt-metrics-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.pt-card {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(78, 205, 196, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pt-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(78, 205, 196, 0.15);
+}
+
+.pt-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(78, 205, 196, 0.1);
+}
+
+.pt-card-header h3 {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #e6f1ff;
+}
+
+.pt-badge {
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.pt-badge.ls { background: rgba(139, 92, 246, 0.3); color: #a78bfa; }
+.pt-badge.ew { background: rgba(16, 185, 129, 0.3); color: #34d399; }
+.pt-badge.baseline { background: rgba(148, 163, 184, 0.3); color: #94a3b8; }
+
+.pt-card-body { padding: 1rem; }
+
+.pt-metric-main {
+    text-align: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(78, 205, 196, 0.08);
+}
+
+.pt-label {
+    display: block;
+    font-size: 0.7rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.2rem;
+}
+
+.pt-value {
+    font-weight: 600;
+    color: #e6f1ff;
+    font-size: 0.9rem;
+}
+
+.pt-value.big {
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+.pt-value.positive { color: #10b981; }
+.pt-value.negative { color: #ef4444; }
+
+.pt-metric-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+}
+
+.pt-metric { text-align: center; }
+
+/* Positions Grid */
+.pt-positions {
+    margin-bottom: 1rem;
+}
+
+.pt-positions h3 {
+    color: #e6f1ff;
+    margin-bottom: 1rem;
+}
+
+.pt-positions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.pt-pos-title {
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(78, 205, 196, 0.1);
+}
+
+.pt-pos-title.long { color: #10b981; }
+.pt-pos-title.short { color: #ef4444; }
+
+.pt-pos-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 0.5rem;
+}
+
+.pt-pos-item {
+    background: rgba(30, 41, 59, 0.5);
+    border-radius: 6px;
+    padding: 0.5rem 0.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.pt-pos-item .sym { font-weight: 600; color: #e6f1ff; }
+.pt-pos-item .pred { font-size: 0.75rem; }
+.pt-pos-item .pred.positive { color: #10b981; }
+.pt-pos-item .pred.negative { color: #ef4444; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .pt-metrics-row {
+        grid-template-columns: 1fr;
+    }
+    .pt-positions-grid {
+        grid-template-columns: 1fr;
+    }
+    .pt-metric-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+

@@ -1,0 +1,152 @@
+/* Shared cosmic glass shell for every application page. */
+:root {
+    color-scheme: dark;
+    --cosmic-bg: #030812;
+    --cosmic-text: #f2f7ff;
+    --cosmic-muted: #a5b8d1;
+    --cosmic-cyan: #a8eaff;
+    --cosmic-blue: #b5ceff;
+    --cosmic-violet: #c9baff;
+    --cosmic-border: rgba(151, 198, 236, .28);
+    --cosmic-glass: linear-gradient(140deg, #def0ff08, transparent 45%, #7b9dff07), rgba(5, 13, 27, .32);
+}
+html { background: var(--cosmic-bg); }
+body.cosmic-page { min-height: 100vh; height: auto; background: var(--cosmic-bg); color: var(--cosmic-text); font-size: 16px; -webkit-font-smoothing: antialiased; }
+.cosmic-page #starfield { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: .9; }
+.cosmic-page .main-content, .cosmic-page .footer { position: relative; z-index: 1; }
+.cosmic-page .main-content { width: min(1500px, 100%); margin: 0 auto; padding: 32px; }
+.cosmic-page a { color: var(--cosmic-cyan); }
+.cosmic-page a:hover { color: #d9f7ff; }
+.cosmic-page :is(a, button, input, select, textarea, summary):focus-visible { outline: 2px solid #a9dcff; outline-offset: 4px; }
+.cosmic-page .navbar { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; padding: 17px 30px; gap: 12px 24px; background: rgba(4, 12, 26, .86); border-bottom: 1px solid #9cc5ec38; box-shadow: inset 0 1px 0 #d6efff0c, 0 8px 32px #0003; backdrop-filter: none; }
+.cosmic-page .nav-brand { display: inline-flex; align-items: center; gap: 10px; color: #c0f5f4; font-size: 18px; font-weight: 650; letter-spacing: .6px; }
+.cosmic-page .nav-logo { font-size: 29px; line-height: 1; color: #adebff; text-shadow: 0 0 16px #74ccff36; }
+.cosmic-page .nav-icon-library { position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none; }
+.cosmic-page .nav-tabs { gap: 5px; min-width: 0; align-items: center; flex-wrap: wrap; overflow: visible; }
+.cosmic-page .nav-tab { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; padding: 9px 10px; color: var(--nav-color, #b2c1d8); border: 1px solid transparent; border-radius: 8px; transition: color .2s, background-color .2s, border-color .2s; }
+.cosmic-page .nav-tab:hover { background: rgba(var(--nav-rgb, 150, 202, 239), .07); border-color: rgba(var(--nav-rgb, 150, 202, 239), .24); color: var(--nav-color, #d1f5ff); }
+.cosmic-page .nav-tab.active { background: linear-gradient(130deg, rgba(var(--nav-rgb, 150, 202, 239), .14), rgba(var(--nav-rgb, 150, 202, 239), .045)); border-color: rgba(var(--nav-rgb, 150, 202, 239), .52); color: var(--nav-color, #d3f5ff); box-shadow: inset 0 1px 0 #dbf6ff26, 0 0 20px rgba(var(--nav-rgb, 150, 202, 239), .07); }
+.cosmic-page .dropdown-menu { right: 0; left: auto; padding: 8px; background: #081326f5; border-color: #a0ceec38; box-shadow: 0 18px 38px #0008, inset 0 1px 0 #e5f9ff12; backdrop-filter: none; }
+.cosmic-page .dropdown-item { display: flex; align-items: center; gap: 10px; color: var(--nav-color, #c3d4e9); border-radius: 5px; font-size: 14px; }
+.cosmic-page .dropdown-item:hover, .cosmic-page .dropdown-item.active { background: rgba(var(--nav-rgb, 150, 202, 239), .1); color: var(--nav-color, #c7efff); }
+.cosmic-page [data-nav="cat"] { --nav-color: #c2b3ff; --nav-rgb: 194, 179, 255; }
+.cosmic-page [data-nav="learn"] { --nav-color: #9ccaff; --nav-rgb: 156, 202, 255; }
+.cosmic-page [data-nav="predict"] { --nav-color: #91eed5; --nav-rgb: 145, 238, 213; }
+.cosmic-page [data-nav="sentiment"] { --nav-color: #e0b5ff; --nav-rgb: 224, 181, 255; }
+.cosmic-page [data-nav="chat"] { --nav-color: #98e7fa; --nav-rgb: 152, 231, 250; }
+.cosmic-page [data-nav="market"] { --nav-color: #afbfff; --nav-rgb: 175, 191, 255; }
+.cosmic-page [data-nav="portfolio"] { --nav-color: #89ddd3; --nav-rgb: 137, 221, 211; }
+.cosmic-page [data-nav="transparency"], .cosmic-page [data-nav="strategy"] { --nav-color: #c3e7ff; --nav-rgb: 195, 231, 255; }
+.cosmic-page [data-nav="settings"] { --nav-color: #c8bdff; --nav-rgb: 200, 189, 255; }
+.cosmic-page [data-nav="features"] { --nav-color: #9fe1e5; --nav-rgb: 159, 225, 229; }
+.cosmic-page [data-nav="backtest"] { --nav-color: #a7c8ff; --nav-rgb: 167, 200, 255; }
+.cosmic-page .nav-symbol { display: block; width: 19px; height: 19px; flex: 0 0 19px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(var(--nav-rgb, 150, 202, 239), .17)); }
+.cosmic-page .nav-tab.active .nav-symbol { filter: drop-shadow(0 0 6px rgba(var(--nav-rgb, 150, 202, 239), .4)); }
+.cosmic-page .nav-dropdown:focus-within .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+.cosmic-page .page-header { margin: 0 0 26px; padding: 5px 0; }
+.cosmic-page .page-header h1 { font-size: clamp(26px, 2.8vw, 36px); line-height: 1.35; font-weight: 650; letter-spacing: -.6px; color: #bce8ff; background: none; -webkit-text-fill-color: currentColor; text-shadow: 0 1px 2px #0009; }
+.cosmic-page :is(.page-header p, .subtitle, .page-subtitle) { color: #c0cfe1; margin-top: 10px; font-size: 16px; }
+.cosmic-page :is(.content-section, .column, .card, .transparency-card, .code-block, .market-toolbar, .market-chart-panel, .market-watchlist, .market-overview-section, .legacy-simulator) {
+    background: var(--cosmic-glass);
+    color: var(--cosmic-text);
+    border: 1px solid var(--cosmic-border);
+    border-radius: 12px;
+    box-shadow: inset 0 1px 0 #d8f4ff1d, 0 14px 34px #0003;
+    backdrop-filter: none;
+    isolation: isolate;
+}
+.cosmic-page :is(.content-section, .column) { min-width: 0; }
+.cosmic-page .content-section { padding: 26px; margin-bottom: 20px; }
+.cosmic-page :is(h2, h3, h4) { color: var(--cosmic-cyan); font-weight: 600; }
+.cosmic-page h2 { font-size: 23px; }
+.cosmic-page h3 { font-size: 19px; }
+.cosmic-page h4 { font-size: 17px; }
+.cosmic-page :is(.content-section h2, .content-section h3, .content-section h4) { margin-bottom: 12px; }
+.cosmic-page :is(.content-section p, .card p, .intro-text p) { color: #e1ebf7; line-height: 1.85; }
+.cosmic-page .content-section p + p { margin-top: 10px; }
+.cosmic-page :is(.btn, .market-button, .preset-btn) { border: 1px solid #96cbf044; border-radius: 7px; background: #94c9ed0d; color: #c6eaff; box-shadow: inset 0 1px 0 #d3f3ff13; transition: border-color .2s, background-color .2s; font-size: 14px; }
+.cosmic-page :is(.btn, .market-button, .preset-btn):hover { background: #9bd7ff1a; border-color: #a0d7ff80; transform: none; }
+.cosmic-page .btn-primary { background: linear-gradient(125deg, #c4f4ff, #82baff); color: #062039; border-color: #d2f7ff; box-shadow: inset 0 1px 0 #e4fcff, 0 5px 24px #5baaff1f; font-weight: 600; }
+.cosmic-page .btn-primary:hover { background: linear-gradient(125deg, #d8f8ff, #9ac9ff); color: #062039; }
+.cosmic-page button:disabled { opacity: .45; cursor: default; }
+.cosmic-page :is(input[type="text"], input[type="search"], input[type="number"], select, textarea) { background-color: #060f21b3; color: #eef7ff; border: 1px solid #9fc8ef45; border-radius: 7px; padding: 10px 12px; font: inherit; max-width: 100%; }
+.cosmic-page :is(input, textarea)::placeholder { color: #93a7c2; }
+.cosmic-page select { color-scheme: dark; }
+.cosmic-page option { background: #0b1628; color: #edf5ff; }
+.cosmic-page input[type="radio"], .cosmic-page input[type="checkbox"] { accent-color: #8bcfff; }
+.cosmic-page :is(.info-box, .warning-box, .info-box.blue, .info-box.yellow, .disclaimer-section) { background: #839cff0c; border: 1px solid #a4b8f036; border-left: 3px solid #95b7ff; color: #d8e7fb; border-radius: 8px; }
+.cosmic-page :is(.success-message, .error-message) { border-radius: 8px; }
+.cosmic-page :is(.data-table, table) { color: #e3edf9; font-size: 14px; }
+.cosmic-page :is(.data-table, table) th { background: #8ba7df14; color: #b9e7ff; border-color: #a4bde629; }
+.cosmic-page :is(.data-table, table) td { border-color: #a4bde61d; }
+.cosmic-page :is(.data-table, table) tr:hover { background: #88b6ef09; }
+.cosmic-page .token-item.long { background: #87d7bb0d; color: #c4f1e0; border: 1px solid #8bd9c02b; }
+.cosmic-page .token-item.short { background: #ad94ed0d; color: #f1c6dd; border: 1px solid #b69cde2b; }
+.cosmic-page .model-result h3 { border-color: #a4c4ed28; }
+.cosmic-page :is(code, pre, .code-block) { color: #d3e2ff; background-color: #09142666; border-color: #9cc5ec28; }
+.cosmic-page .data-table code { background: #95bcf11a; color: #c8e9ff; }
+.cosmic-page .link-list li { border-color: #acc8ea1f; }
+.cosmic-page .link-list a:hover { color: #c8d5ff; }
+.cosmic-page :is(.image-card img, .image-center img, .video-container, .market-overview-widget) { border-color: #a5c9ed33; border-radius: 8px; }
+.cosmic-page :is(.image-error, .image-caption, .placeholder, .loading, .note) { color: var(--cosmic-muted); }
+.cosmic-page .image-error { background: #a4c3eb08; }
+.cosmic-page .metric-option, .cosmic-page .radio-option { color: #d6e6fa; border: 1px solid transparent; border-radius: 6px; }
+.cosmic-page .metric-option:hover, .cosmic-page .radio-option:hover { background: #9bc8fb12; border-color: #9bc8fb27; }
+.cosmic-page .transparency-card { transition: border-color .2s, background-color .2s; }
+.cosmic-page .transparency-card:hover { transform: none; border-color: #b4d1ff75; background: linear-gradient(135deg, #8bcaff0d, #a98aff09), #06102155; }
+.cosmic-page .transparency-card::before { background: linear-gradient(90deg, #8ae9e8, #b9a2f4); }
+.cosmic-page .transparency-card .card-body h3 { color: #b6dcff; }
+.cosmic-page .transparency-card .card-body p, .cosmic-page .card-features { color: #d7e4f5; }
+.cosmic-page .card-features li::before { color: #a9eaff; }
+.cosmic-page .card-arrow { color: #a4c8ed; }
+.cosmic-page .disclaimer-content h3 { color: #c5c9ff; }
+.cosmic-page .disclaimer-content p { color: #ccdcf0; }
+.cosmic-page .three-column-layout { grid-template-columns: minmax(170px, 1fr) minmax(200px, 1fr) minmax(0, 2fr); gap: 18px; height: min(760px, calc(100svh - 210px)); min-height: 530px; }
+.cosmic-page .column h3, .cosmic-page .chat-header { border-color: #a8c3e92b; }
+.cosmic-page :is(.category-header, .preset-btn, .message.assistant) { background: #91bdf20c; color: #e0edfc; border-color: #91bdf230; }
+.cosmic-page .category-header:hover, .cosmic-page .skill-item:hover { background: #93bbf019; }
+.cosmic-page .skill-item.active { background: #91b9f324; color: #d2f4ff; box-shadow: inset 2px 0 0 #95ddff; }
+.cosmic-page :is(.skill-detail .placeholder, .welcome-message) { color: #b4c7df; }
+.cosmic-page .welcome-message { background: #91bdf20c; border: 1px solid #91bdf22b; color: #dcecff; }
+.cosmic-page .message.user { background: #82c5e31c; color: #eff9ff; }
+.cosmic-page .message .label { color: #b9deff; }
+.cosmic-page .chat-input-area { border-color: #a4c5ed30; }
+.cosmic-page #weekly-update-bar { background: var(--cosmic-glass); border-color: #93bff047 !important; box-shadow: inset 0 1px 0 #d8f4ff17; }
+.cosmic-page .market-context, .cosmic-page .chart-footnote, .cosmic-page .watchlist-note, .cosmic-page .coin-column-labels { color: #afc2dc; }
+.cosmic-page :is(.chart-controls, .coin-column-labels, .watchlist-note, .market-side-switch, .coin-search, .chart-canvas, .market-overview-widget) { background-color: #060f2166; border-color: #a5c4ed25; }
+.cosmic-page .chart-placeholder { background: radial-gradient(ellipse, #223f573f, #071126b0); }
+.cosmic-page .chart-loading { background: #0b1b32ed; border-color: #9bcced44; color: #d4ecff; }
+.cosmic-page .market-ticker { background: #071226f0; border-color: #9fc8f02e; }
+.cosmic-page .market-side-switch button, .cosmic-page .chart-intervals button { color: #afc5e3; }
+.cosmic-page .chart-intervals button.active { background: #92c4ef1a; color: #b4f0ff; }
+.cosmic-page .footer { color: #859ab7; background: #03081255; border-top: 1px solid #abc7eb24; padding: 26px 30px; font-size: 12px; }
+@media (max-width: 1320px) {
+    .cosmic-page .navbar { grid-template-columns: minmax(0, 1fr) auto; gap: 12px; padding: 17px 24px; }
+    .cosmic-page .nav-tabs { grid-column: 1 / -1; grid-row: 2; width: 100%; }
+    .cosmic-page .site-language-switch { grid-column: 2; grid-row: 1; }
+}
+@media (max-width: 1100px) {
+    .cosmic-page .main-content { padding: 26px 24px; }
+    .cosmic-page .three-column-layout { grid-template-columns: 1fr 1fr; height: auto; }
+    .cosmic-page .chat-column { grid-column: 1 / -1; min-height: 500px; }
+    .cosmic-page .column { max-height: 600px; }
+}
+@media (max-width: 650px) {
+    .cosmic-page .navbar { padding: 15px 18px; gap: 10px; }
+    .cosmic-page .nav-brand { font-size: 16px; min-width: 0; white-space: normal; line-height: 1.4; }
+    .cosmic-page .nav-tab { padding: 6px 8px; font-size: 14px; gap: 6px; }
+    .cosmic-page .nav-symbol { width: 17px; height: 17px; flex-basis: 17px; }
+    .cosmic-page .nav-tabs { gap: 2px; }
+    .cosmic-page .main-content { padding: 24px 18px; }
+    .cosmic-page .content-section { padding: 20px 18px; }
+    .cosmic-page .page-header h1 { font-size: 27px; }
+    .cosmic-page .three-column-layout { grid-template-columns: 1fr; }
+    .cosmic-page .chat-column { grid-column: auto; }
+    .cosmic-page .column { max-height: 460px; }
+    .cosmic-page .footer { padding: 24px 18px; }
+    .cosmic-page .dropdown-menu { right: 0; left: auto; }
+    .cosmic-page .data-table { display: block; overflow-x: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .cosmic-page *, .cosmic-page *::before, .cosmic-page *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+}

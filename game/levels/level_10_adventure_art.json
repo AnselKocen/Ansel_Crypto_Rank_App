@@ -1,0 +1,44 @@
+{
+  "levelId": 10,
+  "title": "ICO 冒险终点档案馆",
+  "mechanic": "puzzle",
+  "artSource": "web/static/js/adventure-art.js",
+  "logicSource": "web/static/js/adventure-worlds.js",
+  "sharedInterface": "web/static/js/adventure-games.js",
+  "format": "editable-procedural-canvas",
+  "canvas": {
+    "desktop": [
+      640,
+      400
+    ],
+    "portraitWidth": 320,
+    "portraitHeightRange": [
+      400,
+      680
+    ],
+    "stage": [
+      320,
+      400
+    ],
+    "sampling": "nearest-neighbor"
+  },
+  "interactionAndRecovery": "Five rooms: push box to pressure plate, orient mirror, step 1-2-3, traverse portal, set switch pattern. Undo/reset preserve knowledge. Third hint completes action only.",
+  "controls": [
+    "left",
+    "up",
+    "interact",
+    "down",
+    "right"
+  ],
+  "states": [
+    "unread-exclamation",
+    "incorrect-for-next-visit",
+    "mastered-check-without-exclamation"
+  ],
+  "persistence": "knowledge[10][questionId] and runs[10]",
+  "originalQuestions": "game/questions/level_10.json",
+  "originalReward": "web/static/sprites/cats/cat_10.png",
+  "rewardImagePolicy": "Original image and metadata unchanged; full contain, no cropping",
+  "audio": "Local synthesized cues with shared persistent mute setting",
+  "pause": "All gameplay state and decoration time freeze while a question or pause dialog is open"
+}

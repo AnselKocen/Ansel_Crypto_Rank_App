@@ -1,0 +1,10 @@
+# Python 3.12; versions used in the archived historical replay.
+numpy==2.1.3
+pandas==2.2.3
+scikit-learn==1.5.2
+requests==2.32.3
+nltk==3.9.1
+matplotlib==3.10.0
+plotly==7.1.0
+# The project's existing FastAPI UI additionally uses requirements_web.txt
+# and anthropic, already installed in the dedicated .replay-venv environment.

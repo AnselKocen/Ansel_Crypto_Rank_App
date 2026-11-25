@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Investment - Ansel Crypto Rank App{% endblock %}
+
+{% block content %}
+<div class="insights-workspace investment-workspace">
+    <header class="page-header insights-header">
+        <h1 data-zh="🎯 哪种策略更适合我？" data-en="🎯 Which Strategy Suits Me Best?">🎯 Which Strategy Suits Me Best?</h1>
+        <p class="subtitle" data-zh="平台根据多项指标，为你推荐合适的策略组合。" data-en="Our platform recommends the most suitable strategy combinations based on various indicators.">Our platform recommends the most suitable strategy combinations based on various indicators.</p>
+    </header>
+
+    <div class="investment-route insight-note">
+        <p>👉 <em data-zh="找到所选模型特征标签，然后前往 ▶️ 预测页面查看排名前 20 和后 20 的代币" data-en="Match your selected Model Feature tag, then head to ▶️ Prediction to see the Top 20 and Bottom 20 token picks">Match your selected Model Feature tag, then head to ▶️ Prediction to see the Top 20 and Bottom 20 token picks</em> <span data-zh="，并按照" data-en="and start building your portfolio according to the ">and start building your portfolio according to the </span><strong data-zh="对应策略" data-en="corresponding strategy">corresponding strategy</strong><span data-zh="构建投资组合！" data-en="!">!</span></p>
+    </div>
+
+    <div class="investment-layout">
+        <section class="content-section insight-panel investment-sharpe" aria-labelledby="sharpe-title">
+            <h3 id="sharpe-title" data-zh="🏅 首选：夏普比率领先策略（最佳风险调整后收益）" data-en="🏅 Top Pick: Sharpe Ratio Champions (Best Risk-Adjusted Return)">🏅 Top Pick: Sharpe Ratio Champions (Best Risk-Adjusted Return)</h3>
+            <p>💡 <strong data-zh="如果你希望最大化单位风险的超额收益" data-en="If you aim to maximize excess return per unit of risk">If you aim to maximize excess return per unit of risk</strong><span data-zh="，可先考虑夏普比率最高的策略：" data-en=", start by considering the strategies with the highest Sharpe Ratios:">, start by considering the strategies with the highest Sharpe Ratios:</span></p>
+            <div class="insight-table-wrap" tabindex="0" role="region" aria-label="Sharpe ratio strategies" data-aria-zh="夏普比率策略表" data-aria-en="Sharpe ratio strategies">
+                <table class="data-table">
+                    <thead><tr><th data-zh="🏆 排名" data-en="🏆 Rank">🏆 Rank</th><th data-zh="模型特征标签" data-en="Model Feature Tag">Model Feature Tag</th><th data-zh="策略" data-en="Strategy">Strategy</th><th data-zh="夏普比率" data-en="Sharpe Ratio">Sharpe Ratio</th></tr></thead>
+                    <tbody>
+                        <tr><td data-zh="🥇 第 1 名" data-en="🥇 1st">🥇 1st</td><td><code>extra_all</code></td><td>ls</td><td>2.20</td></tr>
+                        <tr><td data-zh="🥈 第 2 名" data-en="🥈 2nd">🥈 2nd</td><td><code>fusion_all</code></td><td>ls</td><td>2.03</td></tr>
+                        <tr><td data-zh="🥉 第 3 名" data-en="🥉 3rd">🥉 3rd</td><td><code>extra_market</code></td><td>ls</td><td>1.90</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="content-section insight-panel investment-risk" aria-labelledby="risk-title">
+            <h3 id="risk-title" data-zh="😎 按风险偏好选择策略" data-en="😎 Strategy Recommendations Based on Your Risk Preference">😎 Strategy Recommendations Based on Your Risk Preference</h3>
+            <div class="risk-table-section">
+                <h4 data-zh="🔥 高风险偏好（追求最高收益）" data-en="🔥 High Risk Appetite (Maximize Return)">🔥 High Risk Appetite (Maximize Return)</h4>
+                <div class="insight-table-wrap" tabindex="0" role="region" aria-label="High risk strategies" data-aria-zh="高风险策略表" data-aria-en="High risk strategies">
+                    <table class="data-table">
+                        <thead><tr><th data-zh="🏆 排名" data-en="🏆 Rank">🏆 Rank</th><th data-zh="模型特征标签" data-en="Model Feature Tag">Model Feature Tag</th><th data-zh="策略" data-en="Strategy">Strategy</th><th data-zh="年化收益" data-en="Annualized Return">Annualized Return</th></tr></thead>
+                        <tbody>
+                            <tr><td data-zh="🥇 第 1 名" data-en="🥇 1st">🥇 1st</td><td><code>extra_all</code></td><td>EW</td><td>2.10</td></tr>
+                            <tr><td data-zh="🥈 第 2 名" data-en="🥈 2nd">🥈 2nd</td><td><code>extra_market</code></td><td>EW</td><td>1.80</td></tr>
+                            <tr><td data-zh="🥉 第 3 名" data-en="🥉 3rd">🥉 3rd</td><td><code>extra_all</code></td><td>ls</td><td>1.75</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="note" data-zh="📝 说明：这些策略收益较高，波动也更大，适合积极型投资者！" data-en="📝 Note: These strategies offer high returns but also higher volatility — perfect for aggressive investors!">📝 Note: These strategies offer high returns but also higher volatility — perfect for aggressive investors!</p>
+            </div>
+            <div class="risk-table-section">
+                <h4 data-zh="🧊 低风险偏好（稳定优先）" data-en="🧊 Low Risk Appetite (Stability First)">🧊 Low Risk Appetite (Stability First)</h4>
+                <div class="insight-table-wrap" tabindex="0" role="region" aria-label="Low risk strategies" data-aria-zh="低风险策略表" data-aria-en="Low risk strategies">
+                    <table class="data-table">
+                        <thead><tr><th data-zh="🏆 排名" data-en="🏆 Rank">🏆 Rank</th><th data-zh="模型特征标签" data-en="Model Feature Tag">Model Feature Tag</th><th data-zh="策略" data-en="Strategy">Strategy</th><th data-zh="年化波动率" data-en="Annualized Volatility">Annualized Volatility</th></tr></thead>
+                        <tbody>
+                            <tr><td data-zh="🥇 第 1 名" data-en="🥇 1st">🥇 1st</td><td><code>fusion_market</code></td><td>ls</td><td>0.36</td></tr>
+                            <tr><td data-zh="🥈 第 2 名" data-en="🥈 2nd">🥈 2nd</td><td><code>fusion_all</code></td><td>ls</td><td>0.38</td></tr>
+                            <tr><td data-zh="🥉 第 3 名" data-en="🥉 3rd">🥉 3rd</td><td><code>extra_market</code></td><td>ls</td><td>0.42</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section insight-panel investment-strategy" aria-labelledby="strategy-title">
+            <h3 id="strategy-title" data-zh="🧮 ls 与 EW 有什么区别？" data-en="🧮 What is the difference between ls and EW?">🧮 What is the difference between ls and EW?</h3>
+            <p>👉 <strong data-zh="等权重（EW）" data-en="Equal Weight (EW)">Equal Weight (EW)</strong><span data-zh="配置是最简单有效的方法。" data-en=" allocation is the simplest and most effective method."> allocation is the simplest and most effective method.</span></p>
+            <div class="info-box" data-zh="实际上，很少有加权模型能在长期持续跑赢 EW！只需每周为排名靠前的代币分配相同资金，多头与空头两侧都采用等权配置。" data-en="In fact, very few weighted models consistently outperform EW over the long run! Just allocate equal capital to the top tokens weekly for both long and short sides.">In fact, very few weighted models consistently outperform EW over the long run! Just allocate equal capital to the top tokens weekly for both long and short sides.</div>
+            <div class="warning-box"><span data-zh="⚠️ 如果使用" data-en="⚠️ If you're using ">⚠️ If you're using </span><strong>`ls`</strong><span data-zh="策略，请确保理解" data-en=" strategies, make sure you understand how "> strategies, make sure you understand how </span><strong data-zh="做空" data-en="shorting">shorting</strong><span data-zh="的运作方式！请前往 🎓 教育页面观看视频！" data-en=" works! Visit the 🎓 Education tab to watch the video!"> works! Visit the 🎓 Education tab to watch the video!</span></div>
+        </section>
+    </div>
+
+    <section class="content-section insight-panel investment-disclaimer disclaimer">
+        <h4 data-zh="⚠️ 风险免责声明" data-en="⚠️ Risk Disclaimer">⚠️ Risk Disclaimer</h4>
+        <p data-zh="本系统仅供研究与参考，不构成投资建议。加密货币投资风险极高，请谨慎决策。" data-en="This system is for research and reference only and does not constitute investment advice. Cryptocurrency investments carry extremely high risks. Please make decisions carefully.">This system is for research and reference only and does not constitute investment advice. Cryptocurrency investments carry extremely high risks. Please make decisions carefully.</p>
+    </section>
+</div>
+{% endblock %}

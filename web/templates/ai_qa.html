@@ -1,0 +1,331 @@
+{% extends "base.html" %}
+
+{% block title %}AI 问答 - Ansel Crypto Rank App{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 data-zh="💬 AI 问答助手" data-en="💬 AI Q&amp;A Assistant">💬 AI 问答助手</h1>
+    <p class="subtitle" data-zh="🚀 结合 AI 与《如何从加密货币中获利》知识库，了解加密货币与项目原理。" data-en="🚀 AI and knowledge from &quot;How to Profit from Crypto&quot; — explore cryptocurrency and how this project works.">🚀 结合 AI 与《如何从加密货币中获利》知识库，了解加密货币与项目原理。</p>
+</div>
+
+<div class="three-column-layout">
+    <!-- Left Column: Skills List (25%) -->
+    <div class="column skills-column">
+        <h3 data-zh="📚 知识库" data-en="📚 Knowledge Base">📚 知识库</h3>
+
+        <!-- Skills Categories -->
+        <div id="skills-list" class="skills-list">
+            <p class="loading" data-zh="正在加载知识库…" data-en="Loading skills…">正在加载知识库…</p>
+        </div>
+    </div>
+
+    <!-- Middle Column: Skill Detail (25%) -->
+    <div class="column detail-column">
+        <header class="skill-detail-toolbar">
+            <h3><span aria-hidden="true">📖</span> <span data-zh="知识详情" data-en="Skill Detail">知识详情</span></h3>
+            <button id="skill-expand" class="skill-reader-button" type="button" aria-haspopup="dialog" aria-controls="skill-reader-dialog" disabled>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7M21 3l-8 8M10 21H3v-7M3 21l8-8"/></svg>
+                <span data-zh="展开阅读" data-en="Expand">展开阅读</span>
+            </button>
+        </header>
+        <div id="skill-detail" class="skill-detail" aria-busy="false">
+            <p class="placeholder" data-zh="从左侧选择一项知识，即可阅读完整内容。" data-en="Choose a skill on the left to read the full article.">从左侧选择一项知识，即可阅读完整内容。</p>
+        </div>
+    </div>
+
+    <!-- Right Column: Chat (50%) -->
+    <div class="column chat-column">
+        <div class="chat-header">
+            <h3 data-zh="💬 对话" data-en="💬 Chat">💬 对话</h3>
+            <button class="btn btn-secondary btn-sm" onclick="clearChat()" data-zh="🗑️ 清空" data-en="🗑️ Clear">🗑️ 清空</button>
+        </div>
+
+        <!-- Preset Questions -->
+        <div id="preset-questions" class="preset-questions">
+            <!-- Will be populated by JS -->
+        </div>
+
+        <!-- Chat Messages -->
+        <div id="chat-messages" class="chat-messages">
+            <div class="welcome-message">
+                <p data-zh="👋 你好！我是由 Kimi 提供支持的加密货币助手。" data-en="👋 Welcome! I'm your crypto assistant powered by Kimi.">👋 你好！我是由 Kimi 提供支持的加密货币助手。</p>
+                <p data-zh="可以点击上方预设问题，或在下方输入你的问题。" data-en="Click a preset question above or type your own question below.">可以点击上方预设问题，或在下方输入你的问题。</p>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="chat-input-area">
+            <textarea id="chat-input" placeholder="在这里输入问题…" data-placeholder-zh="在这里输入问题…" data-placeholder-en="Type your question here…" data-aria-zh="输入你的问题" data-aria-en="Your question" aria-label="输入你的问题" rows="2" onkeydown="handleKeyDown(event)"></textarea>
+            <button id="send-btn" class="btn btn-primary" onclick="sendMessage()" data-zh="➤ 发送" data-en="➤ Send">
+                ➤ 发送
+            </button>
+        </div>
+    </div>
+</div>
+
+<dialog id="skill-reader-dialog" class="skill-reader-dialog" aria-labelledby="skill-reader-title">
+    <header class="skill-reader-dialog-toolbar">
+        <h2 id="skill-reader-title" data-zh="展开阅读" data-en="Reading view">展开阅读</h2>
+        <button id="skill-reader-close" class="skill-reader-button" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+            <span data-zh="关闭" data-en="Close">关闭</span>
+        </button>
+    </header>
+    <div id="skill-reader-content" class="skill-reader-content"></div>
+</dialog>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.subtitle {
+    color: #888;
+    margin-top: 0.25rem;
+}
+
+.three-column-layout {
+    display: grid;
+    grid-template-columns: 25% 25% 50%;
+    gap: 1rem;
+    height: calc(100vh - 180px);
+}
+
+.column {
+    background-color: #1e1e2e;
+    border-radius: 8px;
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.column h3 {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #3a3a4a;
+    flex-shrink: 0;
+}
+
+/* Skills List */
+.skills-list {
+    font-size: 0.9rem;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.skill-category {
+    margin-bottom: 0.75rem;
+}
+
+.category-header {
+    cursor: pointer;
+    padding: 0.5rem;
+    background-color: #262730;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-header:hover {
+    background-color: #2a2a3a;
+}
+
+.category-items {
+    display: none;
+    padding-left: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+.category-items.expanded {
+    display: block;
+}
+
+.skill-item {
+    padding: 0.4rem 0.5rem;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    margin: 0.1rem 0;
+}
+
+.skill-item:hover {
+    background-color: #3a3a4a;
+}
+
+.skill-item.active {
+    background-color: #ff6b6b;
+    color: white;
+}
+
+/* Skill Detail */
+.skill-detail {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.skill-detail .placeholder {
+    color: #666;
+    font-style: italic;
+}
+
+/* Chat Column */
+.chat-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #3a3a4a;
+    flex-shrink: 0;
+}
+
+.chat-header h3 {
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+}
+
+/* Preset Questions */
+.preset-questions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+}
+
+.preset-btn {
+    padding: 0.5rem 0.75rem;
+    background-color: #262730;
+    border: 1px solid #3a3a4a;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 0.85rem;
+    color: #ffffff;
+    transition: all 0.2s;
+}
+
+.preset-btn:hover {
+    background-color: #3a3a4a;
+    border-color: #ff6b6b;
+}
+
+/* Chat Messages */
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    padding-right: 0.5rem;
+}
+
+.welcome-message {
+    padding: 1rem;
+    background-color: #262730;
+    border-radius: 8px;
+    color: #888;
+}
+
+.message {
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    max-width: 90%;
+}
+
+.message.user {
+    background-color: #2a4a6a;
+    margin-left: auto;
+    text-align: right;
+}
+
+.message.assistant {
+    background-color: #262730;
+}
+
+.message .label {
+    font-size: 0.75rem;
+    color: #888;
+    margin-bottom: 0.25rem;
+}
+
+.message .content {
+    line-height: 1.7;
+}
+
+.message .content pre {
+    background-color: #1e1e2e;
+    padding: 0.75rem;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 0.5rem 0;
+}
+
+.message .content code {
+    background-color: #1e1e2e;
+    padding: 0.15rem 0.3rem;
+    border-radius: 2px;
+}
+
+/* Input Area */
+.chat-input-area {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.chat-input-area textarea {
+    flex: 1;
+    resize: none;
+    padding: 0.75rem;
+}
+
+.chat-input-area button {
+    align-self: flex-end;
+}
+
+/* Loading */
+.loading-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background-color: #262730;
+    border-radius: 8px;
+    color: #888;
+}
+
+.spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="/static/js/skill-document.js?v=20261125-localized-body"></script>
+<script src="/static/js/skill-reader.js?v=20261125-localized-body"></script>
+<script src="/static/js/ai-qa.js?v=20261125-beginner-presets-scroll"></script>
+{% endblock %}

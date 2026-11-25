@@ -1,0 +1,158 @@
+/* Skill documents are reading surfaces, not a stack of cards. */
+body.skill-reader-open { overflow: hidden; }
+.cosmic-page .detail-column { min-width: 0; }
+.cosmic-page .detail-column .skill-detail-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex: 0 0 auto;
+    padding: 0 0 12px;
+    margin: 0 0 16px;
+    border-bottom: 1px solid #a7c8ed2b;
+}
+.cosmic-page .detail-column .skill-detail-toolbar h3 { min-width: 0; margin: 0; padding: 0; border: 0; color: #c4eaff; font-size: 16px; font-weight: 600; line-height: 1.45; }
+.cosmic-page .skill-reader-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex: 0 0 auto;
+    min-height: 36px;
+    padding: 7px 10px;
+    border: 1px solid #a5d6f04a;
+    border-radius: 7px;
+    color: #c2ebff;
+    background: linear-gradient(130deg, #d6f4ff08, #91b0f607), #07172a80;
+    box-shadow: inset 0 1px 0 #e0f6ff14;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color .2s, background-color .2s;
+}
+.cosmic-page .skill-reader-button span { white-space: nowrap; }
+.cosmic-page .skill-reader-button svg { display: block; width: 16px; height: 16px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.cosmic-page .skill-reader-button:hover:not(:disabled) { color: #e7f9ff; border-color: #b6e8ff9c; background-color: #2345648a; }
+.cosmic-page .skill-reader-button:disabled { opacity: .4; cursor: default; }
+.cosmic-page .skill-reader-button:focus-visible,
+.cosmic-page .skill-document a:focus-visible,
+.cosmic-page .skill-document-source > summary:focus-visible,
+.cosmic-page .skill-document-table:focus-visible { outline: 2px solid #a8e3ff; outline-offset: 3px; }
+.cosmic-page .detail-column #skill-detail { min-width: 0; min-height: 0; padding: 0 6px 10px 0; overflow-x: hidden; overflow-y: auto; scrollbar-gutter: stable; overscroll-behavior: contain; }
+.cosmic-page .detail-column #skill-detail .placeholder { color: #b4c7de; font-size: 14px; line-height: 1.8; font-style: normal; }
+
+.cosmic-page .skill-document {
+    min-width: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    color: #e4edf8;
+    font-size: 14px;
+    line-height: 1.85;
+    font-weight: 400;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+.cosmic-page .skill-document .skill-document-header { padding: 0 0 18px; margin: 0 0 18px; border-bottom: 1px solid #a1bddf29; }
+.cosmic-page .skill-document .skill-document-category { color: #9fc4dc; font-size: 12px; line-height: 1.6; letter-spacing: .1em; margin: 0 0 10px; }
+.cosmic-page .skill-document .skill-document-title { color: #bfeaff; background: none; -webkit-text-fill-color: currentColor; font-size: 20px; font-weight: 600; line-height: 1.45; letter-spacing: -.3px; margin: 0 0 12px; padding: 0; border: 0; overflow-wrap: anywhere; }
+.cosmic-page .skill-document .skill-document-description { color: #c3d4e7; font-size: 14px; line-height: 1.85; margin: 0; white-space: pre-line; }
+.cosmic-page .skill-document .skill-document-body { min-width: 0; }
+.cosmic-page .skill-document .skill-document-body > :first-child { margin-top: 0; }
+.cosmic-page .skill-document .skill-document-body :is(h1, h2, h3, h4, h5, h6) { min-width: 0; padding: 0; border: 0; border-radius: 0; background: none; -webkit-text-fill-color: currentColor; box-shadow: none; font-weight: 600; line-height: 1.55; overflow-wrap: anywhere; }
+.cosmic-page .skill-document .skill-document-body h1 { margin: 26px 0 12px; color: #c0e8ff; font-size: 19px; letter-spacing: -.2px; }
+.cosmic-page .skill-document .skill-document-body h2 { margin: 25px 0 11px; color: #b6e3ff; font-size: 17px; letter-spacing: -.1px; }
+.cosmic-page .skill-document .skill-document-body h3 { margin: 20px 0 9px; color: #c7c4fa; font-size: 15px; }
+.cosmic-page .skill-document .skill-document-body :is(h4, h5, h6) { margin: 18px 0 8px; color: #d8d8ff; font-size: 14px; }
+.cosmic-page .skill-document .skill-document-body h2.skill-document-important-heading { border-left: 2px solid #a1dfee6b; padding-left: 10px; }
+.cosmic-page .skill-document .skill-document-body p { color: #e4edf8; margin: 0 0 13px; line-height: inherit; font-size: inherit; }
+.cosmic-page .skill-document .skill-document-body :is(ul, ol) { margin: 10px 0 16px; padding-left: 1.35em; color: #e4edf8; }
+.cosmic-page .skill-document .skill-document-body li { padding-left: .1em; line-height: 1.85; }
+.cosmic-page .skill-document .skill-document-body li + li { margin-top: 6px; }
+.cosmic-page .skill-document .skill-document-body li > :is(ul, ol) { margin: 7px 0 8px; }
+.cosmic-page .skill-document .skill-document-body li > p { margin-bottom: 7px; }
+.cosmic-page .skill-document :is(strong, b) { color: #f4f9ff; font-weight: 650; }
+.cosmic-page .skill-document a { color: #a5dfff; text-decoration: underline; text-decoration-color: #8bc8ed66; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.cosmic-page .skill-document a:hover { color: #d4f3ff; text-decoration-color: #b8e4ff; }
+.cosmic-page .skill-document .skill-document-body blockquote { color: #bed0e7; background: none; border: 0; border-left: 2px solid #9ca5ea6b; padding: 2px 0 2px 13px; margin: 18px 0; }
+.cosmic-page .skill-document .skill-document-body blockquote p { color: inherit; }
+.cosmic-page .skill-document .skill-document-body blockquote > :last-child { margin-bottom: 0; }
+.cosmic-page .skill-document .skill-document-body hr { height: 0; margin: 24px 0; border: 0; border-top: 1px solid #a3bfdf29; }
+.cosmic-page .skill-document .skill-document-body img { display: block; max-width: 100%; height: auto; border: 1px solid #a4c7e72e; border-radius: 6px; margin: 16px 0; }
+.cosmic-page .skill-document code { color: #c7e8ff; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .9em; line-height: 1.7; }
+.cosmic-page .skill-document :not(pre) > code { background: #8db6eb13; border: 1px solid #9ebcea26; border-radius: 4px; padding: .05em .3em; white-space: break-spaces; overflow-wrap: anywhere; word-break: break-word; }
+.cosmic-page .skill-document pre { min-width: 0; max-width: 100%; padding: 12px; margin: 16px 0; overflow: auto; color: #d5e7ff; background: rgba(3, 10, 23, .64); border: 1px solid #a1bfe432; border-radius: 6px; font-size: 13px; line-height: 1.8; white-space: pre; tab-size: 4; overscroll-behavior: contain; scrollbar-width: thin; }
+.cosmic-page .skill-document pre > code { display: block; color: inherit; background: transparent; border: 0; padding: 0; font-size: inherit; white-space: inherit; overflow-wrap: normal; word-break: normal; }
+.cosmic-page .skill-document .skill-document-title code,
+.cosmic-page .skill-document .skill-document-body :is(h1, h2, h3, h4) code { color: inherit; background: #91b7e80d; font-size: .9em; }
+
+.cosmic-page .skill-document .skill-document-table { min-width: 0; max-width: 100%; overflow-x: auto; margin: 16px 0; border: 1px solid #a1c3e42e; border-radius: 6px; overscroll-behavior-x: contain; scrollbar-width: thin; }
+.cosmic-page .skill-document .skill-document-table table { width: 100%; min-width: 380px; margin: 0; display: table; border-collapse: collapse; table-layout: auto; color: #e2edf9; background: transparent; font-size: 13px; line-height: 1.65; }
+.cosmic-page .skill-document .skill-document-table :is(th, td) { max-width: 28em; padding: 8px 10px; text-align: left; vertical-align: top; border: 0; border-bottom: 1px solid #a1bfdf24; overflow-wrap: anywhere; }
+.cosmic-page .skill-document .skill-document-table th { color: #bfe6ff; font-weight: 600; background: #96b7ec0b; }
+.cosmic-page .skill-document .skill-document-table tr:last-child td { border-bottom: 0; }
+.cosmic-page .skill-document .skill-document-table tr:hover { background: #a8d7ff05; }
+
+.cosmic-page .skill-document .skill-document-source { min-width: 0; max-width: 100%; padding: 14px 0 0; margin: 26px 0 0; border: 0; border-top: 1px solid #a6c1e330; background: none; }
+.cosmic-page .skill-document .skill-document-source > summary { color: #a9cce8; font-size: 14px; line-height: 1.7; font-weight: 600; cursor: pointer; overflow-wrap: anywhere; }
+.cosmic-page .skill-document .skill-document-source > summary:hover { color: #d9f0ff; }
+.cosmic-page .skill-document .skill-document-source[open] > summary { margin-bottom: 14px; }
+.cosmic-page .skill-document .skill-document-metadata { display: grid; grid-template-columns: minmax(65px, .35fr) minmax(0, 1fr); gap: 8px 12px; margin: 0 0 16px; font-size: 13px; line-height: 1.7; overflow-wrap: anywhere; }
+.cosmic-page .skill-document .skill-document-metadata dt { margin: 0; color: #9fb9d4; font-weight: 600; }
+.cosmic-page .skill-document .skill-document-metadata dd { min-width: 0; margin: 0; color: #d4e3f5; white-space: pre-wrap; }
+.cosmic-page .skill-document .skill-document-raw { max-height: 360px; margin-top: 12px; }
+
+/* Native dialog keeps a solid-enough reading field above the cosmic backdrop. */
+.cosmic-page .skill-reader-dialog {
+    box-sizing: border-box;
+    position: fixed;
+    inset: 0;
+    width: min(960px, calc(100vw - 48px));
+    max-width: calc(100vw - 48px);
+    height: min(90svh, calc(100svh - 40px));
+    max-height: 90svh;
+    margin: auto;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #a8d6f06b;
+    border-radius: 14px;
+    color: #e8f1ff;
+    background: linear-gradient(135deg, #a7d7ff05, transparent 38%, #9d9cec04), rgba(5, 15, 32, .97);
+    box-shadow: inset 0 1px 0 #e2f5ff24, 0 25px 90px #000b;
+}
+.cosmic-page .skill-reader-dialog[open] { display: flex; flex-direction: column; }
+.cosmic-page .skill-reader-dialog::backdrop { background: rgba(2, 7, 18, .84); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.cosmic-page .skill-reader-dialog-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex: 0 0 auto; padding: 15px 24px; border-bottom: 1px solid #a3c8e633; background: rgba(15, 30, 51, .65); }
+.cosmic-page .skill-reader-dialog-toolbar h2 { min-width: 0; margin: 0; padding: 0; border: 0; color: #b8e2ff; font-size: 16px; line-height: 1.5; font-weight: 600; }
+.cosmic-page .skill-reader-content { flex: 1 1 auto; min-width: 0; min-height: 0; padding: 32px 46px 40px; overflow: auto; scrollbar-gutter: stable; overscroll-behavior: contain; scroll-padding-block: 24px; }
+.cosmic-page .skill-reader-content .skill-document { max-width: 76ch; margin: 0 auto; font-size: 16px; line-height: 1.9; }
+.cosmic-page .skill-reader-content .skill-document .skill-document-title { font-size: 28px; line-height: 1.4; letter-spacing: -.5px; }
+.cosmic-page .skill-reader-content .skill-document .skill-document-description { font-size: 16px; }
+.cosmic-page .skill-reader-content .skill-document .skill-document-header { padding-bottom: 24px; margin-bottom: 26px; }
+.cosmic-page .skill-reader-content .skill-document .skill-document-body h1 { font-size: 25px; margin-top: 32px; }
+.cosmic-page .skill-reader-content .skill-document .skill-document-body h2 { font-size: 22px; margin-top: 32px; margin-bottom: 13px; }
+.cosmic-page .skill-reader-content .skill-document .skill-document-body h3 { font-size: 18px; margin-top: 26px; margin-bottom: 11px; }
+.cosmic-page .skill-reader-content .skill-document .skill-document-body :is(h4, h5, h6) { font-size: 16px; margin-top: 22px; }
+.cosmic-page .skill-reader-content .skill-document pre,
+.cosmic-page .skill-reader-content .skill-document .skill-document-table table,
+.cosmic-page .skill-reader-content .skill-document .skill-document-metadata { font-size: 14px; }
+.cosmic-page .skill-reader-content .skill-document .skill-document-raw { max-height: 400px; }
+
+@media (max-width: 600px) {
+    .cosmic-page .skill-reader-dialog { width: calc(100vw - 24px); max-width: calc(100vw - 24px); height: min(90svh, calc(100svh - 24px)); max-height: 90svh; border-radius: 11px; }
+    .cosmic-page .skill-reader-dialog-toolbar { padding: 12px 16px; gap: 12px; }
+    .cosmic-page .skill-reader-dialog-toolbar h2 { font-size: 14px; }
+    .cosmic-page .skill-reader-content { padding: 24px 20px 30px; }
+    .cosmic-page .skill-reader-content .skill-document .skill-document-title { font-size: 24px; }
+    .cosmic-page .skill-reader-content .skill-document .skill-document-body h2 { font-size: 20px; }
+    .cosmic-page .skill-reader-content .skill-document .skill-document-body h3 { font-size: 17px; }
+    .cosmic-page .skill-reader-content .skill-document .skill-document-metadata { grid-template-columns: minmax(60px, .32fr) minmax(0, 1fr); gap: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .cosmic-page .skill-reader-button,
+    .cosmic-page .skill-reader-dialog,
+    .cosmic-page .skill-reader-content { animation: none; transition: none; scroll-behavior: auto; }
+}

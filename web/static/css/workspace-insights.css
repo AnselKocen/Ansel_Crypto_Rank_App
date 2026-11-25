@@ -1,0 +1,121 @@
+/* Compact, bilingual sentiment and portfolio workspaces on the shared cosmic shell. */
+.cosmic-page .insights-workspace { min-width: 0; width: 100%; }
+.cosmic-page .insights-workspace .insights-header { padding: 0; margin-bottom: 18px; }
+.cosmic-page .insights-workspace .insights-header h1 { font-size: clamp(24px, 2.25vw, 31px); letter-spacing: -.45px; }
+.cosmic-page .insights-workspace .insights-header .subtitle { margin-top: 8px; font-size: 16px; line-height: 1.7; }
+.cosmic-page .insights-workspace .insight-panel { min-width: 0; padding: 22px; margin: 0; }
+.cosmic-page .insights-workspace .insight-panel h3 { color: #bee6ff; font-size: 18px; line-height: 1.5; margin: 0 0 12px; }
+.cosmic-page .insights-workspace .insight-panel h4 { color: #cbd2ff; font-size: 16px; line-height: 1.6; margin: 0 0 10px; }
+.cosmic-page .insights-workspace .insight-panel p { font-size: 16px; line-height: 1.75; }
+.cosmic-page .insights-workspace .insight-panel [hidden] { display: none !important; }
+.cosmic-page .insights-workspace .insight-note {
+    min-width: 0;
+    padding: 13px 16px;
+    background: linear-gradient(125deg, #a6d8ff06, #a4a2ff04), rgba(6, 16, 32, .25);
+    border: 1px solid #a6cbe82b;
+    border-radius: 8px;
+    color: #dceaf8;
+}
+.cosmic-page .insights-workspace .insight-note p { margin: 0; line-height: 1.7; }
+
+/* Context is light and horizontal; media remains complete rather than cropped. */
+.cosmic-page .sentiment-context { margin-bottom: 17px; }
+.cosmic-page .sentiment-context .insight-note p { font-size: 14px; }
+.cosmic-page .sentiment-workspace .sentiment-quote {
+    width: min(720px, 100%);
+    margin: 14px auto 0;
+    padding: 11px 14px;
+    border-color: #d2bb7d29;
+    border-left: 2px solid #d2bb7d66;
+    background: linear-gradient(110deg, #d2bb7d08, #a6d8ff03);
+    color: #cbd6ee;
+}
+.cosmic-page .sentiment-workspace .sentiment-quote p { font-size: 14px; line-height: 1.6; }
+.cosmic-page .sentiment-workspace .sentiment-quote span { display: block; margin-bottom: 3px; font-size: 12px; color: #c9bea1; }
+.cosmic-page .insight-tabs {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    width: max-content;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0 0 18px;
+    padding: 4px;
+    overflow-x: auto;
+    border: 1px solid #a6cbe83b;
+    border-radius: 9px;
+    background: rgba(5, 14, 29, .42);
+    scrollbar-width: thin;
+}
+.cosmic-page .insight-tab { position: relative; display: inline-flex; align-items: center; min-height: 42px; padding: 9px 18px; border: 1px solid transparent; border-radius: 6px; color: #adc2dc; cursor: pointer; white-space: nowrap; flex: 0 0 auto; font-size: 14px; line-height: 1.4; }
+.cosmic-page .insight-tab input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+.cosmic-page .insight-tab:has(input:checked) { color: #d8f4ff; background: linear-gradient(125deg, #7accec20, #a2a1f917); border-color: #a2ddff5c; box-shadow: inset 0 1px 0 #e3f8ff19; }
+.cosmic-page .insight-tab:hover { color: #ddf4ff; border-color: #b6d3f035; }
+.cosmic-page .insight-tab:focus-within { outline: 2px solid #a9dcff; outline-offset: 2px; }
+.cosmic-page .sentiment-media-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.cosmic-page .sentiment-media { --sentiment-rgb: 148, 201, 239; min-width: 0; margin: 0; text-align: center; }
+.cosmic-page .sentiment-positive { --sentiment-rgb: 90, 225, 183; }
+.cosmic-page .sentiment-negative { --sentiment-rgb: 255, 135, 106; }
+.cosmic-page .sentiment-media img { display: block; width: 100%; max-width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: contain; border: 1px solid rgba(var(--sentiment-rgb), .13); border-radius: 10px; background: transparent; box-shadow: 0 0 28px rgba(var(--sentiment-rgb), .035); }
+.cosmic-page .sentiment-media .image-caption { margin: 9px 0 0; color: #b5d9ec; font-size: 14px; line-height: 1.5; }
+.cosmic-page .sentiment-positive .image-caption { color: #a2dfcc; }
+.cosmic-page .sentiment-negative .image-caption { color: #f0b7a9; }
+.cosmic-page .sentiment-media .image-error { padding: 32px 18px; min-height: 190px; border: 1px solid #a6c6eb29; background: #90b3ed08; color: #afc2db; font-size: 14px; border-radius: 8px; }
+.cosmic-page .sentiment-gauge { width: min(720px, 100%); margin: 0 auto; }
+.cosmic-page .sentiment-gauge img { height: auto; aspect-ratio: 28 / 17; min-height: 0; border-color: #b0d6f015; background: transparent; box-shadow: 0 0 30px #9dcaff06; }
+.cosmic-page .sentiment-awaiting-media .sentiment-media { opacity: 0; }
+.cosmic-page .sentiment-entering .sentiment-media { animation: sentiment-arrive .66s cubic-bezier(.22, .7, .25, 1) both; }
+.cosmic-page .sentiment-entering .sentiment-media:nth-child(2) { animation-delay: .1s; }
+@keyframes sentiment-arrive {
+    from { opacity: 0; transform: translateY(12px) scale(.985); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Portfolio tables and explanation occupy parallel desktop columns. */
+.cosmic-page .investment-route { margin: 0 0 20px; }
+.cosmic-page .investment-route p { font-size: 16px; }
+.cosmic-page .investment-route strong { color: #bceaff; }
+.cosmic-page .investment-layout { display: grid; grid-template-columns: minmax(0, 1.04fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+.cosmic-page .investment-sharpe { grid-column: 1; grid-row: 1; }
+.cosmic-page .investment-risk { grid-column: 2; grid-row: 1 / span 2; }
+.cosmic-page .investment-strategy { grid-column: 1; grid-row: 2; }
+.cosmic-page .investment-risk > h3 { margin-bottom: 18px; }
+.cosmic-page .risk-table-section { min-width: 0; }
+.cosmic-page .risk-table-section + .risk-table-section { margin-top: 22px; padding-top: 20px; border-top: 1px solid #a7c8e725; }
+.cosmic-page .insight-table-wrap { min-width: 0; max-width: 100%; overflow-x: auto; margin: 16px 0 0; border: 1px solid #a8c8eb26; border-radius: 8px; scrollbar-width: thin; scrollbar-color: #779ab665 transparent; }
+.cosmic-page .insights-workspace .data-table { width: 100%; min-width: 390px; margin: 0; border-collapse: collapse; font-size: 14px; line-height: 1.5; }
+.cosmic-page .insights-workspace .data-table th, .cosmic-page .insights-workspace .data-table td { padding: 11px 12px; text-align: left; vertical-align: middle; border-bottom: 1px solid #aac9ea1c; }
+.cosmic-page .insights-workspace .data-table th { color: #c1e8ff; background: #99bded0b; font-size: 14px; font-weight: 600; }
+.cosmic-page .insights-workspace .data-table td { color: #e5effb; font-variant-numeric: tabular-nums; }
+.cosmic-page .insights-workspace .data-table tr:last-child td { border-bottom: 0; }
+.cosmic-page .insights-workspace .data-table th:first-child, .cosmic-page .insights-workspace .data-table td:first-child { white-space: nowrap; }
+.cosmic-page .insights-workspace .data-table th:last-child, .cosmic-page .insights-workspace .data-table td:last-child { text-align: right; }
+.cosmic-page .insights-workspace .data-table td:last-child { white-space: nowrap; font-weight: 600; color: #d2efff; }
+.cosmic-page .insights-workspace .data-table code { padding: 3px 6px; color: #c3e6ff; background: #8cbbf210; border: 1px solid #93bced1c; border-radius: 4px; white-space: nowrap; font-size: 13px; }
+.cosmic-page .insights-workspace .risk-table-section .note { margin: 12px 0 0; color: #bacce2; font-size: 14px; font-style: normal; line-height: 1.75; }
+.cosmic-page .investment-strategy .info-box, .cosmic-page .investment-strategy .warning-box { padding: 13px 15px; margin: 16px 0 0; border: 1px solid #9bc9ed2d; border-radius: 8px; background: #7eb7ee08; color: #dce9f8; font-size: 14px; line-height: 1.8; }
+.cosmic-page .investment-strategy .warning-box { border-color: #b7aaeb38; background: #a89de709; color: #e2ddf6; }
+.cosmic-page .investment-disclaimer { margin-top: 18px !important; border-color: #adafea35; }
+.cosmic-page .investment-disclaimer h4 { margin: 0 0 9px; }
+.cosmic-page .investment-disclaimer p { font-size: 14px; color: #bdcee4; }
+
+@media (max-width: 1000px) {
+    .cosmic-page .investment-layout { grid-template-columns: minmax(0, 1fr); }
+    .cosmic-page .investment-sharpe, .cosmic-page .investment-risk, .cosmic-page .investment-strategy { grid-column: 1; grid-row: auto; }
+}
+@media (max-width: 650px) {
+    .cosmic-page .insights-workspace .insights-header h1 { font-size: 24px; line-height: 1.45; }
+    .cosmic-page .insights-workspace .insight-panel { padding: 18px 16px; }
+    .cosmic-page .insights-workspace .insight-panel h3 { font-size: 17px; }
+    .cosmic-page .insights-workspace .insight-note { padding: 12px 14px; }
+    .cosmic-page .sentiment-media-grid { grid-template-columns: minmax(0, 1fr); gap: 21px; }
+    .cosmic-page .sentiment-media img, .cosmic-page .sentiment-gauge img { height: auto; }
+    .cosmic-page .insight-tabs { width: 100%; }
+    .cosmic-page .insight-tab { padding: 9px 12px; }
+    .cosmic-page .insights-workspace .data-table th, .cosmic-page .insights-workspace .data-table td { padding: 10px; }
+    .cosmic-page .investment-layout { gap: 14px; }
+    .cosmic-page .investment-route { margin-bottom: 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .cosmic-page .sentiment-entering .sentiment-media { animation: none; transform: none; }
+}

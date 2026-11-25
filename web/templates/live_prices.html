@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Live Prices - Ansel Crypto Rank{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/live_prices.css?v=20261124-compact">
+<link rel="stylesheet" href="/static/css/paper_trading_legacy.css">
+{% endblock %}
+{% block content %}
+<div class="market-page">
+    <header class="market-heading">
+        <div><p class="market-eyebrow">ANSEL / MARKET DESK</p><h1><span data-zh="实时行情" data-en="Live Prices">Live Prices</span><span class="live-indicator">TradingView</span></h1>
+        <p class="market-subtitle"><span data-zh="从模型名单选币，查看对应交易对的市场走势。" data-en="Choose a token from the model list to view its market chart.">Choose a token from the model list to view its market chart.</span></p></div>
+        <button id="copy-market-link" class="market-button" type="button" data-zh="复制当前链接 ↗" data-en="Copy link ↗">Copy link ↗</button>
+    </header>
+
+    <section class="market-toolbar" aria-label="Market filters" data-aria-zh="行情筛选" data-aria-en="Market filters">
+        <label class="model-control" for="model-select"><span><span data-zh="预测模型" data-en="Prediction model">Prediction model</span></span>
+            <select id="model-select">
+                <option value="extra_all" data-zh="ExtraTrees · 全部特征" data-en="ExtraTrees · All features">ExtraTrees · All features</option>
+                <option value="extra_market" data-zh="ExtraTrees · 仅行情" data-en="ExtraTrees · Market only">ExtraTrees · Market only</option>
+                <option value="enet_all" data-zh="ElasticNet · 全部特征" data-en="ElasticNet · All features">ElasticNet · All features</option>
+                <option value="enet_market" data-zh="ElasticNet · 仅行情" data-en="ElasticNet · Market only">ElasticNet · Market only</option>
+            </select>
+        </label>
+        <div class="market-side-switch" role="group" aria-label="Switch long and short lists" data-aria-zh="切换多空名单" data-aria-en="Switch long and short lists">
+            <button type="button" data-view="top" class="active" aria-pressed="true" data-zh="多头 Top 20" data-en="Long · Top 20">Long · Top 20</button>
+            <button type="button" data-view="bottom" aria-pressed="false" data-zh="空头 Bottom 20" data-en="Short · Bottom 20">Short · Bottom 20</button>
+        </div>
+        <button id="refresh-market-list" class="market-button toolbar-refresh" type="button" title="Reload the published list without retraining the model" data-title-zh="重新读取已发布名单，不会重新训练模型" data-title-en="Reload the published list without retraining the model" data-zh="↻ 刷新名单" data-en="↻ Refresh list">↻ Refresh list</button>
+    </section>
+
+    <div class="market-context" aria-live="polite">
+        <span id="market-data-period"><span data-zh="正在读取预测日期…" data-en="Loading prediction date…">Loading prediction date…</span></span>
+        <span id="market-forecast-window"><span data-zh="预测区间 —" data-en="Forecast window —">Forecast window —</span></span>
+        <span class="context-note"><span data-zh="周度模型预测与图表实时价格分别展示" data-en="Weekly predictions and live chart prices are shown separately">Weekly predictions and live chart prices are shown separately</span></span>
+    </div>
+    <p id="market-feedback" class="market-feedback" role="status"></p>
+
+    <div class="market-workspace">
+        <section class="market-chart-panel" aria-labelledby="chart-title">
+            <header class="market-chart-heading">
+                <div><p class="panel-eyebrow"><span data-zh="当前选币" data-en="Selected token">Selected token</span></p><h2 id="chart-title"><span data-zh="选择一个币种" data-en="Select a token">Select a token</span></h2><p id="selected-pair"><span data-zh="交易对与行情来源将在此显示" data-en="Trading pair and source appear here">Trading pair and source appear here</span></p></div>
+                <div class="selected-prediction"><span><span data-zh="模型预测周收益" data-en="Predicted weekly return">Predicted weekly return</span></span><strong id="selected-prediction">—</strong><small id="selected-rank"><span data-zh="全币池排名 —" data-en="Universe rank —">Universe rank —</span></small></div>
+            </header>
+            <div class="chart-controls">
+                <div class="chart-intervals" role="group" aria-label="Chart interval" data-aria-zh="K线周期" data-aria-en="Chart interval">
+                    <button type="button" data-interval="15" aria-pressed="false" data-zh="15分" data-en="15m">15m</button>
+                    <button type="button" data-interval="60" class="active" aria-pressed="true" data-zh="1小时" data-en="1h">1h</button>
+                    <button type="button" data-interval="240" aria-pressed="false" data-zh="4小时" data-en="4h">4h</button>
+                    <button type="button" data-interval="D" aria-pressed="false" data-zh="日线" data-en="1D">1D</button>
+                    <button type="button" data-interval="W" aria-pressed="false" data-zh="周线" data-en="1W">1W</button>
+                </div>
+                <span id="chart-connection-status" role="status"><span data-zh="等待选择" data-en="Awaiting selection">Awaiting selection</span></span>
+                <button type="button" class="chart-retry" id="retry-chart" disabled data-zh="重新连接" data-en="Reconnect">Reconnect</button>
+            </div>
+            <div class="chart-canvas" id="chart-canvas" aria-busy="false">
+                <div id="main-chart" class="main-chart-container"></div>
+                <div id="chart-placeholder" class="chart-placeholder"><span class="chart-placeholder-icon">▥</span><h3><span data-zh="行情正在准备" data-en="Preparing the market chart">Preparing the market chart</span></h3><p id="chart-placeholder-text"><span data-zh="选择币种后显示 TradingView 图表。" data-en="Select a token to display its TradingView chart.">Select a token to display its TradingView chart.</span></p></div>
+                <div id="chart-loading" class="chart-loading" hidden><span class="market-spinner"></span><span id="chart-loading-text"><span data-zh="正在连接图表…" data-en="Connecting to chart…">Connecting to chart…</span></span></div>
+            </div>
+            <footer class="chart-footnote"><span><span data-zh="USD / USDT 计价，UTC 时间；图内手动调整以图中标注为准，价格及更新频率由 TradingView 提供。" data-en="Quoted in USD / USDT, UTC time. Manual chart settings follow its labels; prices and update frequency are provided by TradingView.">Quoted in USD / USDT, UTC time. Manual chart settings follow its labels; prices and update frequency are provided by TradingView.</span></span><a id="open-tradingview" href="https://www.tradingview.com/" target="_blank" rel="noopener noreferrer" hidden><span data-zh="在 TradingView 打开 ↗" data-en="Open in TradingView ↗">Open in TradingView ↗</span></a></footer>
+        </section>
+
+        <aside class="market-watchlist" aria-labelledby="coins-title">
+            <header class="watchlist-heading"><div><p class="panel-eyebrow"><span data-zh="模型名单" data-en="Model list">Model list</span></p><h2 id="coins-title"><span data-zh="多头 Top 20" data-en="Long · Top 20">Long · Top 20</span></h2></div><span id="coin-count" class="coin-count">—</span></header>
+            <label class="coin-search" for="coin-search"><span aria-hidden="true">⌕</span><input type="search" id="coin-search" placeholder="Search list tokens" data-placeholder-zh="搜索名单中的币种" data-placeholder-en="Search list tokens" autocomplete="off" maxlength="40" aria-label="Search tokens in the current list" data-aria-zh="搜索当前名单中的币种" data-aria-en="Search tokens in the current list"></label>
+            <div class="watchlist-options"><button id="chart-available-filter" type="button" aria-pressed="false" data-zh="仅看已配图表" data-en="With charts only">With charts only</button><span id="list-sort-label"><span data-zh="按预测排名" data-en="By prediction rank">By prediction rank</span></span></div>
+            <div class="coin-column-labels" aria-hidden="true"><span><span data-zh="全池排名 / 币种" data-en="Rank / Token">Rank / Token</span></span><span><span data-zh="预测周收益" data-en="Predicted return">Predicted return</span></span></div>
+            <ol id="coins-grid" class="market-coins" aria-label="Model token list" data-aria-zh="模型币种名单" data-aria-en="Model token list" aria-busy="true"></ol>
+            <p class="watchlist-note"><span data-zh="Top / Bottom 表示相对排名；预测值为正的币也可能出现在空头名单中。" data-en="Top / Bottom are relative rankings; tokens with positive forecasts may appear in the short list.">Top / Bottom are relative rankings; tokens with positive forecasts may appear in the short list.</span></p>
+        </aside>
+    </div>
+
+    <section class="market-overview-section" aria-labelledby="overview-title">
+        <header><div><p class="panel-eyebrow">MARKET OVERVIEW</p><h2 id="overview-title"><span data-zh="市场概览" data-en="Market overview">Market overview</span></h2><p><span data-zh="查看主要加密货币的市值与涨跌分布。" data-en="View market capitalization and price changes across major cryptocurrencies.">View market capitalization and price changes across major cryptocurrencies.</span></p></div><button id="retry-overview" class="market-button" type="button" data-zh="重新加载" data-en="Reload">Reload</button></header>
+        <div class="market-overview-widget" id="market-overview"><div id="tradingview-market-widget"></div><p id="overview-status" role="status"><span data-zh="滚动至此处时加载市场概览。" data-en="The overview loads as you scroll here.">The overview loads as you scroll here.</span></p></div>
+        <div class="widget-attribution"><a href="https://www.tradingview.com/" target="_blank" rel="noopener noreferrer"><span data-zh="市场图表由 TradingView 提供 ↗" data-en="Market charts by TradingView ↗">Market charts by TradingView ↗</span></a></div>
+    </section>
+
+    <details id="legacy-simulator" class="legacy-simulator"><summary><span class="legacy-title" data-zh="历史模拟盘" data-en="Historical simulator">Historical simulator</span> <span data-zh="展开查看" data-en="Expand to view">Expand to view</span></summary>
+        {% include "_paper_trading_legacy.html" %}
+    </details>
+    <div id="ticker-tape-container" class="market-ticker" aria-label="Major cryptocurrency ticker" data-aria-zh="主要币种行情速览" data-aria-en="Major cryptocurrency ticker"></div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="/static/js/live_prices.js?v=20261124-compact" defer></script>
+<script src="/static/js/paper_trading_legacy.js" defer></script>
+{% endblock %}

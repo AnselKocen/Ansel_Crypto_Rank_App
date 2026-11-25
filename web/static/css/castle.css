@@ -1,0 +1,12 @@
+.game-shell .castle-feature {grid-column:span 4;display:grid;grid-template-columns:minmax(200px,38%) 1fr;padding:0;overflow:hidden;min-height:300px;border:2px solid #8394a6;text-align:left;background:#eee9dc;}
+.castle-map-art{width:100%;height:320px;object-fit:cover;object-position:45% 50%;image-rendering:pixelated;border-right:1px solid #9aa7ae;}
+.castle-feature .postal-feature-start{background:#5b6480;}.castle-feature h2{color:#3c4e67;}
+.castle-playing .game-shell{background:#e7e7df;}.castle-playing .postal-frame{border-color:#53647e;box-shadow:3px 4px #b5b7b1;}.castle-playing .postal-top h2{color:#3d4d67;}
+.castle-playing .post-start-curtain{background:#303b5566;}.castle-playing .post-guide{border-color:#8595a8;background:#f4edda;}.castle-playing .post-btn.primary{background:#5b6480;border-color:#424f69;box-shadow:0 3px #39465d;}
+.castle-playing .post-drive,.castle-playing .post-brake{background:#d8ddd9;border-color:#9ca9ad;box-shadow:0 3px #a0aab0;color:#3d4d67;}.castle-playing .pressed{background:#b8cab6;}
+.castle-playing .post-guide-drawing .guide-van{background:#d4a56e;border-color:#836652;}.castle-playing .guide-parking{background:#9cacc0;border-color:#53647e;color:#fff1cd;font-size:24px;}.castle-playing .guide-mailbox{background:#ac855e;border-color:#765d50;}
+.castle-playing .post-jump{min-width:90px;font-size:15px;}.castle-help{font-size:12px;line-height:1.8;margin-top:14px;color:#596e75;}
+@media(max-width:900px){.game-shell .castle-feature{grid-column:span 3;}}
+@media(max-width:650px){.game-shell .castle-feature{grid-column:span 2;grid-template-columns:40% 1fr;}.castle-map-art{height:100%;min-height:300px;}.castle-playing .post-jump{min-width:86px;}.castle-playing .post-guide p{font-size:14px;}}
+.castle-direction{display:flex;gap:12px;}.castle-playing .postal-controls{min-width:300px;justify-content:space-between;}
+@media(max-width:650px){.castle-playing .postal-controls{min-width:0;max-width:360px;}.castle-direction{gap:10px;}}

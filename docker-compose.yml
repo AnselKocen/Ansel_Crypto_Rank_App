@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  ansel-crypto-rank-app:
+    build: .
+    container_name: ansel-crypto-rank-app
+    ports:
+      - "8700:8700"
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - MOONSHOT_API_KEY=${MOONSHOT_API_KEY:-}
+      - KIMI_MODEL=${KIMI_MODEL:-kimi-k3}
+      - KIMI_BASE_URL=${KIMI_BASE_URL:-https://api.moonshot.cn/v1}
+      - KIMI_REASONING_EFFORT=${KIMI_REASONING_EFFORT:-low}
+      - ANSEL_REPORT_OUTBOUND_ENABLED=${ANSEL_REPORT_OUTBOUND_ENABLED:-0}
+    restart: unless-stopped
+    volumes:
+      - ./artifacts/weekly_updates:/app/artifacts/weekly_updates

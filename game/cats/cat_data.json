@@ -1,0 +1,124 @@
+{
+  "cats": [
+    {
+      "id": 1,
+      "level": 1,
+      "breed_zh": "橘猫",
+      "name": "Satoshi",
+      "name_zh": "聪聪",
+      "personality_zh": "严厉的教官",
+      "rarity": 1,
+      "sprite": "cat_01.png",
+      "css_color": "#f97316",
+      "quote": "我真得好好xx你了！"
+    },
+    {
+      "id": 2,
+      "level": 2,
+      "breed_zh": "狸花猫",
+      "name": "Vitalik",
+      "name_zh": "V仔",
+      "personality_zh": "崩溃地思考",
+      "rarity": 2,
+      "sprite": "cat_02.png",
+      "css_color": "#3b82f6",
+      "quote": "头顶凉凉的……是心情所致吗？"
+    },
+    {
+      "id": 3,
+      "level": 3,
+      "breed_zh": "乳白",
+      "name": "Nakamoto",
+      "name_zh": "噢耶",
+      "personality_zh": "热情贴贴",
+      "rarity": 2,
+      "sprite": "cat_03.png",
+      "css_color": "#6b7280",
+      "quote": "屏幕脏了prprpr"
+    },
+    {
+      "id": 4,
+      "level": 4,
+      "breed_zh": "三花",
+      "name": "Block",
+      "name_zh": "区块",
+      "personality_zh": "震惊的玩家",
+      "rarity": 3,
+      "sprite": "cat_04.png",
+      "css_color": "#a855f7",
+      "quote": "这不是我的工位吗！"
+    },
+    {
+      "id": 5,
+      "level": 5,
+      "breed_zh": "橘猫",
+      "name": "Ether",
+      "name_zh": "以太",
+      "personality_zh": "神秘而优雅",
+      "rarity": 3,
+      "sprite": "cat_05.png",
+      "css_color": "#06b6d4",
+      "quote": "hia～hia～hia～"
+    },
+    {
+      "id": 6,
+      "level": 6,
+      "breed_zh": "狸花猫",
+      "name": "Ledger",
+      "name_zh": "莱杰",
+      "personality_zh": "嫌弃是一种技能",
+      "rarity": 3,
+      "sprite": "cat_06.png",
+      "css_color": "#eab308",
+      "quote": "Damn！"
+    },
+    {
+      "id": 7,
+      "level": 7,
+      "breed_zh": "美短虎斑",
+      "name": "Binance",
+      "name_zh": "币安喵",
+      "personality_zh": "可爱无需多言",
+      "rarity": 4,
+      "sprite": "cat_07.png",
+      "css_color": "#f59e0b",
+      "quote": "喵~？"
+    },
+    {
+      "id": 8,
+      "level": 8,
+      "breed_zh": "布偶猫",
+      "name": "Hodler",
+      "name_zh": "霍德",
+      "personality_zh": "究极捧杀王",
+      "rarity": 4,
+      "sprite": "cat_08.png",
+      "css_color": "#10b981",
+      "quote": "老大！写出pdf2skills的人也太厉害了吧！"
+    },
+    {
+      "id": 9,
+      "level": 9,
+      "breed_zh": "暹罗猫",
+      "name": "Bull",
+      "name_zh": "布尔",
+      "personality_zh": "挖煤工",
+      "rarity": 4,
+      "sprite": "cat_09.png",
+      "css_color": "#ef4444",
+      "quote": "爪这么黑是挖矿导致的吗？"
+    },
+    {
+      "id": 10,
+      "level": 10,
+      "breed_zh": "全家福",
+      "name": "Diamond",
+      "name_zh": "钻石手",
+      "personality_zh": "你喜欢的猫meme这都有",
+      "rarity": 5,
+      "sprite": "cat_10.png",
+      "css_color": "#8b5cf6",
+      "quote": "集齐了也不会有任何事情发生喵"
+    }
+  ]
+}

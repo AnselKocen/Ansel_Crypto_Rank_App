@@ -1,0 +1,20 @@
+{
+  "version": "target_trial_quality_v1",
+  "policy": "Retrospective data-quality trial. Quarantines are not evidence of bad model performance. No extreme return is automatically clipped or deleted.",
+  "rules": [
+    {"symbol":"OM","start":"2026-03-02","reason":"Legacy OM quotes cannot be followed through the 1:4 MANTRA redenomination without verified instrument lineage; quarantine, do not guess an adjustment.","source":"https://www.binance.com/en/support/announcement/detail/a65e70f8431a40e8b5ce809bbb61ed59"},
+    {"symbol":"TON","start":"2025-04-12","reason":"Cached TON-USD series shows repeated incompatible price scales, including 3.50 to 0.0175. Coinbase has no candles for the audited early dates. This series remains unverified."},
+    {"symbol":"FTN","start":"2026-04-01","reason":"Large repeated quote discontinuities; independent historical endpoint unavailable. Quarantine until verified."},
+    {"symbol":"VENOM","start":"2026-10-13","reason":"Repeated incompatible price scales around a venue delisting; no validated executable successor series.","source":"https://www.kucoin.com/announcement/th-kucoin-will-delist-venom-and-NFP-on-20261014"},
+    {"symbol":"PI","end":"2025-06-23","reason":"Original weekly PI cache jumps from 0.00205 to 1.93366 around Open Network launch. Pre-launch lineage and the subsequent 110-day feature warm-up are excluded, rather than training on a 943x splice.","source":"https://minepi.com/blog/open-network-launch-date/"},
+    {"symbol":"EOS","start":"2025-05-28","reason":"EOS-to-A 1:1 migration; retain canonical A in the trial to avoid treating old and successor quotes as separate assets.","source":"https://www.vaulta.com/resources/vaulta-token-swap-live"},
+    {"symbol":"RNDR","start":"2025-07-30","reason":"RNDR and RENDER map to the identical RENDER-USD source. Retain RENDER in the replay period; do not double count the same instrument."}
+  ],
+  "verified_extremes": [
+    {"symbol":"QNT","date":"2026-09-30","decision_date":"2026-09-23","evidence":"source_checks/qnt_cb.json","reason":"Coinbase QNT-USD independently supports the approximately 305% weekly return. Retain the extreme return."},
+    {"symbol":"OM","date":"2025-04-13","reason":"The pre-migration collapse was a real event and remains in the data.","source":"https://www.mantrachain.io/resources/announcements/statement-of-events-13-april-2025"},
+    {"symbol":"MSQ","date":"2026-05-13","evidence":"source_checks/msq_gate.json","reason":"Gate MSQ-USDT independently supports the spike to approximately 0.69 and the subsequent May 18 decline. Retain both; USDT/USD basis differences remain."},
+    {"symbol":"DEXE","date":"2026-07-21","evidence":"source_checks/dexe_gate.json","reason":"Gate DEXE-USDT independently supports the decline from approximately 35.36 to 6.25. Retain the crash; USDT/USD basis differences remain."}
+  ],
+  "repairs": [{"symbol":"APE","start":"2025-04-12","end":"2025-04-14","evidence":"source_checks/ape_cb.json","policy":"Use independently retrieved Coinbase USD OHLC for the three corrupted daily bars; retain Yahoo quote-volume estimates and explicitly record the mixed provenance."}]
+}

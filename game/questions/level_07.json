@@ -1,0 +1,79 @@
+{
+  "level": 7,
+  "world_name_zh": "交易所码头",
+  "theme_zh": "如何购买和交易加密货币",
+  "difficulty": 3,
+  "story_zh": "小猫来到繁忙的交易所码头，学习如何安全地买卖加密货币...",
+  "questions": [
+    {
+      "id": 1,
+      "question": "新手购买加密货币最常见的方式是？",
+      "options": ["在街边购买", "通过加密货币交易所", "找朋友借", "自己印"],
+      "answer": 1,
+      "explanation": "加密货币交易所（如Binance、Coinbase）是新手购买加密货币最方便安全的渠道。"
+    },
+    {
+      "id": 2,
+      "question": "选择交易所时，以下哪个因素最重要？",
+      "options": ["网页颜色好看", "安全性、声誉、交易量", "名字好听", "总部在哪里"],
+      "answer": 1,
+      "explanation": "安全性、市场声誉和交易量是选择交易所最重要的考量因素。"
+    },
+    {
+      "id": 3,
+      "question": "什么是KYC？",
+      "options": ["一种加密货币", "了解你的客户(身份验证流程)", "一个交易所名字", "一种挖矿方式"],
+      "answer": 1,
+      "explanation": "KYC(Know Your Customer)是交易所要求用户提交身份信息的合规流程。"
+    },
+    {
+      "id": 4,
+      "question": "「法币入金「是什么意思？",
+      "options": ["用法律的钱", "用传统货币(如人民币、美元)购买加密货币", "犯法的交易", "用金条买币"],
+      "answer": 1,
+      "explanation": "法币入金是指用法定货币（人民币、美元等）充值到交易所来购买加密货币。"
+    },
+    {
+      "id": 5,
+      "question": "XRP(Ripple)主要用于什么场景？",
+      "options": ["玩游戏", "跨境支付和银行间转账", "社交聊天", "存储文件"],
+      "answer": 1,
+      "explanation": "XRP由Ripple公司开发，主要致力于为金融机构提供快速、低成本的跨境支付方案。"
+    },
+    {
+      "id": 6,
+      "question": "什么是「交易对「？",
+      "options": ["两个人一起交易", "两种加密货币之间的兑换关系(如BTC/USDT)", "两个交易所合作", "买两种币"],
+      "answer": 1,
+      "explanation": "交易对表示两种资产之间的兑换关系，如BTC/USDT表示用USDT买卖比特币。"
+    },
+    {
+      "id": 7,
+      "question": "什么是「稳定币」(Stablecoin)？",
+      "options": ["价格永远不变的币", "与法币(如美元)挂钩、价格相对稳定的加密货币", "最稳定的投资", "政府发行的加密货币"],
+      "answer": 1,
+      "explanation": "稳定币通过锚定法币（通常是美元）来维持相对稳定的价格，如USDT、USDC等。"
+    },
+    {
+      "id": 8,
+      "question": "USDT是与什么挂钩的稳定币？",
+      "options": ["人民币", "美元", "黄金", "比特币"],
+      "answer": 1,
+      "explanation": "USDT(Tether)是最知名的稳定币，与美元1:1挂钩，1 USDT ≈ 1美元。"
+    },
+    {
+      "id": 9,
+      "question": "为什么需要追踪加密投资组合？",
+      "options": ["好玩", "了解盈亏状况，合理调整策略", "交易所要求的", "不需要追踪"],
+      "answer": 1,
+      "explanation": "追踪投资组合能帮你清晰了解各币种的盈亏，及时做出调整决策。"
+    },
+    {
+      "id": 10,
+      "question": "以下哪个是常用的投资组合追踪工具？",
+      "options": ["微信", "CoinStats / CoinTracker", "Excel就够了", "计算器"],
+      "answer": 1,
+      "explanation": "CoinStats、CoinTracker等专业工具可以自动同步交易所数据，实时追踪投资表现。"
+    }
+  ]
+}

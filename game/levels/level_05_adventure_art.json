@@ -1,0 +1,43 @@
+{
+  "levelId": 5,
+  "title": "以太坊花园漫游",
+  "mechanic": "garden",
+  "artSource": "web/static/js/adventure-art.js",
+  "logicSource": "web/static/js/adventure-worlds.js",
+  "sharedInterface": "web/static/js/adventure-games.js",
+  "format": "editable-procedural-canvas",
+  "canvas": {
+    "desktop": [
+      640,
+      400
+    ],
+    "portraitWidth": 320,
+    "portraitHeightRange": [
+      400,
+      680
+    ],
+    "stage": [
+      320,
+      400
+    ],
+    "sampling": "nearest-neighbor"
+  },
+  "interactionAndRecovery": "Five deterministic, connected 9x7 mazes. Knowledge interaction occurs on the actual book tile. Tap-to-path accepts walkable stone tiles only.",
+  "controls": [
+    "left",
+    "up",
+    "down",
+    "right"
+  ],
+  "states": [
+    "unread-exclamation",
+    "incorrect-for-next-visit",
+    "mastered-check-without-exclamation"
+  ],
+  "persistence": "knowledge[5][questionId] and runs[5]",
+  "originalQuestions": "game/questions/level_05.json",
+  "originalReward": "web/static/sprites/cats/cat_05.png",
+  "rewardImagePolicy": "Original image and metadata unchanged; full contain, no cropping",
+  "audio": "Local synthesized cues with shared persistent mute setting",
+  "pause": "All gameplay state and decoration time freeze while a question or pause dialog is open"
+}

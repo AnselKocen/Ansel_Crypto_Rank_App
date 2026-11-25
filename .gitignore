@@ -1,0 +1,13 @@
+.streamlit/secrets.toml
+.env
+.env.*
+!.env.example
+.DS_Store
+.idea/
+.claude/
+.venv/
+__pycache__/
+*.py[cod]
+.replay-tools/
+.replay-venv/
+artifacts/

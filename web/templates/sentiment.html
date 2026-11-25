@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Sentiment - Ansel Crypto Rank App{% endblock %}
+
+{% block content %}
+<div class="insights-workspace sentiment-workspace">
+    <header class="page-header insights-header">
+        <h1 data-zh="📰 近 7 天加密市场情绪指数" data-en="📰 Market Sentiment Index over the last 7-days">📰 Market Sentiment Index over the last 7-days</h1>
+    </header>
+
+    <div class="sentiment-context">
+        <div class="insight-note sentiment-source"><p data-zh="🟦 这些情绪指标基于过去 7 天的加密市场新闻生成，包括词云和恐惧与贪婪仪表。" data-en="🟦 These sentiment indicators are generated from the past 7 days of crypto market news, including word clouds and a Fear &amp; Greed gauge.">🟦 These sentiment indicators are generated from the past 7 days of crypto market news, including word clouds and a Fear &amp; Greed gauge.</p></div>
+    </div>
+
+    <fieldset class="insight-tabs" aria-label="Display options" data-aria-zh="显示选项" data-aria-en="Display options">
+        <label class="insight-tab"><input type="radio" name="display-option" value="wordcloud" checked aria-controls="wordcloud-section" onchange="switchDisplay('wordcloud')"><span data-zh="☁️ 情绪词云" data-en="☁️ Word Cloud">☁️ Word Cloud</span></label>
+        <label class="insight-tab"><input type="radio" name="display-option" value="feargreed" aria-controls="feargreed-section" onchange="switchDisplay('feargreed')"><span data-zh="🧭 恐惧与贪婪指数" data-en="🧭 Fear &amp; Greed Index">🧭 Fear &amp; Greed Index</span></label>
+    </fieldset>
+
+    <section id="wordcloud-section" class="content-section insight-panel" aria-labelledby="wordcloud-title">
+        <h3 id="wordcloud-title" data-zh="☁️ 情绪词云" data-en="☁️ Sentiment Word Cloud">☁️ Sentiment Word Cloud</h3>
+        <div class="sentiment-media-grid">
+            <figure class="sentiment-media sentiment-positive image-card">
+                <img id="wordcloud-positive" src="/figures/wordcloud_positive.png" width="1200" height="800" alt="Positive Wordcloud" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="image-error" style="display:none;" data-zh="图片暂不可用" data-en="Image not available">Image not available</div>
+                <figcaption class="image-caption" data-zh="正面情绪词云" data-en="Positive Wordcloud">Positive Wordcloud</figcaption>
+            </figure>
+            <figure class="sentiment-media sentiment-negative image-card">
+                <img id="wordcloud-negative" src="/figures/wordcloud_negative.png" width="1200" height="800" alt="Negative Wordcloud" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="image-error" style="display:none;" data-zh="图片暂不可用" data-en="Image not available">Image not available</div>
+                <figcaption class="image-caption" data-zh="负面情绪词云" data-en="Negative Wordcloud">Negative Wordcloud</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <section id="feargreed-section" class="content-section insight-panel" style="display:none;" hidden aria-labelledby="feargreed-title">
+        <h3 id="feargreed-title" data-zh="🧭 恐惧与贪婪仪表" data-en="🧭 Fear &amp; Greed Gauge">🧭 Fear &amp; Greed Gauge</h3>
+        <figure class="sentiment-media sentiment-gauge image-center">
+            <img id="fear-greed-gauge" src="/figures/fear_greed_gauge.png" width="1400" height="850" alt="Fear &amp; Greed Gauge" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div class="image-error" style="display:none;" data-zh="图片暂不可用" data-en="Image not available">Image not available</div>
+            <figcaption class="image-caption" data-zh="本周恐惧与贪婪仪表" data-en="Fear &amp; Greed Gauge this week">Fear &amp; Greed Gauge this week</figcaption>
+        </figure>
+        <div class="insight-note sentiment-quote"><p><span data-zh="🟨 记住巴菲特的话：" data-en="🟨 Remember what Buffett said: ">🟨 Remember what Buffett said: </span><em data-zh="“别人贪婪时我恐惧，别人恐惧时我贪婪。”" data-en="&quot;Be fearful when others are greedy, and greedy when others are fearful.&quot;">"Be fearful when others are greedy, and greedy when others are fearful."</em></p></div>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function switchDisplay(option) {
+    const showWordcloud = option === 'wordcloud';
+    const wordcloudSection = document.getElementById('wordcloud-section');
+    const feargreedSection = document.getElementById('feargreed-section');
+    wordcloudSection.hidden = !showWordcloud;
+    feargreedSection.hidden = showWordcloud;
+    wordcloudSection.style.display = showWordcloud ? 'block' : 'none';
+    feargreedSection.style.display = showWordcloud ? 'none' : 'block';
+    document.querySelectorAll('input[name="display-option"]').forEach(input => {
+        input.checked = input.value === (showWordcloud ? 'wordcloud' : 'feargreed');
+    });
+    window.SentimentMedia?.showVisible();
+}
+</script>
+{% endblock %}
