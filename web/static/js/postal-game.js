@@ -35,7 +35,7 @@ class PostalScene {
         this.renderShell(); this.bindInput(); this.resizeCanvas();
         document.body.classList.add('postal-playing');
         if(this.run.settled) { this.renderResult(); }
-        else this.showIntro();
+        else { this.showIntro(); this.prepareAudio(); }
         this.tick=this.tick.bind(this); this.frame=requestAnimationFrame(this.tick);
     }
     newRun() {
@@ -125,8 +125,8 @@ class PostalScene {
         if(!this.alive || this.phase!=='intro') return;
         this.root.classList.add('post-started');this.phase=this.run.docking?'docking':'driving';this.clearInput();this.cooldown=1.5;
         this.ensureAudio();this.playSound('start');this.save();this.canvas.focus({preventScroll:true});
-        if(this.run.questionId) this.openQuestion(this.data.questions.findIndex(q=>q.id===this.run.questionId));
-        else this.toast('寻找带 ! 的邮筒，驶入旁边的 P 停车位就能收信。',4);
+        if(this.run.questionId && !this.run.docking) this.openQuestion(this.data.questions.findIndex(q=>q.id===this.run.questionId));
+        else this.toast(this.run.docking?'小邮车正在停稳，稍后打开知识信。':'寻找带 ! 的邮筒，驶入旁边的 P 停车位就能收信。',4);
     }
     bindInput() {
         const actions={ArrowLeft:'left',KeyA:'left',ArrowRight:'right',KeyD:'right',ArrowDown:'brake',KeyS:'brake'};
@@ -247,9 +247,16 @@ class PostalScene {
         if(!this.settings.sfx && !this.settings.music) this.stopVoices();
         this.ensureAudio();this.hudKey='';this.updateHUD();
     }
-    ensureAudio() {
+    prepareAudio() {
         if(!(this.settings.music||this.settings.sfx)) return;
-        try {this.audio ||= new (window.AudioContext||window.webkitAudioContext)();return this.audio.resume().catch(()=>{});} catch { /* Audio is optional. */ }
+        try {
+            // Prepare the device before gameplay, while the introduction is loading.
+            this.audio ||= new (window.AudioContext||window.webkitAudioContext)();
+            return this.audio;
+        } catch { /* Audio is optional; a failed device must not block the game. */ }
+    }
+    ensureAudio() {
+        try { return this.prepareAudio()?.resume().catch(()=>{}); } catch { /* Audio is optional. */ }
     }
     note(freq,length=.1,volume=.035,delay=0,endFreq=freq,type='triangle') {
         if(!this.audio || this.audio.state!=='running') return;

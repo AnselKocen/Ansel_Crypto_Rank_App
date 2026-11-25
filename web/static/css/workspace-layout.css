@@ -6,6 +6,17 @@
 .cosmic-page:is(.page-educational, .page-prediction, .page-sentiment, .page-investment) .content-section p { font-size: 14px; line-height: 1.65; }
 .cosmic-page:is(.page-educational, .page-prediction, .page-sentiment, .page-investment) h3 { font-size: 17px; line-height: 1.5; }
 
+/* Keep a page's title and explanation together in one compact desktop row. */
+.cosmic-page .main-content .page-header.compact-page-header { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 24px; margin: 0 0 18px; padding: 0; }
+.cosmic-page .main-content .compact-page-header h1 { flex: 0 0 auto; max-width: 100%; margin: 0; font-size: clamp(24px, 2vw, 28px); line-height: 1.4; }
+.cosmic-page .main-content .compact-page-header .subtitle { flex: 1 1 280px; min-width: 0; margin: 0; font-size: 14px; line-height: 1.7; }
+
+@media (max-width: 767px) {
+    .cosmic-page .main-content .page-header.compact-page-header { flex-direction: column; align-items: flex-start; }
+    .cosmic-page .main-content .compact-page-header h1 { flex: none; font-size: 24px; }
+    .cosmic-page .main-content .compact-page-header .subtitle { flex: none; }
+}
+
 .cosmic-page #weekly-update-bar { position: relative; z-index: 3; display: flex; align-items: center; flex-wrap: wrap; gap: 12px 20px; padding: 10px 14px; margin: 0 0 20px !important; border: 1px solid #9cc8ec26; border-radius: 8px; background: #a3cfff05; box-shadow: none; font-size: 12px; }
 .weekly-update-summary { display: flex; align-items: center; gap: 8px; min-width: 0; line-height: 1.5; }
 .update-status-dot { width: 5px; height: 5px; border-radius: 50%; background: #9bdfd3; flex: 0 0 auto; box-shadow: 0 0 7px #9bdfd333; }

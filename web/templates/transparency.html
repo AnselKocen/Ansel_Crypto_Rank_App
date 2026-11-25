@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 
-{% block title %}Transparency - Ansel Crypto Rank App{% endblock %}
+{% block title %}模型透明度 - Ansel Crypto Rank App{% endblock %}
 
 {% block content %}
 <div class="page-header">
-    <h1>&#128300; Model Transparency</h1>
-    <p class="page-subtitle">Understand how our ML models work and their performance metrics</p>
+    <h1 data-zh="🔬 模型透明度" data-en="🔬 Model Transparency">🔬 模型透明度</h1>
+    <p class="page-subtitle" data-zh="了解机器学习模型的运作方式与表现指标" data-en="Understand how our ML models work and their performance metrics">了解机器学习模型的运作方式与表现指标</p>
 </div>
 
 <div class="transparency-intro content-section">
     <div class="intro-text">
-        <h2>Why Transparency Matters</h2>
-        <p>We believe in full transparency about our prediction methodology. This section provides detailed insights into our machine learning models, hyperparameters, feature engineering, and historical backtesting results.</p>
-        <p>Understanding how our models work helps you make more informed decisions about the recommendations we provide.</p>
+        <h2 data-zh="为什么透明度很重要" data-en="Why Transparency Matters">为什么透明度很重要</h2>
+        <p data-zh="我们公开预测方法，帮助你了解机器学习模型、超参数、特征工程和历史回测结果。" data-en="We believe in full transparency about our prediction methodology. This section provides detailed insights into our machine learning models, hyperparameters, feature engineering, and historical backtesting results.">我们公开预测方法，帮助你了解机器学习模型、超参数、特征工程和历史回测结果。</p>
+        <p data-zh="了解模型如何工作，有助于你更理性地评估平台提供的推荐。" data-en="Understanding how our models work helps you make more informed decisions about the recommendations we provide.">了解模型如何工作，有助于你更理性地评估平台提供的推荐。</p>
     </div>
 </div>
 
@@ -20,12 +20,12 @@
     <a href="/model-strategy" class="transparency-card">
         <div class="card-icon">&#128221;</div>
         <div class="card-body">
-            <h3>Model Strategy</h3>
-            <p>Learn about our ElasticNet and ExtraTrees regression models, their strengths, and why we chose them for cryptocurrency prediction.</p>
+            <h3 data-zh="模型策略" data-en="Model Strategy">模型策略</h3>
+            <p data-zh="了解 ElasticNet 与 ExtraTrees 回归模型的优势，以及选用它们进行加密货币预测的原因。" data-en="Learn about our ElasticNet and ExtraTrees regression models, their strengths, and why we chose them for cryptocurrency prediction.">了解 ElasticNet 与 ExtraTrees 回归模型的优势，以及选用它们进行加密货币预测的原因。</p>
             <ul class="card-features">
-                <li>ElasticNet regularization approach</li>
-                <li>ExtraTrees ensemble method</li>
-                <li>Feature selection strategy</li>
+                <li data-zh="ElasticNet 正则化方法" data-en="ElasticNet regularization approach">ElasticNet 正则化方法</li>
+                <li data-zh="ExtraTrees 集成学习方法" data-en="ExtraTrees ensemble method">ExtraTrees 集成学习方法</li>
+                <li data-zh="特征选择策略" data-en="Feature selection strategy">特征选择策略</li>
             </ul>
         </div>
         <div class="card-arrow">&#8594;</div>
@@ -34,12 +34,12 @@
     <a href="/hyper-params" class="transparency-card">
         <div class="card-icon">&#128736;</div>
         <div class="card-body">
-            <h3>Hyperparameters</h3>
-            <p>Explore the hyperparameters used in our models and understand how they were tuned for optimal performance.</p>
+            <h3 data-zh="超参数" data-en="Hyperparameters">超参数</h3>
+            <p data-zh="查看模型使用的超参数，了解调参如何改善模型表现。" data-en="Explore the hyperparameters used in our models and understand how they were tuned for optimal performance.">查看模型使用的超参数，了解调参如何改善模型表现。</p>
             <ul class="card-features">
-                <li>Alpha and L1 ratio for ElasticNet</li>
-                <li>Tree depth and estimators for ExtraTrees</li>
-                <li>Cross-validation methodology</li>
+                <li data-zh="ElasticNet 的 Alpha 与 L1 比例" data-en="Alpha and L1 ratio for ElasticNet">ElasticNet 的 Alpha 与 L1 比例</li>
+                <li data-zh="ExtraTrees 的树深与树的数量" data-en="Tree depth and estimators for ExtraTrees">ExtraTrees 的树深与树的数量</li>
+                <li data-zh="交叉验证方法" data-en="Cross-validation methodology">交叉验证方法</li>
             </ul>
         </div>
         <div class="card-arrow">&#8594;</div>
@@ -48,12 +48,12 @@
     <a href="/features" class="transparency-card">
         <div class="card-icon">&#128269;</div>
         <div class="card-body">
-            <h3>Feature Importance</h3>
-            <p>Discover which features have the most predictive power in our models and how they influence predictions.</p>
+            <h3 data-zh="特征重要性" data-en="Feature Importance">特征重要性</h3>
+            <p data-zh="了解哪些特征对模型预测最重要，以及它们如何影响预测结果。" data-en="Discover which features have the most predictive power in our models and how they influence predictions.">了解哪些特征对模型预测最重要，以及它们如何影响预测结果。</p>
             <ul class="card-features">
-                <li>Market-based features</li>
-                <li>Sentiment indicators</li>
-                <li>Technical analysis metrics</li>
+                <li data-zh="市场特征" data-en="Market-based features">市场特征</li>
+                <li data-zh="情绪指标" data-en="Sentiment indicators">情绪指标</li>
+                <li data-zh="技术分析指标" data-en="Technical analysis metrics">技术分析指标</li>
             </ul>
         </div>
         <div class="card-arrow">&#8594;</div>
@@ -62,12 +62,12 @@
     <a href="/backtest" class="transparency-card">
         <div class="card-icon">&#128202;</div>
         <div class="card-body">
-            <h3>Backtest Results</h3>
-            <p>Review historical performance of our models with detailed backtesting results and metrics.</p>
+            <h3 data-zh="回测结果" data-en="Backtest Results">回测结果</h3>
+            <p data-zh="通过详细的回测结果与指标，查看模型的历史表现。" data-en="Review historical performance of our models with detailed backtesting results and metrics.">通过详细的回测结果与指标，查看模型的历史表现。</p>
             <ul class="card-features">
-                <li>Historical accuracy metrics</li>
-                <li>Sharpe ratio analysis</li>
-                <li>Risk-adjusted returns</li>
+                <li data-zh="历史准确性指标" data-en="Historical accuracy metrics">历史准确性指标</li>
+                <li data-zh="夏普比率分析" data-en="Sharpe ratio analysis">夏普比率分析</li>
+                <li data-zh="风险调整后收益" data-en="Risk-adjusted returns">风险调整后收益</li>
             </ul>
         </div>
         <div class="card-arrow">&#8594;</div>
@@ -77,10 +77,14 @@
 <div class="content-section disclaimer-section">
     <div class="disclaimer-icon">&#9888;</div>
     <div class="disclaimer-content">
-        <h3>Important Disclaimer</h3>
-        <p>Past performance does not guarantee future results. Cryptocurrency investments carry significant risk. The information provided here is for educational purposes only and should not be considered financial advice.</p>
+        <h3 data-zh="重要声明" data-en="Important Disclaimer">重要声明</h3>
+        <p data-zh="历史表现不代表未来结果。加密货币投资具有较高风险。本页面内容仅用于学习，不构成投资建议。" data-en="Past performance does not guarantee future results. Cryptocurrency investments carry significant risk. The information provided here is for educational purposes only and should not be considered financial advice.">历史表现不代表未来结果。加密货币投资具有较高风险。本页面内容仅用于学习，不构成投资建议。</p>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/transparency.js?v=20261125-localized"></script>
 {% endblock %}
 
 {% block extra_css %}
@@ -176,15 +180,15 @@
 }
 
 .card-features li {
-    color: #64748b;
-    font-size: 0.85rem;
+    color: inherit;
+    font-size: 0.875rem;
     padding: 0.25rem 0;
     padding-left: 1.25rem;
     position: relative;
 }
 
 .card-features li::before {
-    content: '&#10003;';
+    content: '✓';
     position: absolute;
     left: 0;
     color: #4ecdc4;

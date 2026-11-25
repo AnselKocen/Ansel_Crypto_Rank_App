@@ -1,35 +1,35 @@
 {% extends "base.html" %}
 
-{% block title %}Features - Ansel Crypto Rank App{% endblock %}
+{% block title %}特征选择 - Ansel Crypto Rank App{% endblock %}
 
 {% block content %}
 <div class="page-header">
-    <h1>💡 Feature Selection</h1>
-    <p class="subtitle">Below are the optimal features selected based on data from 2020-01-01 to 2025-07-30.</p>
+    <h1 data-zh="💡 特征选择" data-en="💡 Feature Selection">💡 特征选择</h1>
+    <p class="subtitle" data-zh="以下最优特征基于 2020-01-01 至 2025-07-30 的数据筛选。" data-en="Below are the optimal features selected based on data from 2020-01-01 to 2025-07-30.">以下最优特征基于 2020-01-01 至 2025-07-30 的数据筛选。</p>
 </div>
 
 <!-- ElasticNet Features -->
 <div class="content-section">
-    <h3>🔴 ElasticNet Selected Features</h3>
-    <p>The ElasticNet model automatically selects features it considers important and contributive, while compressing others.</p>
+    <h3 data-zh="🔴 ElasticNet 入选特征" data-en="🔴 ElasticNet Selected Features">🔴 ElasticNet 入选特征</h3>
+    <p data-zh="ElasticNet 自动选择对预测有贡献的重要特征，同时压缩其他特征的影响。" data-en="The ElasticNet model automatically selects features it considers important and contributive, while compressing others.">ElasticNet 自动选择对预测有贡献的重要特征，同时压缩其他特征的影响。</p>
     <div id="enet-features">
-        <p class="loading">Loading features...</p>
+        <p class="loading" data-zh="正在加载特征…" data-en="Loading features...">正在加载特征…</p>
     </div>
 </div>
 
 <!-- ExtraTrees Feature Importance -->
 <div class="content-section">
-    <h3>🔵 ExtraTrees Features Importance</h3>
+    <h3 data-zh="🔵 ExtraTrees 特征重要性" data-en="🔵 ExtraTrees Feature Importance">🔵 ExtraTrees 特征重要性</h3>
     <div class="image-grid">
         <div class="image-card">
-            <img src="/figures/extra_all_feature_importance.png" alt="All Features" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-            <div class="image-error" style="display:none;">Image not available</div>
-            <p class="image-caption">All Features</p>
+            <img src="/figures/extra_all_feature_importance.png" alt="全部特征" data-alt-zh="全部特征" data-alt-en="All Features" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div class="image-error" style="display:none;" data-zh="图片暂不可用" data-en="Image not available">图片暂不可用</div>
+            <p class="image-caption" data-zh="全部特征" data-en="All Features">全部特征</p>
         </div>
         <div class="image-card">
-            <img src="/figures/extra_market_feature_importance.png" alt="Market Features" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-            <div class="image-error" style="display:none;">Image not available</div>
-            <p class="image-caption">Market Features</p>
+            <img src="/figures/extra_market_feature_importance.png" alt="市场特征" data-alt-zh="市场特征" data-alt-en="Market Features" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div class="image-error" style="display:none;" data-zh="图片暂不可用" data-en="Image not available">图片暂不可用</div>
+            <p class="image-caption" data-zh="市场特征" data-en="Market Features">市场特征</p>
         </div>
     </div>
 </div>
@@ -87,24 +87,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-document.addEventListener('DOMContentLoaded', loadFeatures);
-
-async function loadFeatures() {
-    try {
-        const response = await fetch('/api/predictions/text/enet_features.txt');
-        const data = await response.json();
-
-        document.getElementById('enet-features').innerHTML = `<pre class="code-block">${escapeHtml(data.content)}</pre>`;
-    } catch (error) {
-        document.getElementById('enet-features').innerHTML = `<p class="error">Failed to load features: ${error.message}</p>`;
-    }
-}
-
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-}
-</script>
+<script src="/static/js/transparency.js?v=20261125-localized"></script>
 {% endblock %}

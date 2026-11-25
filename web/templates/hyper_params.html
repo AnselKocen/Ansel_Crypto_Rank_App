@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %}Hyper-Params - Ansel Crypto Rank App{% endblock %}
+{% block title %}超参数 - Ansel Crypto Rank App{% endblock %}
 
 {% block content %}
 <div class="page-header">
-    <h1>⚙️ Optimal Hyper-Parameters Display</h1>
+    <h1 data-zh="⚙️ 最优超参数" data-en="⚙️ Optimal Hyper-Parameters Display">⚙️ 最优超参数</h1>
 </div>
 
 <div class="content-section">
     <div id="params-content">
-        <p class="loading">Loading hyperparameters...</p>
+        <p class="loading" data-zh="正在加载超参数…" data-en="Loading hyperparameters...">正在加载超参数…</p>
     </div>
 </div>
 {% endblock %}
@@ -32,24 +32,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-document.addEventListener('DOMContentLoaded', loadParams);
-
-async function loadParams() {
-    try {
-        const response = await fetch('/api/predictions/text/best_params.txt');
-        const data = await response.json();
-
-        document.getElementById('params-content').innerHTML = `<pre class="code-block">${escapeHtml(data.content)}</pre>`;
-    } catch (error) {
-        document.getElementById('params-content').innerHTML = `<p class="error">Failed to load params: ${error.message}</p>`;
-    }
-}
-
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-}
-</script>
+<script src="/static/js/transparency.js?v=20261125-localized"></script>
 {% endblock %}

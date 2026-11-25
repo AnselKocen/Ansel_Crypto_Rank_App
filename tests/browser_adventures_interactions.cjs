@@ -6,7 +6,7 @@ const BASE=process.env.GAME_TEST_URL||'http://127.0.0.1:8000',OUT=path.resolve(_
  const check=async(name,fn)=>{assert.ok(await fn(),name);checks[name]=true;},ev=fn=>p.evaluate(fn);
  const start=async level=>{await p.goto(BASE+'/game?level='+level);await p.waitForFunction(()=>typeof AdventureGames!=='undefined'&&!!AdventureGames.scene);await p.addScriptTag({content:driver});if(await ev(()=>AdventureGames.scene.phase)==='result')await p.locator('[data-drive-again]').click();else await p.locator('[data-action="start"]').click();};
  const tick=async(n,control='')=>p.evaluate(({n,control})=>{const s=AdventureGames.scene;for(let i=0;i<n&&s.phase==='playing';i++){s.keys.clear();if(control)s.keys.add(control);s.time+=.02;s.cooldown=Math.max(0,s.cooldown-.02);s.update(.02);}s.clearInput();return {phase:s.phase,world:s.run.world};},{n,control});
- const point=async(x,y)=>{const c=await p.locator('canvas').boundingBox(),dim=await ev(()=>({w:AdventureGames.scene.canvas.width,h:AdventureGames.scene.canvas.height}));return{x:c.x+(x+(dim.w-320)/2)*c.width/dim.w,y:c.y+(y+Math.round((dim.h-400)/2))*c.height/dim.h};};
+ const point=async(x,y)=>{const c=await p.locator('#postal-canvas').boundingBox(),dim=await ev(()=>({w:AdventureGames.scene.canvas.width,h:AdventureGames.scene.canvas.height}));return{x:c.x+(x+(dim.w-320)/2)*c.width/dim.w,y:c.y+(y+Math.round((dim.h-400)/2))*c.height/dim.h};};
  for(let level=3;level<=10;level++){
   await start(level);await p.waitForTimeout(70);await p.screenshot({path:path.join(OUT,`level-${level}-mobile.png`)});
   await check('level_'+level+'_portrait_controls_and_help_fit',async()=>{const r=await p.locator('.adventure-tools').boundingBox();return r.y+r.height<=844&&await ev(()=>document.documentElement.scrollWidth<=innerWidth);});

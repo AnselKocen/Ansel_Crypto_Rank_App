@@ -1,33 +1,33 @@
 {% extends "base.html" %}
 
-{% block title %}Backtest - Ansel Crypto Rank App{% endblock %}
+{% block title %}策略回测 - Ansel Crypto Rank App{% endblock %}
 
 {% block content %}
 <div class="page-header">
-    <h1>📈 Strategy Backtest Results Comparison</h1>
+    <h1 data-zh="📈 策略回测结果对比" data-en="📈 Strategy Backtest Results Comparison">📈 策略回测结果对比</h1>
 </div>
 
 <div class="content-section">
     <div class="metric-selector">
         <label class="metric-option">
             <input type="radio" name="metric" value="cum_return_comparison" checked onchange="loadBacktestImages()">
-            <span>Cumulative Return</span>
+            <span data-zh="累计收益" data-en="Cumulative Return">累计收益</span>
         </label>
         <label class="metric-option">
             <input type="radio" name="metric" value="volatility_bar" onchange="loadBacktestImages()">
-            <span>Volatility</span>
+            <span data-zh="波动率" data-en="Volatility">波动率</span>
         </label>
         <label class="metric-option">
             <input type="radio" name="metric" value="mean_return_bar" onchange="loadBacktestImages()">
-            <span>Average Return</span>
+            <span data-zh="平均收益" data-en="Average Return">平均收益</span>
         </label>
         <label class="metric-option">
             <input type="radio" name="metric" value="sharpe_bar" onchange="loadBacktestImages()">
-            <span>Sharpe Ratio</span>
+            <span data-zh="夏普比率" data-en="Sharpe Ratio">夏普比率</span>
         </label>
         <label class="metric-option">
             <input type="radio" name="metric" value="max_drawdown_bar" onchange="loadBacktestImages()">
-            <span>Maximum Drawdown</span>
+            <span data-zh="最大回撤" data-en="Maximum Drawdown">最大回撤</span>
         </label>
     </div>
 </div>
@@ -35,12 +35,12 @@
 <div class="content-section">
     <div class="image-grid">
         <div class="image-card">
-            <img id="backtest-all" src="" alt="All Features">
-            <p class="image-caption">All Features Model</p>
+            <img id="backtest-all" alt="全部特征模型" data-alt-zh="全部特征模型" data-alt-en="All Features Model">
+            <p class="image-caption" data-zh="全部特征模型" data-en="All Features Model">全部特征模型</p>
         </div>
         <div class="image-card">
-            <img id="backtest-market" src="" alt="Market Features">
-            <p class="image-caption">Market Features Model</p>
+            <img id="backtest-market" alt="市场特征模型" data-alt-zh="市场特征模型" data-alt-en="Market Features Model">
+            <p class="image-caption" data-zh="市场特征模型" data-en="Market Features Model">市场特征模型</p>
         </div>
     </div>
 </div>
@@ -100,15 +100,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-document.addEventListener('DOMContentLoaded', loadBacktestImages);
-
-function loadBacktestImages() {
-    const selectedMetric = document.querySelector('input[name="metric"]:checked').value;
-    const timestamp = new Date().getTime();
-
-    document.getElementById('backtest-all').src = `/figures/${selectedMetric}_all_with_baseline.png?t=${timestamp}`;
-    document.getElementById('backtest-market').src = `/figures/${selectedMetric}_market_with_baseline.png?t=${timestamp}`;
-}
-</script>
+<script src="/static/js/transparency.js?v=20261125-localized"></script>
 {% endblock %}

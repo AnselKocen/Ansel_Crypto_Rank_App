@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Ansel coin</title>
+  <circle cx="32" cy="32" r="31" fill="#f7931a"/>
+  <g fill="#fff" transform="rotate(14 32 32)">
+    <path d="M28 12h3v9h-3zm6 0h3v9h-3zM28 38h3v14h-3zm6 0h3v14h-3z"/>
+    <path fill-rule="evenodd" d="M14 47 27 18h10l13 29H40l-3-8H27l-3 8Zm14.5-14h7L32 24.5Z"/>
+  </g>
+</svg>

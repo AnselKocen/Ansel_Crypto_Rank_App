@@ -70,6 +70,11 @@
     image-rendering: pixelated;
 }
 
+/* Keep the wide final family portrait complete within the shared card size. */
+#gallery-grid .cat-img-display img[src$="/cat_10.png"] {
+    object-fit: contain;
+}
+
 #gallery-grid .locked .cat-img-display img {
     filter: grayscale(1) brightness(.65);
 }

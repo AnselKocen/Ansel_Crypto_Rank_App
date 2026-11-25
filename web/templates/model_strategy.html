@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %}Model Strategy - Ansel Crypto Rank App{% endblock %}
+{% block title %}模型策略 - Ansel Crypto Rank App{% endblock %}
 
 {% block content %}
 <div class="page-header">
-    <h1>📘 Model Strategy Overview</h1>
+    <h1 data-zh="📘 模型策略概览" data-en="📘 Model Strategy Overview">📘 模型策略概览</h1>
 </div>
 
 <div class="content-section">
     <div id="strategy-content">
-        <p class="loading">Loading strategy information...</p>
+        <p class="loading" data-zh="正在加载策略信息…" data-en="Loading strategy information...">正在加载策略信息…</p>
     </div>
 </div>
 {% endblock %}
@@ -32,42 +32,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-const emojiMap = {
-    "market": "🔵",
-    "all": "🟢",
-    "enet_EW": "🟡",
-    "extra_EW": "🟠",
-    "enet_ls": "🔴",
-    "extra_ls": "🟣",
-    "fusion_ls": "🟤"
-};
-
-document.addEventListener('DOMContentLoaded', loadStrategy);
-
-async function loadStrategy() {
-    try {
-        const response = await fetch('/api/predictions/text/strategy_intro.txt');
-        const data = await response.json();
-
-        const container = document.getElementById('strategy-content');
-        const lines = data.content.split('\n');
-
-        container.innerHTML = lines.map(line => {
-            line = line.trim();
-            if (!line) return '<br>';
-
-            if (line.includes(':')) {
-                const key = line.split(':')[0];
-                const emoji = emojiMap[key] || '';
-                return `<div class="strategy-line highlighted"><span class="emoji-marker">${emoji}</span><strong>${line}</strong></div>`;
-            } else {
-                return `<div class="strategy-line">${line}</div>`;
-            }
-        }).join('');
-    } catch (error) {
-        document.getElementById('strategy-content').innerHTML = `<p class="error">Failed to load strategy: ${error.message}</p>`;
-    }
-}
-</script>
+<script src="/static/js/transparency.js?v=20261125-localized"></script>
 {% endblock %}

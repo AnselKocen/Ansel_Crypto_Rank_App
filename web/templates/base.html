@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Ansel Crypto Rank App{% endblock %}</title>
+    <link rel="icon" href="/static/icons/favicon.ico?v=20261125" sizes="16x16 32x32 48x48 64x64">
+    <link rel="icon" type="image/svg+xml" href="/static/icons/ansel-coin.svg?v=20261125" sizes="any">
+    <link rel="apple-touch-icon" href="/static/icons/ansel-coin.png?v=20261125">
     <link rel="stylesheet" href="/static/css/style.css">
     {% block extra_css %}{% endblock %}
     <meta name="theme-color" content="#030812">
     <link rel="stylesheet" href="/static/css/site-theme.css?v=20261124-locale-polish">
-    <link rel="stylesheet" href="/static/css/workspace-layout.css?v=20261124-locale-polish">
-    {% if active_tab in ['prediction', 'educational'] %}<link rel="stylesheet" href="/static/css/workspace-prediction.css?v=20261124-locale-polish">{% endif %}
+    <link rel="stylesheet" href="/static/css/workspace-layout.css?v=20261125-compact">
+    {% if active_tab in ['prediction', 'educational'] %}<link rel="stylesheet" href="/static/css/workspace-prediction.css?v=20261125-compact-v2">{% endif %}
     {% if active_tab in ['sentiment', 'investment'] %}<link rel="stylesheet" href="/static/css/workspace-insights.css?v=20261124-locale-polish">{% endif %}
     {% if active_tab == 'ai-qa' %}<link rel="stylesheet" href="/static/css/skill-reader.css?v=20261124-reader">{% endif %}
     {% if active_tab == 'game' %}<link rel="stylesheet" href="/static/css/game-cosmic.css?v={{ game_asset_version }}"><link rel="stylesheet" href="/static/css/game-gallery.css?v={{ game_asset_version }}">{% endif %}
